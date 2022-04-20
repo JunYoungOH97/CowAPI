@@ -1,8 +1,7 @@
 package toyspringboot.server.Controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import toyspringboot.server.Domain.Dto.HelloDto;
 import toyspringboot.server.Service.HelloService;
 
@@ -11,10 +10,24 @@ import toyspringboot.server.Service.HelloService;
 public class HelloController {
     private final HelloService helloService;
 
-    @GetMapping("/hello")
-    public HelloDto showHello() {
-        String m = "Hello World!";
-        return helloService.showHello(m);
+    @GetMapping("/get/{id}")
+    public HelloDto getHello(@PathVariable(value = "id") Long id) {
+        return helloService.getHello(id);
     }
 
+    @PostMapping("/post")
+    public boolean postHello(@RequestBody HelloDto helloDto) {
+        return helloService.postHello(helloDto);
+    }
+
+    @PutMapping("/put/{id}")
+    public boolean putMessage(@PathVariable(value = "id") Long id,
+                               @RequestBody String message) {
+        return helloService.putMessage(id, message);
+    }
+    @DeleteMapping("/delete/{id}")
+    public boolean deleteMessage(@PathVariable(value = "id") Long id) {
+        return helloService.deleteMessage(id);
+    }
 }
+
