@@ -8,5 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class HelloDto {
+    private Long id;
     private String message;
 }
