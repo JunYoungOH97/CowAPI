@@ -2,23 +2,22 @@ package toyspringboot.server.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import toyspringboot.server.Domain.Dto.HelloDto;
-import toyspringboot.server.Domain.Repository.HelloRepository;
+import toyspringboot.server.Domain.Dto.MessageDto;
 
 @Service
 @RequiredArgsConstructor
 public class HelloService {
-    private final HelloRepository helloRepository;
+    private final MessageRepository helloRepository;
 
-    public HelloDto showHello(String m) {
-        return HelloDto.builder().message(m).build();
+    public MessageDto showHello(String m) {
+        return MessageDto.builder().message(m).build();
     }
 
-    public HelloDto getHello(Long id) {
+    public MessageDto getMessage(Long id) {
         return helloRepository.get(id);
     }
 
-    public boolean postHello(HelloDto helloDto) {
+    public boolean postMessage(MessageDto helloDto) {
         return helloRepository.insert(helloDto);
     }
 

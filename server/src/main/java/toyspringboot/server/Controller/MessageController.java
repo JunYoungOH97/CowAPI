@@ -10,22 +10,23 @@ import toyspringboot.server.Service.HelloService;
 public class HelloController {
     private final HelloService helloService;
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/messages/{id}")
     public HelloDto getHello(@PathVariable(value = "id") Long id) {
-        return helloService.getHello(id);
+        return helloService.getMessage(id);
     }
 
-    @PostMapping("/post")
+    @PostMapping("/messages/message")
     public boolean postHello(@RequestBody HelloDto helloDto) {
-        return helloService.postHello(helloDto);
+        return helloService.postMessage(helloDto);
     }
 
-    @PutMapping("/put/{id}")
+    @PutMapping("/messages/{id}")
     public boolean putMessage(@PathVariable(value = "id") Long id,
                                @RequestBody String message) {
         return helloService.putMessage(id, message);
     }
-    @DeleteMapping("/delete/{id}")
+
+    @DeleteMapping("/messages/{id}")
     public boolean deleteMessage(@PathVariable(value = "id") Long id) {
         return helloService.deleteMessage(id);
     }
