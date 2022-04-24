@@ -16,7 +16,7 @@ public class MessageRepositoryTest extends AcceptanceTestUtils {
     private MessageRepository messageRepository;
 
     @Test
-    @DisplayName("메시지 생성 테스트")
+    @DisplayName("메시지 생성 jpa 테스트")
     public void insertMessageTest() {
         // given
         // MessageConstants.MESSAGE_CONTENT
@@ -33,7 +33,7 @@ public class MessageRepositoryTest extends AcceptanceTestUtils {
     }
 
     @Test
-    @DisplayName("메시지 조회 테스트")
+    @DisplayName("메시지 조회 jpa 테스트")
     public void searchMessageTest() {
         // given
         // MessageConstants.MESSAGE_ID
@@ -47,7 +47,7 @@ public class MessageRepositoryTest extends AcceptanceTestUtils {
 
 
     @Test
-    @DisplayName("메시지 수정 테스트")
+    @DisplayName("메시지 수정 jpa 테스트")
     public void updateMessageTest() {
         // given
         // MessageConstants.MESSAGE_ID
@@ -66,7 +66,7 @@ public class MessageRepositoryTest extends AcceptanceTestUtils {
 
 
     @Test
-    @DisplayName("메시지 삭제 테스트")
+    @DisplayName("메시지 삭제 jpa 테스트")
     public void deleteMessageTest() {
         // given
         // MessageConstants.MESSAGE_ID
