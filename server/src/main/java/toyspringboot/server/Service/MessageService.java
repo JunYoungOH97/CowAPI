@@ -14,24 +14,34 @@ public class MessageService {
     private final MessageRepository messageRepository;
 
     public MessageDto createMessage(MessageDto messageDto) {
-        return messageDto;
+        Messages message = Messages.builder()
+                .message(messageDto.getMessage())
+                .build();
+        return MessageDto.of(messageRepository.save(message));
+
     }
 
     public MessageDto searchMessage(Long id) {
-        return MessageDto.builder().id(id).build();
+        return MessageDto.of(messageRepository.findById(id).orElseThrow(IllegalArgumentException::new));
     }
 
     public MessageDto updateMessage(Long id, String message) {
-        return MessageDto.builder()
-                .id(id)
-                .message(message)
-                .build();
+        Messages foundMessage = messageRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        foundMessage.setMessage(message);
+        messageRepository.save(foundMessage);
+
+        return MessageDto.of(messageRepository.findById(id).orElseThrow(IllegalArgumentException::new));
     }
 
-    public MessageDto deleteMessage(Long id) {
-        return MessageDto.builder()
+    public boolean deleteMessage(Long id) {
+        Messages message = Messages.builder()
                 .id(id)
                 .build();
+
+        // when
+        messageRepository.delete(message);
+
+        return true;
     }
 
 }

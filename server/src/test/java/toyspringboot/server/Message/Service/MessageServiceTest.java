@@ -1,13 +1,11 @@
 package toyspringboot.server.Message.Service;
 
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import toyspringboot.server.AcceptanceTestUtils;
 import toyspringboot.server.Domain.Dto.MessageDto;
-import toyspringboot.server.Domain.Entity.Messages;
-import toyspringboot.server.Domain.Repository.MessageRepository;
 import toyspringboot.server.Service.MessageService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,9 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MessageServiceTest extends AcceptanceTestUtils {
     @Autowired
     private MessageService messageService;
-
-    @Autowired
-    private MessageRepository messageRepository;
 
     @Test
     @DisplayName("메시지 생성 테스트")
@@ -70,14 +65,8 @@ public class MessageServiceTest extends AcceptanceTestUtils {
     public void deleteMessageTest() {
         // given
         // MessageConstants.MESSAGE_ID
-        // MessageConstants.MESSAGE_CONTENT
 
-        // when
-        messageService.deleteMessage(MESSAGE_ID);
-
-        // then
-        assertFalse(messageRepository.findById(MESSAGE_ID).isPresent());
+        // when, then
+        assertTrue(messageService.deleteMessage(MESSAGE_ID));
     }
-
-
 }
