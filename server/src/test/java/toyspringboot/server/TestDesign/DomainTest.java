@@ -4,8 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class DomainTest {
     public <S extends Object> S createTest(Object obj, Object instance, String methodName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Class<?> c = instance.getClass();
@@ -20,7 +18,20 @@ public class DomainTest {
         return (S) m.orElseThrow(IllegalArgumentException::new);
     }
 
-    public void assertEqualsTest(Object expect, Object actual) {
-        assertEquals(expect, actual);
+    public <S extends Object> S updateTest(Long id, Object instance, String methodName,Object o2, String content, String method2) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
+
+        S foundObject = this.readTest(id, instance, methodName);
+        Class<?> c = o2.getClass();
+        o2.getClass().cast(foundObject);
+        Method method = c.getMethod("setMessage", String.class);
+        method.invoke(foundObject, content);
+
+        return this.createTest(foundObject, instance, method2);
+    }
+
+    public void deleteTest(Object obj, Object instance, String methodName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class<?> c = instance.getClass();
+        Method method = c.getMethod(methodName, Object.class);
+        method.invoke(instance, obj);
     }
 }
