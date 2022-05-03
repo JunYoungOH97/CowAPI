@@ -18,7 +18,6 @@ public class MessageService {
                 .message(messageDto.getMessage())
                 .build();
         return MessageDto.of(messageRepository.save(message));
-
     }
 
     public MessageDto searchMessage(Long id) {
