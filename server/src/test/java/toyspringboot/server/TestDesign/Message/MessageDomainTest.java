@@ -10,6 +10,7 @@ import toyspringboot.server.Domain.Repository.MessageRepository;
 import toyspringboot.server.TestDesign.DomainTest;
 import java.lang.reflect.InvocationTargetException;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static toyspringboot.server.Message.MessageConstants.MESSAGE_CONTENT;
 import static toyspringboot.server.Message.MessageConstants.MESSAGE_ID;
 
@@ -33,7 +34,7 @@ public class MessageDomainTest extends DomainTest {
         Messages newMessage = super.createTest(message, messageRepository, "save");
 
         // then
-        super.assertEqualsTest(message.getMessage(), newMessage.getMessage());
+        assertEquals(message.getMessage(), newMessage.getMessage());
     }
 
     @Test
@@ -46,6 +47,47 @@ public class MessageDomainTest extends DomainTest {
         Messages newMessage = super.readTest(MESSAGE_ID, messageRepository, "findById");
 
         // then
-        super.assertEqualsTest(MESSAGE_ID, newMessage.getId());
+        assertEquals(MESSAGE_ID, newMessage.getId());
+    }
+
+
+    @Test
+    @DisplayName("메시지 수정 jpa 테스트")
+    public void updateMessageTest() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+        // given
+        // MessageConstants.MESSAGE_ID
+        // MessageConstants.MESSAGE_CONTENT
+
+        // when
+        Messages messages = new Messages();
+        Messages newMessage = super.updateTest(MESSAGE_ID, messageRepository, "findById", messages, MESSAGE_CONTENT, "save");
+
+        // then
+        assertEquals(MESSAGE_CONTENT, newMessage.getMessage());
+    }
+
+    @Test
+    @DisplayName("메시지 삭제 jpa 테스트")
+    public void deleteMessageTest() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+        // given
+        // MessageConstants.MESSAGE_ID
+        // MessageConstants.MESSAGE_CONTENT
+
+        Messages message = Messages.builder()
+                .id(MESSAGE_ID)
+                .message(MESSAGE_CONTENT)
+                .build();
+
+        // when
+        super.deleteTest(message, messageRepository, "delete");
+
+        // then
+        try {
+            super.readTest(MESSAGE_ID, messageRepository, "findById");
+            assertTrue(false);
+
+        } catch (RuntimeException e) {
+            assertTrue(true);
+        }
     }
 }
