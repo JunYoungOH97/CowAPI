@@ -60,7 +60,7 @@ public class MessageDomainTest extends DomainTest {
 
         // when
         Messages messages = new Messages();
-        Messages newMessage = super.updateTest(MESSAGE_ID, messageRepository, "findById", messages, MESSAGE_CONTENT, "save");
+        Messages newMessage = super.updateTest(MESSAGE_ID, messageRepository, "findById", messages, MESSAGE_CONTENT, "save", "setMessage");
 
         // then
         assertEquals(MESSAGE_CONTENT, newMessage.getMessage());

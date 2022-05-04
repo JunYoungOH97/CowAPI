@@ -18,12 +18,12 @@ public class DomainTest {
         return (S) m.orElseThrow(IllegalArgumentException::new);
     }
 
-    public <S extends Object> S updateTest(Long id, Object instance, String methodName,Object o2, String content, String method2) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
+    public <S extends Object> S updateTest(Long id, Object instance, String methodName,Object o2, String content, String method2, String method3) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
 
         S foundObject = this.readTest(id, instance, methodName);
         Class<?> c = o2.getClass();
         o2.getClass().cast(foundObject);
-        Method method = c.getMethod("setMessage", String.class);
+        Method method = c.getMethod(method3, String.class);
         method.invoke(foundObject, content);
 
         return this.createTest(foundObject, instance, method2);
