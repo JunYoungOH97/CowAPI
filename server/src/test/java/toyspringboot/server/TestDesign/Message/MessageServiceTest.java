@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import toyspringboot.server.Domain.Dto.MessageDto;
 import toyspringboot.server.Service.MessageService;
+import toyspringboot.server.TestDesign.DomainTest;
 import toyspringboot.server.TestDesign.ServiceTest;
 import toyspringboot.server.TestDesign.TestAPI;
 
@@ -20,7 +21,7 @@ import static toyspringboot.server.Message.MessageConstants.MESSAGE_ID;
 
 @SpringBootTest
 @Transactional
-public class MessageServiceTest implements TestAPI {
+public class MessageServiceTest extends DomainTest {
     @Autowired
     private MessageService messageService;
 
@@ -30,7 +31,8 @@ public class MessageServiceTest implements TestAPI {
         this.serviceTest = new ServiceTest();
     }
 
-    @Override
+    @Test
+    @DisplayName("메시지 생성 테스트")
     public void createTest() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         // given
         // MessageConstants.MESSAGE_CONTENT
@@ -48,7 +50,6 @@ public class MessageServiceTest implements TestAPI {
 
     @Test
     @DisplayName("메시지 조회 테스트")
-    @Override
     public void readTest() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         // given
         // MessageConstants.MESSAGE_ID
@@ -62,7 +63,6 @@ public class MessageServiceTest implements TestAPI {
 
     @Test
     @DisplayName("메시지 수정 테스트")
-    @Override
     public void updateTest() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
         // given
         // MessageConstants.MESSAGE_ID
@@ -78,7 +78,6 @@ public class MessageServiceTest implements TestAPI {
 
     @Test
     @DisplayName("메시지 삭제 테스트")
-    @Override
     public void deleteTest() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
         // given
         // MessageConstants.MESSAGE_ID
