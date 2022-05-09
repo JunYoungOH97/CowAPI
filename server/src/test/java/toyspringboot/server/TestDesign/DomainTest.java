@@ -5,33 +5,31 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 
 public class DomainTest {
-    public <S extends Object> S createTest(Object obj, Object instance, String methodName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Class<?> c = instance.getClass();
-        Method method = c.getMethod(methodName, Object.class);
-        return (S) method.invoke(instance, obj);
+    public <S extends Object> S createTest(Object obj, Object repositoryObject, String saveMethodName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class<?> c = repositoryObject.getClass();
+        Method method = c.getMethod(saveMethodName, Object.class);
+        return (S) method.invoke(repositoryObject, obj);
     }
 
-    public <S extends Object> S readTest(Long id, Object instance, String methodName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Class<?> c = instance.getClass();
-        Method method = c.getMethod(methodName, Object.class);
-        Optional<Object> m = (Optional<Object>) method.invoke(instance, id);
+    public <S extends Object> S readTest(Object readId, Object repositoryObject, String readMethodName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class<?> c = repositoryObject.getClass();
+        Method method = c.getMethod(readMethodName, Object.class);
+        Optional<Object> m = (Optional<Object>) method.invoke(repositoryObject, readId);
         return (S) m.orElseThrow(IllegalArgumentException::new);
     }
 
-    public <S extends Object> S updateTest(Long id, Object instance, String methodName,Object o2, String content, String method2, String method3) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
+    public <S extends Object> S updateTest(Object updateId, Class<?> entityClass, Object repositoryObject, String readMethodName, Object updateObj, String saveMethodName, String setterName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
+        S foundObject = this.readTest(updateId, repositoryObject, readMethodName);
+        entityClass.cast(foundObject);
+        Method method = entityClass.getMethod(setterName, updateObj.getClass());
+        method.invoke(foundObject, updateObj);
 
-        S foundObject = this.readTest(id, instance, methodName);
-        Class<?> c = o2.getClass();
-        o2.getClass().cast(foundObject);
-        Method method = c.getMethod(method3, String.class);
-        method.invoke(foundObject, content);
-
-        return this.createTest(foundObject, instance, method2);
+        return this.createTest(foundObject, repositoryObject, saveMethodName);
     }
 
-    public void deleteTest(Object obj, Object instance, String methodName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Class<?> c = instance.getClass();
-        Method method = c.getMethod(methodName, Object.class);
-        method.invoke(instance, obj);
+    public void deleteTest(Object obj, Object repositoryName, String deleteMethodName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class<?> c = repositoryName.getClass();
+        Method method = c.getMethod(deleteMethodName, Object.class);
+        method.invoke(repositoryName, obj);
     }
 }
