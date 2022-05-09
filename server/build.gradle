@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 }
 
-group = 'toy-springboot'
+group = 'server'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -23,6 +23,7 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'mysql:mysql-connector-java'
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 }
 
 tasks.named('test') {

@@ -5,9 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import toyspringboot.server.Domain.Entity.Messages;
 import toyspringboot.server.Domain.Repository.MessageRepository;
+import toyspringboot.server.Domain.Entity.Messages;
 import toyspringboot.server.TestDesign.DomainTest;
+
 import java.lang.reflect.InvocationTargetException;
 
 import static org.junit.jupiter.api.Assertions.*;

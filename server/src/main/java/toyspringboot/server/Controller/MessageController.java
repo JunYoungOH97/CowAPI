@@ -1,7 +1,6 @@
 package toyspringboot.server.Controller;
 
 import lombok.RequiredArgsConstructor;
-import org.aspectj.bridge.Message;
 import org.springframework.web.bind.annotation.*;
 import toyspringboot.server.Domain.Dto.MessageDto;
 import toyspringboot.server.Service.MessageService;
