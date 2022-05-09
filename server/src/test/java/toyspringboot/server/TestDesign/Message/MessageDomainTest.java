@@ -22,7 +22,7 @@ public class MessageDomainTest extends DomainTest {
 
     @Test
     @DisplayName("메시지 생성 jpa 테스트")
-    public void createTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void featureCreateTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         // given
 //         MessageConstants.MESSAGE_CONTENT
 
@@ -39,7 +39,7 @@ public class MessageDomainTest extends DomainTest {
 
     @Test
     @DisplayName("메시지 조회 jpa 테스트")
-    public void searchMessageTest() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+    public void featureSearchTest() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         // given
         // MessageConstants.MESSAGE_ID
 
@@ -53,14 +53,13 @@ public class MessageDomainTest extends DomainTest {
 
     @Test
     @DisplayName("메시지 수정 jpa 테스트")
-    public void updateMessageTest() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+    public void featureUpdateTest() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
         // given
         // MessageConstants.MESSAGE_ID
         // MessageConstants.MESSAGE_CONTENT
 
         // when
-        Messages messages = new Messages();
-        Messages newMessage = super.updateTest(MESSAGE_ID, messageRepository, "findById", messages, MESSAGE_CONTENT, "save", "setMessage");
+        Messages newMessage = super.updateTest(MESSAGE_ID, Messages.class, messageRepository, "findById", MESSAGE_CONTENT, "save", "setMessage");
 
         // then
         assertEquals(MESSAGE_CONTENT, newMessage.getMessage());
@@ -68,7 +67,7 @@ public class MessageDomainTest extends DomainTest {
 
     @Test
     @DisplayName("메시지 삭제 jpa 테스트")
-    public void deleteMessageTest() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+    public void featureDeleteTest() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         // given
         // MessageConstants.MESSAGE_ID
         // MessageConstants.MESSAGE_CONTENT
