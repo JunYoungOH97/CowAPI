@@ -1,6 +1,5 @@
 package toyspringboot.server.TestDesign.Message;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import toyspringboot.server.Domain.Dto.MessageDto;
 import toyspringboot.server.Service.MessageService;
 import toyspringboot.server.TestDesign.DomainTest;
 import toyspringboot.server.TestDesign.ServiceTest;
-import toyspringboot.server.TestDesign.TestAPI;
 
 import java.lang.reflect.InvocationTargetException;
 
