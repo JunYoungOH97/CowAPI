@@ -2,6 +2,7 @@ package toyspringboot.server.Swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -20,16 +21,16 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(false)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
+                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+                .paths(PathSelectors.ant("/api/v1/**"))
                 .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("SpringBoot + React Boilerplate API")
+                .title("JunYoung OH's toy SpringBoot")
                 .version("1.0.0")
-                .description("스프링부트의 swagger api 입니다.")
+                .description("JunYoung 의 토이 프로젝트 입니다.")
                 .build();
     }
 }
