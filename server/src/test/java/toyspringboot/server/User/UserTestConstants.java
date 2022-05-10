@@ -1,13 +1,11 @@
 package toyspringboot.server.User;
 
 public class UserTestConstants {
-    // base path
-    public static final String POST_User_API = "/messages";
-    public static final String GET_User_API = "/messages/{id}";
-    public static final String PUT_User_API = "/messages/{id}";
-    public static final String DELETE_User_API = "messages/{id}";
+    // API
+    public static final String SignIn_API = "/users/user";
+    public static final String SignUp_API = "/users/newUser";
 
-    // values
+    // test values
     public static final Long User_id = 1L;
     public static final String User_email = "testEmail@junyoung.com";
     public static final String User_password = "testPassword";
