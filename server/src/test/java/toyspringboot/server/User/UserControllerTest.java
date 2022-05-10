@@ -22,7 +22,7 @@ public class UserControllerTest extends ControllerTest {
                 .build());
 
         // when
-        boolean isSuccess = sendRequest(SignUp_API, json, MediaType.APPLICATION_JSON);
+        boolean isSuccess = sendRequest(baseUrl(SignUp_API), json, MediaType.APPLICATION_JSON);
 
         // then
         assertTrue(isSuccess);

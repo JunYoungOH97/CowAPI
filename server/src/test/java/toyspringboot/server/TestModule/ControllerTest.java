@@ -22,7 +22,7 @@ public class ControllerTest extends ServerApplicationTests {
         return mapper.writeValueAsString(object);
     }
 
-    public boolean sendRequest(String api, String json, MediaType mediaType) throws Exception{
+    public boolean sendRequest(String api, String json, MediaType mediaType) throws Exception {
         mockMvc.perform(post(api)
                 .content(json)
                 .contentType(mediaType)

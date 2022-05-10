@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import toyspringboot.server.Domain.Dto.UserDto;
-import toyspringboot.server.ServerApplicationTests;
 import toyspringboot.server.Service.UserService;
 import toyspringboot.server.TestModule.ServiceTest;
 
