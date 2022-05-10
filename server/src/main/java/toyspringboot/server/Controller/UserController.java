@@ -16,9 +16,7 @@ import toyspringboot.server.Service.UserService;
 public class UserController {
     private final UserService userService;
 
-    // 메서드 정보
     @ApiOperation(value = "회원가입", notes = "신규 사용자 회원가입 api 입니다.")
-    // response 정보
     @ApiResponses({
             @ApiResponse(code = 200, message = "success"),
             @ApiResponse(code = 409, message = "이미 가입되어 있는 이메일입니다."),
