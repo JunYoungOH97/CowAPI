@@ -15,7 +15,7 @@ import toyspringboot.server.Domain.Repository.UserRepository;
 public class UserService {
     private final UserRepository userRepository;
 
-    public UserDto signIn(UserDto userDto) {
+    public UserDto signUp(UserDto userDto) {
         if(userRepository.existsByEmail(userDto.getEmail())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "이미 가입되어 있는 유저입니다");
         }

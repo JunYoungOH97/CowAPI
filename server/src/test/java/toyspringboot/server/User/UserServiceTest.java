@@ -19,7 +19,7 @@ public class UserServiceTest {
 
     @Test
     @DisplayName("[Service] 회원가입 테스트")
-    public void signInTest() {
+    public void signUpTest() {
         // given
         UserDto userDto = UserDto.builder()
                 .email(User_email)
@@ -29,7 +29,7 @@ public class UserServiceTest {
                 .build();
 
         // when
-        UserDto newUser = userService.signIn(userDto);
+        UserDto newUser = userService.signUp(userDto);
 
         // then
         assertEquals(userDto.getEmail(), newUser.getEmail());
