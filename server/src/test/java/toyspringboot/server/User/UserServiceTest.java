@@ -3,17 +3,14 @@ package toyspringboot.server.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 import toyspringboot.server.Domain.Dto.UserDto;
+import toyspringboot.server.ServerApplicationTests;
 import toyspringboot.server.Service.UserService;
 
 import static toyspringboot.server.User.UserTestConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
-@Transactional
-public class UserServiceTest {
+public class UserServiceTest extends ServerApplicationTests {
     @Autowired
     private UserService userService;
 

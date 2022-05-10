@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.UserRepository;
+import toyspringboot.server.ServerApplicationTests;
 import toyspringboot.server.TestModule.DomainTest;
 
 import java.lang.reflect.InvocationTargetException;
@@ -14,9 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import static org.junit.jupiter.api.Assertions.*;
 import static toyspringboot.server.User.UserTestConstants.*;
 
-@SpringBootTest
-@Transactional
-public class UserDomainTest {
+public class UserDomainTest extends ServerApplicationTests {
     @Autowired
     private UserRepository userRepository;
 
