@@ -6,4 +6,5 @@ import toyspringboot.server.Domain.Entity.Messages;
 
 @Repository
 public interface MessageRepository extends JpaRepository<Messages, Long> {
+
 }

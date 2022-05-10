@@ -3,23 +3,20 @@ package toyspringboot.server.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Service.UserService;
+import toyspringboot.server.TestModule.ServiceTest;
 
 import static toyspringboot.server.User.UserTestConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
-@Transactional
-public class UserServiceTest {
+public class UserServiceTest extends ServiceTest {
     @Autowired
     private UserService userService;
 
     @Test
     @DisplayName("[Service] 회원가입 테스트")
-    public void signUpTest() {
+    public void signUpTest() throws Exception {
         // given
         UserDto userDto = UserDto.builder()
                 .email(User_email)
@@ -29,7 +26,7 @@ public class UserServiceTest {
                 .build();
 
         // when
-        UserDto newUser = userService.signUp(userDto);
+        UserDto newUser = (UserDto) test(userDto, userService, "signUp");
 
         // then
         assertEquals(userDto.getEmail(), newUser.getEmail());

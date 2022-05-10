@@ -1,14 +1,14 @@
 package toyspringboot.server;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.transaction.annotation.Transactional;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 public class ServerApplicationTests {
-    private static final int port = 8080;
+    @LocalServerPort
+    public int port;
 
     public String baseUrl() {
         return "http://localhost:" + port;
