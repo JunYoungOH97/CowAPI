@@ -3,8 +3,6 @@ package toyspringboot.server.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.UserRepository;
 import toyspringboot.server.ServerApplicationTests;

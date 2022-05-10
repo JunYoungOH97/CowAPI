@@ -6,17 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.ServerApplicationTests;
 import toyspringboot.server.Service.UserService;
+import toyspringboot.server.TestModule.ServiceTest;
 
 import static toyspringboot.server.User.UserTestConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserServiceTest extends ServerApplicationTests {
+public class UserServiceTest extends ServiceTest {
     @Autowired
     private UserService userService;
 
     @Test
     @DisplayName("[Service] 회원가입 테스트")
-    public void signUpTest() {
+    public void signUpTest() throws Exception {
         // given
         UserDto userDto = UserDto.builder()
                 .email(User_email)
@@ -26,7 +27,7 @@ public class UserServiceTest extends ServerApplicationTests {
                 .build();
 
         // when
-        UserDto newUser = userService.signUp(userDto);
+        UserDto newUser = (UserDto) test(userDto, userService, "signUp");
 
         // then
         assertEquals(userDto.getEmail(), newUser.getEmail());

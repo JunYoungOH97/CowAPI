@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static toyspringboot.server.User.UserTestConstants.*;
 
 public class UserControllerTest extends ControllerTest {
-
     @Test
     @DisplayName("[Controller] 회원가입 테스트")
     public void signUpTest() throws Exception {
