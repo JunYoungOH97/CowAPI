@@ -1,4 +1,4 @@
-package toyspringboot.server.TestDesign;
+package toyspringboot.server.TestModule;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -18,7 +18,7 @@ public class DomainTest {
         return (S) m.orElseThrow(IllegalArgumentException::new);
     }
 
-    public <S extends Object> S updateTest(Object updateId, Class<?> entityClass, Object repositoryObject, String readMethodName, Object updateObj, String saveMethodName, String setterName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
+    public <S extends Object> S updateTest(Object updateId, Class<?> entityClass, Object repositoryObject, String readMethodName, Object updateObj, String saveMethodName, String setterName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         S foundObject = this.readTest(updateId, repositoryObject, readMethodName);
         entityClass.cast(foundObject);
         Method method = entityClass.getMethod(setterName, updateObj.getClass());
