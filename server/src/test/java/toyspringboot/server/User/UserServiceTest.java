@@ -32,6 +32,6 @@ public class UserServiceTest {
         UserDto newUser = userService.signIn(userDto);
 
         // then
-        assertEquals(userDto.getId(), newUser.getId());
+        assertEquals(userDto.getEmail(), newUser.getEmail());
     }
 }

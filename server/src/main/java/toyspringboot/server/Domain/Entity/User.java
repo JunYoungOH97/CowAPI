@@ -3,6 +3,7 @@ package toyspringboot.server.Domain.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import toyspringboot.server.Domain.Dto.UserDto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -42,4 +43,17 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<QnA> QnAs = new ArrayList<>();
+
+    public static User of(UserDto userDto) {
+        return User.builder()
+                .id(userDto.getId())
+                .email(userDto.getEmail())
+                .password(userDto.getPassword())
+                .nickname(userDto.getNickname())
+                .admin(userDto.isAdmin())
+                .notices(userDto.getNotices())
+                .answers(userDto.getAnswers())
+                .QnAs(userDto.getQnAs())
+                .build();
+    }
 }

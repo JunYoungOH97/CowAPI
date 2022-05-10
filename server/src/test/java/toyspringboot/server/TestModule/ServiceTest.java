@@ -1,4 +1,4 @@
-package toyspringboot.server.TestDesign;
+package toyspringboot.server.TestModule;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
