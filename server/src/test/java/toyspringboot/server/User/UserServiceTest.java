@@ -37,8 +37,8 @@ public class UserServiceTest extends ServiceTest {
     public void signInTest() throws Exception {
         // given
         UserDto userDto = UserDto.builder()
-                .email(User_email)
-                .password(User_password)
+                .email(Exist_User_email)
+                .password(Exist_User_password)
                 .build();
 
         // when

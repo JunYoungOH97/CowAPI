@@ -35,8 +35,8 @@ public class UserControllerTest extends ControllerTest {
     public void signInTest() throws Exception {
         // given
         String json = getRequestJson(UserDto.builder()
-                .email(User_email)
-                .password(User_password)
+                .email(Exist_User_email)
+                .password(Exist_User_password)
                 .build());
 
         // when
