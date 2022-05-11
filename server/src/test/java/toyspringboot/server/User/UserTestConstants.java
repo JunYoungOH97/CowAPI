@@ -6,15 +6,14 @@ public class UserTestConstants {
     public static final String SignUp_API = "/users/newUser";
 
     // ---------- test information ----------
-
-    // false case
+    // 존재하지 않는 유저
 //    public static final Long User_id = 2L;
 //    public static final String User_email = "testEmail@junyoung.com";
 //    public static final String User_password = "testPassword";
 //    public static final String User_nickname= "testNickname";
 //    public static final boolean User_admin = true;
 
-    // true case
+    // 존재하는 유저
     public static final Long User_id = 1L;
     public static final String User_email = "user@junyoung.com";
     public static final String User_password = "password123";

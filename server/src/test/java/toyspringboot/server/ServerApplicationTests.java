@@ -8,13 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ServerApplicationTests {
     @LocalServerPort
-    public int port;
+    protected int port;
 
-    public String baseUrl() {
+    private static final String version = "/api/v1";
+
+    protected String baseUrl() {
         return "http://localhost:" + port;
     }
 
-    public String baseUrl(String path) {
-        return this.baseUrl() + path;
+    protected String baseUrl(String path) {
+        return this.baseUrl() + version + path;
     }
 }

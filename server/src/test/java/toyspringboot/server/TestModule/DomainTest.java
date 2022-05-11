@@ -2,9 +2,7 @@ package toyspringboot.server.TestModule;
 
 import toyspringboot.server.ServerApplicationTests;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Optional;
 
 public class DomainTest extends ServerApplicationTests {
     public Object test(Object object, Object repositoryObject, String methodName) throws Exception {

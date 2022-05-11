@@ -26,8 +26,8 @@ public class UserService {
     }
 
     public UserDto signIn(UserDto userDto) {
-        User foundUser = userRepository.findByEmail(userDto.getEmail()).orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, "없는 사용자 입니다."));
-        if(!foundUser.getPassword().equals(userDto.getPassword())) throw new ResponseStatusException(CONFLICT, "비밀번호가 틀렸습니다.");
+        User foundUser = userRepository.findByEmail(userDto.getEmail()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "없는 사용자 입니다."));
+        if(!foundUser.getPassword().equals(userDto.getPassword())) throw new ResponseStatusException(BAD_REQUEST, "비밀번호가 틀렸습니다.");
         return UserDto.of(foundUser);
     }
 }

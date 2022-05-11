@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import toyspringboot.server.ServerApplicationTests;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -22,12 +23,9 @@ public class ControllerTest extends ServerApplicationTests {
         return mapper.writeValueAsString(object);
     }
 
-    public boolean sendRequest(String api, String json, MediaType mediaType) throws Exception {
-        mockMvc.perform(post(api)
+    public ResultActions sendRequest(String api, String json, MediaType mediaType) throws Exception {
+        return mockMvc.perform(post(api)
                 .content(json)
-                .contentType(mediaType)
-        );
-
-        return true;
+                .contentType(mediaType));
     }
 }
