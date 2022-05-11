@@ -31,7 +31,7 @@ public class UserDomainReflectionTest extends ServerApplicationTests {
                 .build();
 
         // when
-        User newUser = domainTest.createTest(user, userRepository, "save");
+        User newUser = (User) domainTest.createTest(user, userRepository, "save");
 
         // then
         assertEquals(user.getEmail(), newUser.getEmail());
@@ -43,7 +43,7 @@ public class UserDomainReflectionTest extends ServerApplicationTests {
     public void readTest() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         // given
         // when
-        User foundUser = domainTest.readTest(User_id, userRepository, "findById");
+        User foundUser = (User) domainTest.readTest(User_id, userRepository, "findById");
 
         // then
         assertEquals(User_id, foundUser.getId());
@@ -55,7 +55,7 @@ public class UserDomainReflectionTest extends ServerApplicationTests {
     public void updateTest() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         // given
         // when
-        User modifiedUser = domainTest.updateTest(User_id, User.class, userRepository, "findById", User_nickname, "save", "setNickname");
+        User modifiedUser = (User) domainTest.updateTest(User_id, User.class, userRepository, "findById", User_nickname, "save", "setNickname");
 
         // then
         assertEquals(User_nickname, modifiedUser.getNickname());

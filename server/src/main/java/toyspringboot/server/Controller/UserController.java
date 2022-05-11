@@ -25,4 +25,15 @@ public class UserController {
     public UserDto signUp(@RequestBody UserDto userDto) {
         return userService.signUp(userDto);
     }
+
+    @ApiOperation(value = "로그인", notes = "기존 사용자 로그인 api 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success"),
+            @ApiResponse(code = 400, message = "비밀번호가 틀렸습니다."),
+            @ApiResponse(code = 404, message = "존재 하지 않는 사용자입니다.")
+    })
+    @PostMapping("/users/user")
+    public UserDto signIn(@RequestBody UserDto userDto) {
+        return userService.signIn(userDto);
+    }
 }
