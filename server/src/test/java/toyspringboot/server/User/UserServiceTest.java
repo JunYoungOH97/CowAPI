@@ -31,4 +31,20 @@ public class UserServiceTest extends ServiceTest {
         // then
         assertEquals(userDto.getEmail(), newUser.getEmail());
     }
+
+    @Test
+    @DisplayName("[Service] 로그인 테스트")
+    public void signInTest() throws Exception {
+        // given
+        UserDto userDto = UserDto.builder()
+                .email(User_email)
+                .password(User_password)
+                .build();
+
+        // when
+        UserDto newUser = (UserDto) test(userDto, userService, "signIn");
+
+        // then
+        assertEquals(userDto.getEmail(), newUser.getEmail());
+    }
 }
