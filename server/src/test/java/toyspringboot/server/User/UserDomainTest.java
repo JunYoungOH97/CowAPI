@@ -39,11 +39,10 @@ public class UserDomainTest extends DomainTest {
     public void readTest() throws Exception {
         // given
         // when
-        Optional<User> foundUser = (Optional<User>) test(User_email, userRepository, "findByEmail");
+        Optional<User> foundUser = (Optional<User>) test(Exist_User_email, userRepository, "findByEmail");
 
         // then
         assertTrue(foundUser.isPresent());
-        foundUser.ifPresent(user -> assertEquals(User_email, user.getEmail()));
+        foundUser.ifPresent(user -> assertEquals(Exist_User_email, user.getEmail()));
     }
-
 }
