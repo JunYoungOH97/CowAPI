@@ -12,3 +12,6 @@
 
 [minseoking]: https://github.com/minseoking
 [Oh-JunYoung]: https://github.com/Oh-JunYoung
+
+## ✨팀 규칙
+- [Convention](https://github.com/Oh-JunYoung/springboot/wiki/Convention)
