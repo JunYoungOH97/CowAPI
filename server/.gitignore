@@ -37,6 +37,9 @@ out/
 .vscode/
 
 ### properties ###
+application-setting.properties
 application-aws.properties
 application-db.properties
 application-h2.properties
+application-jwt.properties
+application-swagger.properties
