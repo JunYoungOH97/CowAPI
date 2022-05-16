@@ -30,5 +30,9 @@ public class UserService {
         if(!foundUser.getPassword().equals(userDto.getPassword())) throw new ResponseStatusException(BAD_REQUEST, "비밀번호가 틀렸습니다.");
         return UserDto.of(foundUser);
     }
+
+    public boolean updateUser(Long userId, UserDto userDto) {
+        return false;
+    }
 }
 

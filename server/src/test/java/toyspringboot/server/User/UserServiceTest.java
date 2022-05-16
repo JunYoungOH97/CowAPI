@@ -52,13 +52,15 @@ public class UserServiceTest extends ServiceTest {
     @DisplayName("[Service] 회원 정보 수정 테스트")
     public void updateUser() throws Exception {
         // given
-//        UserDto userDto = UserDto.builder()
-//                .id(Exist_User_id)
-//                .build();
-//
+        UserDto userDto = UserDto.builder()
+                .nickname(User_nickname)
+                .password(User_password)
+                .build();
+
         // when
-//        UserDto userDto = (UserDto) test(userDto, userService, "updateUser");
+        boolean isSuccess = (boolean) test(Exist_User_id, userDto, userService, "updateUser");
 
         // then
+        assertTrue(isSuccess);
     }
 }
