@@ -3,6 +3,7 @@ package toyspringboot.server.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.UserRepository;
 import toyspringboot.server.TestModule.DomainTest;
@@ -44,5 +45,23 @@ public class UserDomainTest extends DomainTest {
         // then
         assertTrue(foundUser.isPresent());
         foundUser.ifPresent(user -> assertEquals(Exist_User_email, user.getEmail()));
+    }
+
+    @Test
+    @DisplayName("[Domain] 사용자 수정 테스트")
+    public void updateTest() throws Exception {
+        // given
+        UserDto userDto = UserDto.builder()
+                .nickname(User_nickname)
+                .build();
+
+        // when
+        boolean success = (boolean) test(Exist_User_id, userDto, userRepository, "updateById");
+
+        // then
+        User user = userRepository.findById(Exist_User_id).orElseThrow();
+
+        assertTrue(success);
+        assertEquals(user.getNickname(), User_nickname);
     }
 }

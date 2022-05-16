@@ -3,6 +3,8 @@ package toyspringboot.server.Domain.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
+import org.jetbrains.annotations.NotNull;
 import toyspringboot.server.Domain.Dto.UserDto;
 
 import javax.persistence.*;
@@ -15,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@DynamicUpdate
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,5 +58,11 @@ public class User {
                 .answers(userDto.getAnswers())
                 .QnAs(userDto.getQnAs())
                 .build();
+    }
+
+    public void setNotNull(UserDto userDto) {
+        if(userDto.getEmail() != null) email = userDto.getEmail();
+        if(userDto.getPassword() != null) password = userDto.getPassword();
+        if(userDto.getNickname() != null) nickname = userDto.getNickname();
     }
 }

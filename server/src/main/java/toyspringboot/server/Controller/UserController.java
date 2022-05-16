@@ -2,18 +2,15 @@ package toyspringboot.server.Controller;
 
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.web.bind.annotation.*;
 import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Service.UserService;
 
 @Api(tags = {"사용자"})
 @RequestMapping(value = "/api/v1")
 @RestController
-@EnableWebSecurity
+//@EnableWebSecurity
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -37,5 +34,14 @@ public class UserController {
     @PostMapping("/users/user")
     public UserDto signIn(@RequestBody UserDto userDto) {
         return userService.signIn(userDto);
+    }
+
+    @ApiOperation(value = "회원 수정", notes = "기존 사용자의 정보를 수정하는 api 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success")
+    })
+    @PutMapping("/users/user")
+    public boolean updateUser(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
+        return userService.updateUser(Long.parseLong(userToken), userDto);
     }
 }
