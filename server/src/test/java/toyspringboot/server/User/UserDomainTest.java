@@ -45,4 +45,17 @@ public class UserDomainTest extends DomainTest {
         assertTrue(foundUser.isPresent());
         foundUser.ifPresent(user -> assertEquals(Exist_User_email, user.getEmail()));
     }
+
+    @Test
+    @DisplayName("[Domain] 사용자 수정 테스트")
+    public void updateTest() throws Exception {
+        // given
+        // when
+        int success = (int) test(User_nickname, Exist_User_id, userRepository, "updateNickname");
+
+        User user = userRepository.findById(Exist_User_id).get();
+
+        // then
+        assertEquals(user.getNickname(), User_nickname);
+    }
 }

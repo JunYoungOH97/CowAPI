@@ -28,4 +28,15 @@ public class DomainTest extends ServerApplicationTests {
         Method method = c.getMethod(methodName, boolean.class);
         return method.invoke(repositoryObject, object);
     }
+
+
+    public Object test(String object1, Long object2, Object repositoryObject, String methodName) throws Exception {
+        Class<?> c = repositoryObject.getClass();
+        Class[] methodParam = new Class[2];
+        methodParam[0] = String.class;
+        methodParam[1] = Long.class;
+        Method method = c.getMethod(methodName, methodParam);
+        return method.invoke(repositoryObject, object1, object2);
+    }
+
 }

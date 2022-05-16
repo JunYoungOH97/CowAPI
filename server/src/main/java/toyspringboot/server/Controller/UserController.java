@@ -2,7 +2,7 @@ package toyspringboot.server.Controller;
 
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +13,7 @@ import toyspringboot.server.Service.UserService;
 @Api(tags = {"사용자"})
 @RequestMapping(value = "/api/v1")
 @RestController
-@EnableWebSecurity
+//@EnableWebSecurity
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
