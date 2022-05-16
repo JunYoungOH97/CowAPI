@@ -59,4 +59,10 @@ public class User {
                 .QnAs(userDto.getQnAs())
                 .build();
     }
+
+    public void setNotNull(UserDto userDto) {
+        if(userDto.getEmail() != null) email = userDto.getEmail();
+        if(userDto.getPassword() != null) password = userDto.getPassword();
+        if(userDto.getNickname() != null) nickname = userDto.getNickname();
+    }
 }

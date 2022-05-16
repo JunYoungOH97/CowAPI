@@ -18,7 +18,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
 
 
-     default boolean updateById(Long id, UserDto userDto) {
-        return false;
+    default boolean updateById(Long id, UserDto userDto) {
+        User user = findById(id).orElseThrow();
+        user.setNotNull(userDto);
+        return true;
     }
 }
