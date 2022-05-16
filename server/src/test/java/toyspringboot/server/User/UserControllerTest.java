@@ -59,8 +59,10 @@ public class UserControllerTest extends ControllerTest {
                 .password(User_password)
                 .build());
 
+        String header = Exist_User_id.toString();
+
         // when
-        ResultActions actions = sendRequest(baseUrl(UpdateUser_API), User_id.toString() ,json, MediaType.APPLICATION_JSON);
+        ResultActions actions = sendRequest(baseUrl(UpdateUser_API), header,json, MediaType.APPLICATION_JSON);
 
         // then
         actions.andExpect(MockMvcResultMatchers.status().isOk());

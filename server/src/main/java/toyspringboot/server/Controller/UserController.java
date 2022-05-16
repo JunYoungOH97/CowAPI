@@ -41,7 +41,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "success")
     })
     @PutMapping("/users/user")
-    public boolean updateUser(@RequestHeader String userId, @RequestBody UserDto userDto) {
-        return false;
+    public boolean updateUser(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
+        return userService.updateUser(Long.parseLong(userToken), userDto);
     }
 }
