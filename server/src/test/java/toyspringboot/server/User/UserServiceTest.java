@@ -47,4 +47,18 @@ public class UserServiceTest extends ServiceTest {
         // then
         assertEquals(userDto.getEmail(), newUser.getEmail());
     }
+    
+    @Test
+    @DisplayName("[Service] 회원 정보 수정 테스트")
+    public void updateUser() throws Exception {
+        // given
+//        UserDto userDto = UserDto.builder()
+//                .id(Exist_User_id)
+//                .build();
+//
+        // when
+//        UserDto userDto = (UserDto) test(userDto, userService, "updateUser");
+
+        // then
+    }
 }
