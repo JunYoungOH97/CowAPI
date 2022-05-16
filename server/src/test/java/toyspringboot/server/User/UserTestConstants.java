@@ -4,6 +4,7 @@ public class UserTestConstants {
     // ---------- API ----------
     public static final String SignIn_API = "/users/user";
     public static final String SignUp_API = "/users/newUser";
+    public static final String UpdateUser_API = "/users/user";
 
     // ---------- test information ----------
     // 존재하지 않는 유저

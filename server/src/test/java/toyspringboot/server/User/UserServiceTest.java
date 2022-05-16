@@ -50,7 +50,7 @@ public class UserServiceTest extends ServiceTest {
     
     @Test
     @DisplayName("[Service] 회원 정보 수정 테스트")
-    public void updateUser() throws Exception {
+    public void updateUserTest() throws Exception {
         // given
         UserDto userDto = UserDto.builder()
                 .nickname(User_nickname)
