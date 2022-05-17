@@ -28,7 +28,7 @@ public class UserControllerTest extends ControllerTest {
                 .build());
 
         // when
-        ResultActions actions = sendRequest(baseUrl(SignUp_API), request, MediaType.APPLICATION_JSON);
+        ResultActions actions = postRequest(baseUrl(SignUp_API), request, MediaType.APPLICATION_JSON);
 
         // then
         actions.andExpect(MockMvcResultMatchers.status().isOk());
@@ -44,7 +44,7 @@ public class UserControllerTest extends ControllerTest {
                 .build());
 
         // when
-        ResultActions actions = sendRequest(baseUrl(SignIn_API), json, MediaType.APPLICATION_JSON);
+        ResultActions actions = postRequest(baseUrl(SignIn_API), json, MediaType.APPLICATION_JSON);
 
         // then
         actions.andExpect(MockMvcResultMatchers.status().isOk());
@@ -62,7 +62,7 @@ public class UserControllerTest extends ControllerTest {
         String header = Exist_User_id.toString();
 
         // when
-        ResultActions actions = sendRequest(baseUrl(UpdateUser_API), header,json, MediaType.APPLICATION_JSON);
+        ResultActions actions = putRequest(baseUrl(UpdateUser_API), header,json, MediaType.APPLICATION_JSON);
 
         // then
         actions.andExpect(MockMvcResultMatchers.status().isOk());
