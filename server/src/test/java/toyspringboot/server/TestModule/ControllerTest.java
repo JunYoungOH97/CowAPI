@@ -24,15 +24,29 @@ public class ControllerTest extends ServerApplicationTests {
         return mapper.writeValueAsString(object);
     }
 
-    public ResultActions sendRequest(String api, String json, MediaType mediaType) throws Exception {
+    public ResultActions postRequest(String api, String header, String json, MediaType mediaType) throws Exception {
         return mockMvc.perform(post(api)
+                .header(HttpHeaders.AUTHORIZATION, header)
                 .content(json)
                 .contentType(mediaType));
     }
 
-    public ResultActions sendRequest(String api, String header, String json, MediaType mediaType) throws Exception {
+    public ResultActions putRequest(String api, String header, String json, MediaType mediaType) throws Exception {
         return mockMvc.perform(put(api)
                .header(HttpHeaders.AUTHORIZATION, header)
+                .content(json)
+                .contentType(mediaType));
+    }
+
+    public ResultActions getRequest(String api, String header, MediaType mediaType) throws Exception {
+        return mockMvc.perform(get(api)
+                .header(HttpHeaders.AUTHORIZATION, header)
+                .contentType(mediaType));
+    }
+
+    public ResultActions deleteRequest(String api, String header, String json, MediaType mediaType) throws Exception {
+        return mockMvc.perform(delete(api)
+                .header(HttpHeaders.AUTHORIZATION, header)
                 .content(json)
                 .contentType(mediaType));
     }
