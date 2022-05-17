@@ -11,7 +11,7 @@ public class UserTestConstants {
 
     // ---------- test information ----------
     public static final Timestamp Create_Date = Timestamp.valueOf(LocalDateTime.now());
-    public static final String Creator_Member = "Directly";
+    public static final String Creator_Member = "Test Code";
 
     // 존재하지 않는 유저
     public static final String User_email = "testEmail@junyoung.com";
