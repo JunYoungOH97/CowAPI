@@ -27,8 +27,10 @@ public class UserControllerTest extends ControllerTest {
                 .admin(User_admin)
                 .build());
 
+        String header = Exist_User_id.toString();
+
         // when
-        ResultActions actions = postRequest(baseUrl(SignUp_API), request, MediaType.APPLICATION_JSON);
+        ResultActions actions = postRequest(baseUrl(SignUp_API), header, request, MediaType.APPLICATION_JSON);
 
         // then
         actions.andExpect(MockMvcResultMatchers.status().isOk());
@@ -43,8 +45,10 @@ public class UserControllerTest extends ControllerTest {
                 .password(Exist_User_password)
                 .build());
 
+        String header = Exist_User_id.toString();
+
         // when
-        ResultActions actions = postRequest(baseUrl(SignIn_API), json, MediaType.APPLICATION_JSON);
+        ResultActions actions = postRequest(baseUrl(SignIn_API), header, json, MediaType.APPLICATION_JSON);
 
         // then
         actions.andExpect(MockMvcResultMatchers.status().isOk());
