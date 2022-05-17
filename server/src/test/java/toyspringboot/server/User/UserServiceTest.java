@@ -21,14 +21,12 @@ public class UserServiceTest extends ServiceTest {
         UserDto userDto = UserDto.builder()
                 .email(User_email)
                 .password(User_password)
-                .admin(User_admin)
-                .isDeleted(User_IsDeleted)
-                .createdDate(Create_Date)
-                .creator(Creator_Member)
                 .build();
 
+        String userToken = "testToken";
+
         // when
-        UserDto newUser = (UserDto) test(userDto, userService, "signUp");
+        UserDto newUser = (UserDto) test(userToken, userDto, userService, "signUp");
 
         // then
         assertEquals(userDto.getEmail(), newUser.getEmail());

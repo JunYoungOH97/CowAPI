@@ -17,11 +17,12 @@ import static org.springframework.http.HttpStatus.*;
 public class UserService {
     private final UserRepository userRepository;
 
-    public UserDto signUp(UserDto userDto) {
+    public UserDto signUp(String userToken, UserDto userDto) {
         if(userRepository.existsByEmail(userDto.getEmail())) {
             throw new ResponseStatusException(CONFLICT, "이미 가입되어 있는 유저입니다");
         }
-        User user = User.of(userDto);
+
+        User user = User.of(UserDto.setCreatedUser(userDto));
         return UserDto.of(userRepository.save(user));
     }
 
