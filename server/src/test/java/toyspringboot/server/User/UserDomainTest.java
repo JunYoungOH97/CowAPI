@@ -1,5 +1,6 @@
 package toyspringboot.server.User;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.UserRepository;
 import toyspringboot.server.TestModule.DomainTest;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,8 +27,10 @@ public class UserDomainTest extends DomainTest {
         User user = User.builder()
                 .email(User_email)
                 .password(User_password)
-                .nickname(User_nickname)
                 .admin(User_admin)
+                .isDeleted(false)
+                .createdDate(Create_Date)
+                .creator(Creator_Member)
                 .build();
 
         // when
@@ -52,16 +57,35 @@ public class UserDomainTest extends DomainTest {
     public void updateTest() throws Exception {
         // given
         UserDto userDto = UserDto.builder()
-                .nickname(User_nickname)
+                .admin(User_admin)
+                .password(User_password)
                 .build();
 
         // when
-        boolean success = (boolean) test(Exist_User_id, userDto, userRepository, "updateById");
+        boolean success = (boolean) test(Exist_User_email, userDto, userRepository, "updateByEmail");
 
         // then
-        User user = userRepository.findById(Exist_User_id).orElseThrow();
+        User user = userRepository.findByEmail(Exist_User_email).orElseThrow();
 
         assertTrue(success);
-        assertEquals(user.getNickname(), User_nickname);
+        assertEquals(user.getPassword(), User_password);
+    }
+
+    @Test
+    @DisplayName("[Domain] 사용자 삭제 테스트")
+    public void deleteTest() throws Exception {
+        // given
+        UserDto userDto = UserDto.builder()
+                .isDeleted(User_IsDeleted)
+                .build();
+
+        // when
+        boolean success = (boolean) test(Exist_User_email, userDto, userRepository, "updateByEmail");
+
+        // then
+        User user = userRepository.findByEmail(Exist_User_email).orElseThrow();
+
+        assertTrue(success);
+        assertEquals(user.getIsDeleted(), User_IsDeleted);
     }
 }
