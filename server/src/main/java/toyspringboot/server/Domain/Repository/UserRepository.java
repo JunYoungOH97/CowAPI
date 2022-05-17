@@ -13,13 +13,12 @@ import toyspringboot.server.Domain.Entity.User;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, String> {
     boolean existsByEmail(String email);
     Optional<User> findByEmail(String email);
 
-
-    default boolean updateById(Long id, UserDto userDto) {
-        User user = findById(id).orElseThrow();
+    default boolean updateByEmail(String email, UserDto userDto) {
+        User user = findByEmail(email).orElseThrow();
         user.setNotNull(userDto);
         return true;
     }
