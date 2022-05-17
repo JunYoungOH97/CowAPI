@@ -21,7 +21,7 @@ public class UserController {
             @ApiResponse(code = 409, message = "이미 가입되어 있는 이메일입니다."),
     })
     @PostMapping("/users/newUser")
-    public UserDto signUp(@RequestBody UserDto userDto) {
+    public UserDto signUp(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
         return userService.signUp(userDto);
     }
 
@@ -32,7 +32,7 @@ public class UserController {
             @ApiResponse(code = 404, message = "존재 하지 않는 사용자입니다.")
     })
     @PostMapping("/users/user")
-    public UserDto signIn(@RequestBody UserDto userDto) {
+    public UserDto signIn(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
         return userService.signIn(userDto);
     }
 
