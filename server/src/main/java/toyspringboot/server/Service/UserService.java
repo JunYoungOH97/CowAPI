@@ -32,9 +32,8 @@ public class UserService {
         return UserDto.of(foundUser);
     }
 
-
     public UserDto updateUser(String userToken, UserDto userDto) {
-        return UserDto.of(userRepository.updateByEmail("email", userDto));
+        return UserDto.of(userRepository.updateByEmail(userDto));
     }
 }
 

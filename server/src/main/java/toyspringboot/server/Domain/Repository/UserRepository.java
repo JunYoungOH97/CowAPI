@@ -17,8 +17,8 @@ public interface UserRepository extends JpaRepository<User, String> {
     boolean existsByEmail(String email);
     Optional<User> findByEmail(String email);
 
-    default User updateByEmail(String email, UserDto userDto) {
-        User user = findByEmail(email).orElseThrow();
+    default User updateByEmail(UserDto userDto) {
+        User user = findByEmail(userDto.getEmail()).orElseThrow();
         user.setNotNull(userDto);
         return user;
     }
