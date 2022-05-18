@@ -32,9 +32,9 @@ public class UserService {
         return UserDto.of(foundUser);
     }
 
-    
-//    public boolean updateUser(Long userId, UserDto userDto) {
-//        return userRepository.updateById(userId, userDto);
-//    }
+
+    public UserDto updateUser(String userToken, UserDto userDto) {
+        return UserDto.of(userRepository.updateByEmail("email", userDto));
+    }
 }
 

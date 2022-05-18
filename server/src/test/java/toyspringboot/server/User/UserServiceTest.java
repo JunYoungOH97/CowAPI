@@ -49,20 +49,20 @@ public class UserServiceTest extends ServiceTest {
         // then
         assertEquals(userDto.getEmail(), newUser.getEmail());
     }
-//
-//    @Test
-//    @DisplayName("[Service] 회원 정보 수정 테스트")
-//    public void updateUserTest() throws Exception {
-//        // given
-//        UserDto userDto = UserDto.builder()
-//                .nickname(User_nickname)
-//                .password(User_password)
-//                .build();
-//
-//        // when
-//        boolean isSuccess = (boolean) test(Exist_User_id, userDto, userService, "updateUser");
-//
-//        // then
-//        assertTrue(isSuccess);
-//    }
+
+    @Test
+    @DisplayName("[Service] 회원 정보 수정 테스트")
+    public void updateUserTest() throws Exception {
+        // given
+        UserDto userDto = UserDto.builder()
+                .email(Exist_User_email)
+                .password(User_password)
+                .build();
+
+        // when
+        UserDto updateUser = (UserDto) test(Exist_User_email, userDto, userService, "updateUser");
+
+        // then
+        assertEquals(updateUser.getPassword(), User_password);
+    }
 }
