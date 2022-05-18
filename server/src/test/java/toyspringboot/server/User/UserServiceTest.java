@@ -23,10 +23,8 @@ public class UserServiceTest extends ServiceTest {
                 .password(User_password)
                 .build();
 
-        String userToken = "testToken";
-
         // when
-        UserDto newUser = (UserDto) test(userToken, userDto, userService, "signUp");
+        UserDto newUser = (UserDto) test(userDto, userService, "signUp");
 
         // then
         assertEquals(userDto.getEmail(), newUser.getEmail());
@@ -41,10 +39,8 @@ public class UserServiceTest extends ServiceTest {
                 .password(Exist_User_password)
                 .build();
 
-        String userToken = "testToken";
-
         // when
-        UserDto newUser = (UserDto) test(userToken, userDto, userService, "signIn");
+        UserDto newUser = (UserDto) test(userDto, userService, "signIn");
 
         // then
         assertEquals(userDto.getEmail(), newUser.getEmail());
@@ -59,8 +55,10 @@ public class UserServiceTest extends ServiceTest {
                 .password(User_password)
                 .build();
 
+        String userToken = "testToken";
+
         // when
-        UserDto updateUser = (UserDto) test(Exist_User_email, userDto, userService, "updateUser");
+        UserDto updateUser = (UserDto) test(userToken, userDto, userService, "updateUser");
 
         // then
         assertEquals(updateUser.getPassword(), User_password);

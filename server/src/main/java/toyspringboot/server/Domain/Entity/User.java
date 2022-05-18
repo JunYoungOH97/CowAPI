@@ -9,8 +9,10 @@ import org.jetbrains.annotations.NotNull;
 import toyspringboot.server.Domain.Dto.UserDto;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,14 +72,14 @@ public class User {
                 .build();
     }
 
-    public void setNotNull(UserDto userDto) {
+    public void updateUser(UserDto userDto) {
         if(userDto.getPassword() != null) password = userDto.getPassword();
         if(userDto.getAdmin() != null) admin = userDto.getAdmin();
         if(userDto.getIsDeleted() != null) isDeleted = userDto.getIsDeleted();
         if(userDto.getCreatedDate() != null) createdDate = userDto.getCreatedDate();
-        if(userDto.getUpdatedDate() != null) updatedDate = userDto.getUpdatedDate();
+        if(userDto.getUpdatedDate() != null) updatedDate = Timestamp.valueOf(LocalDateTime.now());
         if(userDto.getDeletedDate() != null) deletedDate = userDto.getDeletedDate();
         if(userDto.getCreator() != null) creator = userDto.getCreator();
-        if(userDto.getUpdater() != null) updater = userDto.getUpdater();
+        if(userDto.getUpdater() != null) updater = "API";
     }
 }
