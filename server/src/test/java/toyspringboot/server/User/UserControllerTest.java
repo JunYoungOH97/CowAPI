@@ -48,23 +48,41 @@ public class UserControllerTest extends ControllerTest {
         // then
         actions.andExpect(MockMvcResultMatchers.status().isOk());
     }
-//
-//    @Test
-//    @DisplayName("[Controller] 사용자 정보 수정 테스트")
-//    public void updateUserTest() throws Exception {
-//        // given
-//        String json = getRequestJson(UserDto.builder()
-//                .nickname(User_nickname)
-//                .password(User_password)
-//                .build());
-//
-//        String header = Exist_User_id.toString();
-//
-//        // when
-//        ResultActions actions = putRequest(baseUrl(UpdateUser_API), header,json, MediaType.APPLICATION_JSON);
-//
-//        // then
-//        actions.andExpect(MockMvcResultMatchers.status().isOk());
-//    }
-//
+
+    @Test
+    @DisplayName("[Controller] 사용자 정보 수정 테스트")
+    public void updateUserTest() throws Exception {
+        // given
+        String json = getRequestJson(UserDto.builder()
+                .email(Exist_User_email)
+                .password(User_password)
+                .build());
+
+        String header = Exist_User_email;
+
+        // when
+        ResultActions actions = putRequest(baseUrl(UpdateUser_API), header, json, MediaType.APPLICATION_JSON);
+
+        // then
+        actions.andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    @DisplayName("[Controller] 사용자 삭제 테스트")
+    public void deleteUserTest() throws Exception {
+        // given
+        String json = getRequestJson(UserDto.builder()
+                .email(Exist_User_email)
+                .password(User_password)
+                .isDeleted(Exist_User_isDeleted)
+                .build());
+
+        String header = Exist_User_email;
+
+        // when
+        ResultActions actions = deleteRequest(baseUrl(DeleteUser_API), header, json, MediaType.APPLICATION_JSON);
+
+        // then
+        actions.andExpect(MockMvcResultMatchers.status().isOk());
+    }
 }

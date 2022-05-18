@@ -21,7 +21,7 @@ public class UserController {
             @ApiResponse(code = 409, message = "이미 가입되어 있는 이메일입니다."),
     })
     @PostMapping("/users/newUser")
-    public UserDto signUp(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
+    public UserDto signUp(@RequestBody UserDto userDto) {
         return userService.signUp(userDto);
     }
 
@@ -32,16 +32,28 @@ public class UserController {
             @ApiResponse(code = 404, message = "존재 하지 않는 사용자입니다.")
     })
     @PostMapping("/users/user")
-    public UserDto signIn(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
+    public UserDto signIn(@RequestBody UserDto userDto) {
         return userService.signIn(userDto);
     }
-//
-//    @ApiOperation(value = "회원 수정", notes = "기존 사용자의 정보를 수정하는 api 입니다.")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "success")
-//    })
-//    @PutMapping("/users/user")
-//    public boolean updateUser(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
-//        return userService.updateUser(Long.parseLong(userToken), userDto);
-//    }
+
+    @ApiOperation(value = "회원 수정", notes = "기존 사용자의 정보를 수정하는 api 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success"),
+            @ApiResponse(code = 404, message = "존재 하지 않는 사용자입니다.")
+    })
+    @PutMapping("/users/user")
+    public UserDto updateUser(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
+        return userService.updateUser(userToken, userDto);
+    }
+
+    @ApiOperation(value = "회원 삭제", notes = "기존 사용자를 삭제하는 api 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success"),
+            @ApiResponse(code = 404, message = "존재 하지 않는 사용자입니다.")
+    })
+    @DeleteMapping("/users/user")
+    public UserDto deleteUser(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
+        return userService.deleteUser(userToken, userDto);
+    }
+
 }
