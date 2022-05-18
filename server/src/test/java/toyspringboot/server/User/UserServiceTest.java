@@ -63,4 +63,22 @@ public class UserServiceTest extends ServiceTest {
         // then
         assertEquals(updateUser.getPassword(), User_password);
     }
+
+    @Test
+    @DisplayName("[Service] 회원 삭제 테스트")
+    public void deleteUserTest() throws Exception {
+        // given
+        UserDto userDto = UserDto.builder()
+                .email(Exist_User_email)
+                .isDeleted(User_IsDeleted)
+                .build();
+
+        String userToken = "testToken";
+
+        // when
+        UserDto updateUser = (UserDto) test(userToken, userDto, userService, "deleteUser");
+
+        // then
+        assertEquals(updateUser.getIsDeleted(), User_IsDeleted);
+    }
 }

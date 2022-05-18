@@ -38,5 +38,12 @@ public class UserService {
         }
         return UserDto.of(userRepository.updateByEmail(userDto));
     }
+
+    public UserDto deleteUser(String userToken, UserDto userDto) {
+        if(!userRepository.existsByEmail(userDto.getEmail())) {
+            throw new ResponseStatusException(NOT_FOUND, "존재 하지 않는 유저입니다.");
+        }
+        return UserDto.of(userRepository.deleteByEmail(userDto));
+    }
 }
 
