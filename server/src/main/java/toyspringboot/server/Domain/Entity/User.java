@@ -82,4 +82,10 @@ public class User {
         if(userDto.getCreator() != null) creator = userDto.getCreator();
         if(userDto.getUpdater() != null) updater = "API";
     }
+
+    public void deleteUser(UserDto userDto) {
+        if(userDto.getIsDeleted() != null) isDeleted = true;
+        if(userDto.getDeletedDate() != null) deletedDate = Timestamp.valueOf(LocalDateTime.now());
+        if(userDto.getUpdater() != null) updater = "API";
+    }
 }

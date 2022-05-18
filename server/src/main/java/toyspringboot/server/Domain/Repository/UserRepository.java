@@ -28,4 +28,8 @@ public interface UserRepository extends JpaRepository<User, String> {
         user.updateUser(((UserDto) userDto));
         return user;
     }
+
+    default User deleteByEmail(Object userDto) {
+        return User.of((UserDto) userDto);
+    }
 }
