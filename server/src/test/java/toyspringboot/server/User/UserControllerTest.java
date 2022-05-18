@@ -26,32 +26,28 @@ public class UserControllerTest extends ControllerTest {
                 .admin(User_admin)
                 .build());
 
-        String header = Exist_User_email.toString();
-
         // when
-        ResultActions actions = postRequest(baseUrl(SignUp_API), header, request, MediaType.APPLICATION_JSON);
+        ResultActions actions = postRequest(baseUrl(SignUp_API), request, MediaType.APPLICATION_JSON);
 
         // then
         actions.andExpect(MockMvcResultMatchers.status().isOk());
     }
-//
-//    @Test
-//    @DisplayName("[Controller] 로그인 테스트")
-//    public void signInTest() throws Exception {
-//        // given
-//        String json = getRequestJson(UserDto.builder()
-//                .email(Exist_User_email)
-//                .password(Exist_User_password)
-//                .build());
-//
-//        String header = Exist_User_id.toString();
-//
-//        // when
-//        ResultActions actions = postRequest(baseUrl(SignIn_API), header, json, MediaType.APPLICATION_JSON);
-//
-//        // then
-//        actions.andExpect(MockMvcResultMatchers.status().isOk());
-//    }
+
+    @Test
+    @DisplayName("[Controller] 로그인 테스트")
+    public void signInTest() throws Exception {
+        // given
+        String json = getRequestJson(UserDto.builder()
+                .email(Exist_User_email)
+                .password(Exist_User_password)
+                .build());
+
+        // when
+        ResultActions actions = postRequest(baseUrl(SignIn_API), json, MediaType.APPLICATION_JSON);
+
+        // then
+        actions.andExpect(MockMvcResultMatchers.status().isOk());
+    }
 //
 //    @Test
 //    @DisplayName("[Controller] 사용자 정보 수정 테스트")

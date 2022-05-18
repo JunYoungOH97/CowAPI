@@ -31,6 +31,12 @@ public class ControllerTest extends ServerApplicationTests {
                 .contentType(mediaType));
     }
 
+    public ResultActions postRequest(String api, String json, MediaType mediaType) throws Exception {
+        return mockMvc.perform(post(api)
+                .content(json)
+                .contentType(mediaType));
+    }
+
     public ResultActions putRequest(String api, String header, String json, MediaType mediaType) throws Exception {
         return mockMvc.perform(put(api)
                .header(HttpHeaders.AUTHORIZATION, header)
