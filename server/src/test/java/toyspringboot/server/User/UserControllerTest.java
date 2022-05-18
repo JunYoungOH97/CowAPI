@@ -1,40 +1,39 @@
-//package toyspringboot.server.User;
-//
-//import org.junit.jupiter.api.DisplayName;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.MediaType;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.test.web.servlet.ResultActions;
-//import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-//
-//import toyspringboot.server.Controller.UserController;
-//import toyspringboot.server.Domain.Dto.UserDto;
-//import toyspringboot.server.TestModule.ControllerTest;
-//
-//import static toyspringboot.server.User.UserTestConstants.*;
-//
-//public class UserControllerTest extends ControllerTest {
-//    @Test
-//    @DisplayName("[Controller] 회원가입 테스트")
-//    public void signUpTest() throws Exception {
-//        // given
-//        String request = getRequestJson(UserDto.builder()
-//                .email(User_email)
-//                .password(User_password)
-//                .nickname(User_nickname)
-//                .admin(User_admin)
-//                .build());
-//
-//        String header = Exist_User_id.toString();
-//
-//        // when
-//        ResultActions actions = postRequest(baseUrl(SignUp_API), header, request, MediaType.APPLICATION_JSON);
-//
-//        // then
-//        actions.andExpect(MockMvcResultMatchers.status().isOk());
-//    }
+package toyspringboot.server.User;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import toyspringboot.server.Controller.UserController;
+import toyspringboot.server.Domain.Dto.UserDto;
+import toyspringboot.server.TestModule.ControllerTest;
+
+import static toyspringboot.server.User.UserTestConstants.*;
+
+public class UserControllerTest extends ControllerTest {
+    @Test
+    @DisplayName("[Controller] 회원가입 테스트")
+    public void signUpTest() throws Exception {
+        // given
+        String request = getRequestJson(UserDto.builder()
+                .email(User_email)
+                .password(User_password)
+                .admin(User_admin)
+                .build());
+
+        String header = Exist_User_email.toString();
+
+        // when
+        ResultActions actions = postRequest(baseUrl(SignUp_API), header, request, MediaType.APPLICATION_JSON);
+
+        // then
+        actions.andExpect(MockMvcResultMatchers.status().isOk());
+    }
 //
 //    @Test
 //    @DisplayName("[Controller] 로그인 테스트")
@@ -72,4 +71,4 @@
 //        actions.andExpect(MockMvcResultMatchers.status().isOk());
 //    }
 //
-//}
+}
