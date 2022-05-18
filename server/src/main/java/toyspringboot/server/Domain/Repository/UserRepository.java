@@ -30,6 +30,11 @@ public interface UserRepository extends JpaRepository<User, String> {
     }
 
     default User deleteByEmail(Object userDto) {
-        return User.of((UserDto) userDto);
+        if(!(userDto instanceof UserDto)) {
+            throw new ResponseStatusException(BAD_REQUEST, "회원정보 삭제에 잘못된 정보 입니다.");
+        }
+        User user = findByEmail(((UserDto) userDto).getEmail()).orElseThrow();
+        user.deleteUser(((UserDto) userDto));
+        return user;
     }
 }
