@@ -3,9 +3,16 @@ package toyspringboot.server.Domain.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicUpdate;
+import org.jetbrains.annotations.NotNull;
 import toyspringboot.server.Domain.Dto.UserDto;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,45 +22,70 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@DynamicUpdate
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column
     private String email;
 
     @Column
+    @NotNull
     private String password;
 
     @Column
-    private String nickname;
+    @NotNull
+    private Boolean admin;
 
     @Column
-    private boolean admin;
+    @NotNull
+    private Boolean isDeleted;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    List<Notice> notices = new ArrayList<>();
+    @Column
+    @NotNull
+    private Timestamp createdDate;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    List<Answer> answers = new ArrayList<>();
+    @Column
+    private Timestamp updatedDate;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    List<QnA> QnAs = new ArrayList<>();
+    @Column
+    private Timestamp deletedDate;
+
+    @Column
+    @NotNull
+    private String creator;
+
+    @Column
+    private String updater;
+
+
 
     public static User of(UserDto userDto) {
         return User.builder()
-                .id(userDto.getId())
                 .email(userDto.getEmail())
                 .password(userDto.getPassword())
-                .nickname(userDto.getNickname())
-                .admin(userDto.isAdmin())
-                .notices(userDto.getNotices())
-                .answers(userDto.getAnswers())
-                .QnAs(userDto.getQnAs())
+                .admin(userDto.getAdmin())
+                .isDeleted(userDto.getIsDeleted())
+                .createdDate(userDto.getCreatedDate())
+                .updatedDate(userDto.getUpdatedDate())
+                .deletedDate(userDto.getDeletedDate())
+                .creator(userDto.getCreator())
+                .updater(userDto.getUpdater())
                 .build();
+    }
+
+    public void updateUser(UserDto userDto) {
+        if(userDto.getPassword() != null) password = userDto.getPassword();
+        if(userDto.getAdmin() != null) admin = userDto.getAdmin();
+        if(userDto.getIsDeleted() != null) isDeleted = userDto.getIsDeleted();
+        if(userDto.getCreatedDate() != null) createdDate = userDto.getCreatedDate();
+        if(userDto.getUpdatedDate() != null) updatedDate = Timestamp.valueOf(LocalDateTime.now());
+        if(userDto.getDeletedDate() != null) deletedDate = userDto.getDeletedDate();
+        if(userDto.getCreator() != null) creator = userDto.getCreator();
+        if(userDto.getUpdater() != null) updater = "API";
+    }
+
+    public void deleteUser(UserDto userDto) {
+        if(userDto.getIsDeleted() != null) isDeleted = true;
+        if(userDto.getDeletedDate() != null) deletedDate = Timestamp.valueOf(LocalDateTime.now());
+        if(userDto.getUpdater() != null) updater = "API";
     }
 }

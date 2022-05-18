@@ -21,8 +21,6 @@ public class UserServiceTest extends ServiceTest {
         UserDto userDto = UserDto.builder()
                 .email(User_email)
                 .password(User_password)
-                .nickname(User_nickname)
-                .admin(User_admin)
                 .build();
 
         // when
@@ -46,5 +44,41 @@ public class UserServiceTest extends ServiceTest {
 
         // then
         assertEquals(userDto.getEmail(), newUser.getEmail());
+    }
+
+    @Test
+    @DisplayName("[Service] 회원 정보 수정 테스트")
+    public void updateUserTest() throws Exception {
+        // given
+        UserDto userDto = UserDto.builder()
+                .email(Exist_User_email)
+                .password(User_password)
+                .build();
+
+        String userToken = "testToken";
+
+        // when
+        UserDto updateUser = (UserDto) test(userToken, userDto, userService, "updateUser");
+
+        // then
+        assertEquals(updateUser.getPassword(), User_password);
+    }
+
+    @Test
+    @DisplayName("[Service] 회원 삭제 테스트")
+    public void deleteUserTest() throws Exception {
+        // given
+        UserDto userDto = UserDto.builder()
+                .email(Exist_User_email)
+                .isDeleted(User_IsDeleted)
+                .build();
+
+        String userToken = "testToken";
+
+        // when
+        UserDto updateUser = (UserDto) test(userToken, userDto, userService, "deleteUser");
+
+        // then
+        assertEquals(updateUser.getIsDeleted(), User_IsDeleted);
     }
 }
