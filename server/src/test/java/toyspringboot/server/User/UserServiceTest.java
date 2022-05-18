@@ -31,22 +31,24 @@ public class UserServiceTest extends ServiceTest {
         // then
         assertEquals(userDto.getEmail(), newUser.getEmail());
     }
-//
-//    @Test
-//    @DisplayName("[Service] 로그인 테스트")
-//    public void signInTest() throws Exception {
-//        // given
-//        UserDto userDto = UserDto.builder()
-//                .email(Exist_User_email)
-//                .password(Exist_User_password)
-//                .build();
-//
-//        // when
-//        UserDto newUser = (UserDto) test(userDto, userService, "signIn");
-//
-//        // then
-//        assertEquals(userDto.getEmail(), newUser.getEmail());
-//    }
+
+    @Test
+    @DisplayName("[Service] 로그인 테스트")
+    public void signInTest() throws Exception {
+        // given
+        UserDto userDto = UserDto.builder()
+                .email(Exist_User_email)
+                .password(Exist_User_password)
+                .build();
+
+        String userToken = "testToken";
+
+        // when
+        UserDto newUser = (UserDto) test(userToken, userDto, userService, "signIn");
+
+        // then
+        assertEquals(userDto.getEmail(), newUser.getEmail());
+    }
 //
 //    @Test
 //    @DisplayName("[Service] 회원 정보 수정 테스트")

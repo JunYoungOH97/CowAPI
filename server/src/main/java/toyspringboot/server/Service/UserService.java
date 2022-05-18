@@ -26,12 +26,12 @@ public class UserService {
         return UserDto.of(userRepository.save(user));
     }
 
-//    public UserDto signIn(UserDto userDto) {
-//        User foundUser = userRepository.findByEmail(userDto.getEmail()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "없는 사용자 입니다."));
-//        if(!foundUser.getPassword().equals(userDto.getPassword())) throw new ResponseStatusException(BAD_REQUEST, "비밀번호가 틀렸습니다.");
-//        return UserDto.of(foundUser);
-//    }
-//
+    public UserDto signIn(String userToken, UserDto userDto) {
+        User foundUser = userRepository.findByEmail(userDto.getEmail()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "없는 사용자 입니다."));
+        if(!foundUser.getPassword().equals(userDto.getPassword())) throw new ResponseStatusException(BAD_REQUEST, "비밀번호가 틀렸습니다.");
+        return UserDto.of(foundUser);
+    }
+
 //    public boolean updateUser(Long userId, UserDto userDto) {
 //        return userRepository.updateById(userId, userDto);
 //    }
