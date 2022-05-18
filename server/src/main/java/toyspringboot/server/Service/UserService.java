@@ -17,7 +17,7 @@ import static org.springframework.http.HttpStatus.*;
 public class UserService {
     private final UserRepository userRepository;
 
-    public UserDto signUp(String userToken, UserDto userDto) {
+    public UserDto signUp(UserDto userDto) {
         if(userRepository.existsByEmail(userDto.getEmail())) {
             throw new ResponseStatusException(CONFLICT, "이미 가입되어 있는 유저입니다");
         }
@@ -26,14 +26,24 @@ public class UserService {
         return UserDto.of(userRepository.save(user));
     }
 
-//    public UserDto signIn(UserDto userDto) {
-//        User foundUser = userRepository.findByEmail(userDto.getEmail()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "없는 사용자 입니다."));
-//        if(!foundUser.getPassword().equals(userDto.getPassword())) throw new ResponseStatusException(BAD_REQUEST, "비밀번호가 틀렸습니다.");
-//        return UserDto.of(foundUser);
-//    }
-//
-//    public boolean updateUser(Long userId, UserDto userDto) {
-//        return userRepository.updateById(userId, userDto);
-//    }
+    public UserDto signIn(UserDto userDto) {
+        User foundUser = userRepository.findByEmail(userDto.getEmail()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다."));
+        if(!foundUser.getPassword().equals(userDto.getPassword())) throw new ResponseStatusException(BAD_REQUEST, "비밀번호가 틀렸습니다.");
+        return UserDto.of(foundUser);
+    }
+
+    public UserDto updateUser(String userToken, UserDto userDto) {
+        if(!userRepository.existsByEmail(userDto.getEmail())) {
+            throw new ResponseStatusException(NOT_FOUND, "존재 하지 않는 유저입니다.");
+        }
+        return UserDto.of(userRepository.updateByEmail(userDto));
+    }
+
+    public UserDto deleteUser(String userToken, UserDto userDto) {
+        if(!userRepository.existsByEmail(userDto.getEmail())) {
+            throw new ResponseStatusException(NOT_FOUND, "존재 하지 않는 유저입니다.");
+        }
+        return UserDto.of(userRepository.deleteByEmail(userDto));
+    }
 }
 

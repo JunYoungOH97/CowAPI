@@ -8,6 +8,7 @@ public class UserTestConstants {
     public static final String SignIn_API = "/users/user";
     public static final String SignUp_API = "/users/newUser";
     public static final String UpdateUser_API = "/users/user";
+    public static final String DeleteUser_API = "/users/user";
 
     // ---------- test information ----------
     public static final Timestamp Create_Date = Timestamp.valueOf(LocalDateTime.now());
