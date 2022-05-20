@@ -19,13 +19,4 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 public interface UserRepository extends JpaRepository<User, String> {
     boolean existsByEmail(String email);
     Optional<User> findByEmail(String email);
-
-    default User deleteByEmail(Object userDto) {
-        if(!(userDto instanceof UserDto)) {
-            throw new ResponseStatusException(BAD_REQUEST, "회원정보 삭제에 잘못된 정보 입니다.");
-        }
-        User user = findByEmail(((UserDto) userDto).getEmail()).orElseThrow();
-        user.deleteUser(((UserDto) userDto));
-        return user;
-    }
 }

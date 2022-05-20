@@ -74,17 +74,15 @@ public class UserDomainTest extends DomainTest {
     @DisplayName("[Domain] 사용자 삭제 테스트")
     public void deleteTest() throws Exception {
         // given
-        UserDto userDto = UserDto.builder()
-                .email(Exist_User_email)
-                .isDeleted(User_IsDeleted)
-                .build();
+        User user = userRepository.findByEmail(Exist_User_email).get();
 
         String userToken = "testToken";
 
         // when
-        User deletedUser = (User) test(userDto, userRepository, "deleteByEmail");
+//        User deletedUser = (User) test(userDto, userRepository, "deleteByEmail");
+        user.deleteUser();
 
         // then
-        assertEquals(deletedUser.getIsDeleted(), User_IsDeleted);
+        assertEquals(user.getIsDeleted(), User_IsDeleted);
     }
 }

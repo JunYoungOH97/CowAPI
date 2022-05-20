@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.web.server.ResponseStatusException;
 import toyspringboot.server.Domain.Dto.UserDto;
 
 import javax.persistence.*;
@@ -15,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Getter
 @Setter
@@ -81,9 +84,14 @@ public class User {
         if(userDto.getUpdater() != null) updater = "API";
     }
 
-    public void deleteUser(UserDto userDto) {
-        if(userDto.getIsDeleted() != null) isDeleted = true;
-        if(userDto.getDeletedDate() != null) deletedDate = Timestamp.valueOf(LocalDateTime.now());
-        if(userDto.getUpdater() != null) updater = "API";
+    public void deleteUser() {
+        if(isDeleted.equals(false)) {
+            isDeleted = true;
+            deletedDate = Timestamp.valueOf(LocalDateTime.now());
+            updater = "API";
+        }
+        else {
+            throw new ResponseStatusException(BAD_REQUEST, "이미 삭제된 유저 입니다.");
+        }
     }
 }
