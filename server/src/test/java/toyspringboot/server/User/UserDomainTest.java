@@ -1,6 +1,5 @@
 package toyspringboot.server.User;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +8,6 @@ import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.UserRepository;
 import toyspringboot.server.TestModule.DomainTest;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,33 +53,33 @@ public class UserDomainTest extends DomainTest {
     @DisplayName("[Domain] 사용자 수정 테스트")
     public void updateTest() throws Exception {
         // given
+        User user = userRepository.findByEmail(Exist_User_email).get();
+
         UserDto userDto = UserDto.builder()
                 .email(Exist_User_email)
                 .password(User_password)
                 .build();
 
         // when
-        User updatedUser = (User) test(userDto, userRepository, "updateByEmail");
+        user.updateUser(userDto);
 
         // then
-        assertEquals(updatedUser.getPassword(), User_password);
+        assertEquals(user.getPassword(), User_password);
     }
 
     @Test
     @DisplayName("[Domain] 사용자 삭제 테스트")
     public void deleteTest() throws Exception {
         // given
-        UserDto userDto = UserDto.builder()
-                .email(Exist_User_email)
-                .isDeleted(User_IsDeleted)
-                .build();
+        User user = userRepository.findByEmail(Exist_User_email).get();
 
         String userToken = "testToken";
 
         // when
-        User deletedUser = (User) test(userDto, userRepository, "deleteByEmail");
+//        User deletedUser = (User) test(userDto, userRepository, "deleteByEmail");
+        user.deleteUser();
 
         // then
-        assertEquals(deletedUser.getIsDeleted(), User_IsDeleted);
+        assertEquals(user.getIsDeleted(), User_IsDeleted);
     }
 }
