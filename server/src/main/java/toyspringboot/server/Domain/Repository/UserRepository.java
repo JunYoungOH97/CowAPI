@@ -20,13 +20,11 @@ public interface UserRepository extends JpaRepository<User, String> {
     boolean existsByEmail(String email);
     Optional<User> findByEmail(String email);
 
-    default User updateByEmail(Object userDto) {
-        if(!(userDto instanceof UserDto)) {
-            throw new ResponseStatusException(BAD_REQUEST, "회원정보 수정에 잘못된 정보 입니다.");
+    default User updateByEmail(Object user) {
+        if(!(user instanceof User)) {
+            throw new ResponseStatusException(BAD_REQUEST, "회원정보 삭제에 잘못된 정보 입니다.");
         }
-        User user = findByEmail(((UserDto) userDto).getEmail()).orElseThrow();
-        user.updateUser(((UserDto) userDto));
-        return user;
+        return (User) user;
     }
 
     default User deleteByEmail(Object userDto) {

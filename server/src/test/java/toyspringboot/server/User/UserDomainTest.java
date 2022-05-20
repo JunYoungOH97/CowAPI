@@ -56,13 +56,10 @@ public class UserDomainTest extends DomainTest {
     @DisplayName("[Domain] 사용자 수정 테스트")
     public void updateTest() throws Exception {
         // given
-        UserDto userDto = UserDto.builder()
-                .email(Exist_User_email)
-                .password(User_password)
-                .build();
+        User user = userRepository.findByEmail(Exist_User_email).get();
 
         // when
-        User updatedUser = (User) test(userDto, userRepository, "updateByEmail");
+        User updatedUser = (User) test(user, userRepository, "updateByEmail");
 
         // then
         assertEquals(updatedUser.getPassword(), User_password);
