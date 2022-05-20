@@ -1,9 +1,11 @@
 package toyspringboot.server.User;
 
+import toyspringboot.server.DefaultTestConstants;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-public class UserTestConstants {
+public class UserTestConstants extends DefaultTestConstants {
     // ---------- API ----------
     public static final String SignIn_API = "/users/user";
     public static final String SignUp_API = "/users/newUser";
@@ -11,9 +13,6 @@ public class UserTestConstants {
     public static final String DeleteUser_API = "/users/user";
 
     // ---------- test information ----------
-    public static final Timestamp Create_Date = Timestamp.valueOf(LocalDateTime.now());
-    public static final String Creator_Member = "Test Code";
-
     // 존재하지 않는 유저
     public static final String User_email = "testEmail@junyoung.com";
     public static final String User_password = "testPassword";

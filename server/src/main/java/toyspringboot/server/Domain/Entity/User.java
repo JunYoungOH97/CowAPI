@@ -59,6 +59,10 @@ public class User {
     @Column
     private String updater;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<QnA> QnAs = new ArrayList<>();
+
     public static User of(UserDto userDto) {
         return User.builder()
                 .email(userDto.getEmail())
