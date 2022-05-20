@@ -56,8 +56,6 @@ public class User {
     @Column
     private String updater;
 
-
-
     public static User of(UserDto userDto) {
         return User.builder()
                 .email(userDto.getEmail())

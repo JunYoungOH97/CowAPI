@@ -58,11 +58,16 @@ public class UserDomainTest extends DomainTest {
         // given
         User user = userRepository.findByEmail(Exist_User_email).get();
 
+        UserDto userDto = UserDto.builder()
+                .email(Exist_User_email)
+                .password(User_password)
+                .build();
+
         // when
-        User updatedUser = (User) test(user, userRepository, "updateByEmail");
+        user.updateUser(userDto);
 
         // then
-        assertEquals(updatedUser.getPassword(), User_password);
+        assertEquals(user.getPassword(), User_password);
     }
 
     @Test
