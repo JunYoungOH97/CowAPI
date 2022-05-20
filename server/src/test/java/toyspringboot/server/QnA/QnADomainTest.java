@@ -11,7 +11,10 @@ import toyspringboot.server.Domain.Repository.QnARepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
 import toyspringboot.server.TestModule.DomainTest;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static toyspringboot.server.QnA.QnATestConstants.*;
 import static toyspringboot.server.QnA.QnATestConstants.Create_Date;
 import static toyspringboot.server.QnA.QnATestConstants.Creator_Member;
@@ -44,5 +47,17 @@ public class QnADomainTest  extends DomainTest {
         // then
         assertEquals(qnA.getTitle(), newQnA.getTitle());
         assertEquals(user.getQnAs().get(QnA_Index).getId(), newQnA.getId());
+    }
+
+    @Test
+    @DisplayName("[Domain] QnA 조회 테스트")
+    public void updateTest() throws Exception {
+        // given
+        // when
+        Optional<QnA> foundQnA = (Optional<QnA>) test(Exist_QnA_id, qnARepository, "findById");
+
+        // then (expect, actual)
+        assertTrue(foundQnA.isPresent());
+        foundQnA.ifPresent(qnA -> assertEquals(Exist_QnA_id, qnA.getId()));
     }
 }
