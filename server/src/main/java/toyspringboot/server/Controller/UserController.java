@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Service.UserService;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+
 @Api(tags = {"사용자"})
 @RequestMapping(value = "/api/v1")
 @RestController
@@ -46,14 +48,15 @@ public class UserController {
         return userService.updateUser(userToken, userDto);
     }
 
-//    @ApiOperation(value = "회원 삭제", notes = "기존 사용자를 삭제하는 api 입니다.")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "success"),
-//            @ApiResponse(code = 404, message = "존재 하지 않는 사용자입니다.")
-//    })
-//    @DeleteMapping("/users/user")
-//    public UserDto deleteUser(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
-//        return userService.deleteUser(userToken, userDto);
-//    }
+    @ApiOperation(value = "회원 삭제", notes = "기존 사용자를 삭제하는 api 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success"),
+            @ApiResponse(code = 400, message = "이미 삭제되어 있는 사용자입니다."),
+            @ApiResponse(code = 404, message = "존재 하지 않는 사용자입니다.")
+    })
+    @DeleteMapping("/users/user")
+    public UserDto deleteUser(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
+        return userService.deleteUser(userToken, userDto);
+    }
 
 }
