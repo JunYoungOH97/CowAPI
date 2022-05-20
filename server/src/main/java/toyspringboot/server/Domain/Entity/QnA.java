@@ -50,7 +50,7 @@ public class QnA {
     private String updater;
 
     @ManyToOne
-    @JoinColumn(name = "email")
+    @JoinColumn(name = "User_email")
     private User user;
 
 }

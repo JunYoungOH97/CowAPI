@@ -8,6 +8,7 @@ import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.QnARepository;
+import toyspringboot.server.Domain.Repository.UserRepository;
 import toyspringboot.server.TestModule.DomainTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,26 +21,21 @@ public class QnADomainTest  extends DomainTest {
     @Autowired
     private QnARepository qnARepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Test
     @DisplayName("[Domain] QnA 생성 테스트")
     public void createTest() throws Exception {
         // given
-        UserDto userDto = UserDto.builder()
-                .email(Exist_User_email)
-                .password(Exist_User_password)
-                .admin(Exist_User_admin)
-                .isDeleted(Exist_User_isDeleted)
-                .createdDate(Create_Date)
-                .creator(Creator_Member)
-                .build();
-
+        User user = userRepository.findByEmail(Exist_User_email).get();
 
         QnA qnA = QnA.builder()
                 .title(QnA_title)
                 .isDeleted(QnA_isDeleted)
                 .createdDate(Create_Date)
                 .creator(Creator_Member)
-                .user(User.of(userDto))
+                .user(user)
                 .build();
 
         // when
@@ -47,5 +43,6 @@ public class QnADomainTest  extends DomainTest {
 
         // then
         assertEquals(qnA.getTitle(), newQnA.getTitle());
+        assertEquals(user.getQnAs().get(QnA_Index).getId(), newQnA.getId());
     }
 }
