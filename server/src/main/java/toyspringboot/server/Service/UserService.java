@@ -39,10 +39,9 @@ public class UserService {
     }
 
     public UserDto deleteUser(String userToken, UserDto userDto) {
-        if(!userRepository.existsByEmail(userDto.getEmail())) {
-            throw new ResponseStatusException(NOT_FOUND, "존재 하지 않는 유저입니다.");
-        }
-        return UserDto.of(userRepository.deleteByEmail(userDto));
+        User user = userRepository.findByEmail(userDto.getEmail()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재 하지 않는 유저입니다."));
+        user.deleteUser();
+        return UserDto.of(user);
     }
 }
 
