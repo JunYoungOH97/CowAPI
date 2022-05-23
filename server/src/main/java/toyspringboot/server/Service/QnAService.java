@@ -35,6 +35,9 @@ public class QnAService {
 
     public QnADto updateQnA(String userToken, QnADto qnADto) {
         UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
-        return qnADto;
+        QnA qnA = qnARepository.findById(qnADto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다."));
+        if(qnA.getIsDeleted().equals(true)) throw new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다.");
+        qnA.updateQnA(qnADto);
+        return QnADto.of(qnA);
     }
 }
