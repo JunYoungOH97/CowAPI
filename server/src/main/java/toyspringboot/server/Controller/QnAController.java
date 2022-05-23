@@ -40,7 +40,18 @@ public class QnAController {
     @GetMapping("/QnAs/{QnAId}")
     public QnADto readQnA(@RequestHeader("Authorization") String userToken,
                           @PathVariable(value = "QnAId") Long qnAId) {
-        System.out.println("userToken = " + userToken + ", qnAId = " + qnAId.toString());
         return qnAService.readQnA(userToken, qnAId);
+    }
+
+    @ApiOperation(value = "QnA 수정", notes = "QnA 게시글 수정 API 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success"),
+            @ApiResponse(code = 403, message = "접근 권한이 없습니다."),
+            @ApiResponse(code = 404, message = "존재하지 않는 QnA 입니다.")
+    })
+    @PutMapping("/QnAs/QnA")
+    public QnADto readQnA(@RequestHeader("Authorization") String userToken,
+                          @RequestBody QnADto qnADto) {
+        return qnAService.updateQnA(userToken, qnADto);
     }
 }

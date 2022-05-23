@@ -60,7 +60,7 @@ public class QnAControllerTest extends ControllerTest {
         String header = Exist_User_email;
 
         // when
-        ResultActions actions = getRequest(baseUrl(QnA_update_API), header, MediaType.APPLICATION_JSON);
+        ResultActions actions = putRequest(baseUrl(QnA_update_API), header, request, MediaType.APPLICATION_JSON);
 
         // then
         actions.andExpect(MockMvcResultMatchers.status().isOk());
