@@ -28,8 +28,8 @@ public class QnAService {
         return QnADto.of(qnARepository.save(qnA));
     }
 
-    public QnADto readQnA(QnADto qnADto) {
-        QnA qnA = qnARepository.findById(qnADto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다."));
+    public QnADto readQnA(Long qnAId) {
+        QnA qnA = qnARepository.findById(qnAId).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다."));
         return QnADto.of(qnA);
     }
 

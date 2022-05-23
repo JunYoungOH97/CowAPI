@@ -45,10 +45,8 @@ public class QnAServiceTest extends ServiceTest {
     @DisplayName("[Service] QnA 조회 테스트")
     public void readTest() {
         // given
-        QnADto qnADto = QnADto.of(qnARepository.findById(Exist_QnA_id).get());
-
         // when
-        QnADto foundQnA = qnAService.readQnA(qnADto);
+        QnADto foundQnA = qnAService.readQnA(Exist_QnA_id);
 
         // then
         assertEquals(Exist_QnA_title, foundQnA.getTitle());

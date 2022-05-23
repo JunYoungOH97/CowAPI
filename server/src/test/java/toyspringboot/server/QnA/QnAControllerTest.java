@@ -37,15 +37,10 @@ public class QnAControllerTest extends ControllerTest {
     @DisplayName("[Controller] QnA 조회 테스트")
     public void readTest() throws Exception {
         // given
-        String request = getRequestJson(QnADto.builder()
-                .id(Exist_QnA_id)
-                .build()
-        );
-
         String header = Exist_User_email;
 
         // when
-        ResultActions actions = postRequest(baseUrl(QnA_read_API), header, request, MediaType.APPLICATION_JSON);
+        ResultActions actions = getRequest(baseUrl(QnA_read_API), header, MediaType.APPLICATION_JSON);
 
         // then
         actions.andExpect(MockMvcResultMatchers.status().isOk());
