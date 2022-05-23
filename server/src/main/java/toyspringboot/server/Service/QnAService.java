@@ -42,7 +42,7 @@ public class QnAService {
     }
 
     public QnADto deleteQnA(String userToken, QnADto qnADto) {
-        UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
+        UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(FORBIDDEN, "삭제 권한이 없습니다.")));
         QnA qnA = qnARepository.findById(qnADto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다."));
         if(qnA.getIsDeleted().equals(true)) throw new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다.");
         qnA.deleteQnA();

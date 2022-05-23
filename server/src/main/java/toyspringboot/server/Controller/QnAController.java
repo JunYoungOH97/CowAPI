@@ -54,4 +54,17 @@ public class QnAController {
                           @RequestBody QnADto qnADto) {
         return qnAService.updateQnA(userToken, qnADto);
     }
+
+
+    @ApiOperation(value = "QnA 삭제", notes = "QnA 게시글 삭제 API 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success"),
+            @ApiResponse(code = 403, message = "삭제 권한이 없습니다."),
+            @ApiResponse(code = 404, message = "존재하지 않는 QnA 입니다.")
+    })
+    @DeleteMapping("/QnAs/QnA")
+    public QnADto deleteQnA(@RequestHeader("Authorization") String userToken,
+                          @RequestBody QnADto qnADto) {
+        return qnAService.deleteQnA(userToken, qnADto);
+    }
 }
