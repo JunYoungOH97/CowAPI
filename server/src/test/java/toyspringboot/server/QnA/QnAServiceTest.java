@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import toyspringboot.server.Domain.Dto.QnADto;
+import toyspringboot.server.Domain.Dto.QnAListDto;
 import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Entity.User;
@@ -92,13 +93,13 @@ public class QnAServiceTest extends ServiceTest {
     public void searchTest() {
         // given
         // when
-        List<QnADto> qnADtoList = qnAService.searchQnA(QnA_search_query);
+        QnAListDto qnAListDto = qnAService.searchQnA(QnA_search_query);
 
         // then
         boolean isContain = true;
         boolean isDeleted = false;
 
-        for(QnADto foundQnADto : qnADtoList) {
+        for(QnADto foundQnADto : qnAListDto.getQnADtoList()) {
             if (!foundQnADto.getTitle().contains(QnA_search_query) && !foundQnADto.getContent().contains(QnA_search_query)) {
                 isContain = false;
                 break;
@@ -119,7 +120,8 @@ public class QnAServiceTest extends ServiceTest {
         // given
 
         // when
-        List<QnADto> qnADtoList = qnAService.pageQnA(QnA_Page);
+        QnAListDto qnAListDto = qnAService.pageQnA(QnA_Page);
+        List<QnADto> qnADtoList = qnAListDto.getQnADtoList();
 
         // then
         boolean isCnt = true;

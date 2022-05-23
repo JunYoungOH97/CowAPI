@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import toyspringboot.server.Domain.Dto.QnADto;
+import toyspringboot.server.Domain.Dto.QnAListDto;
 import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Repository.QnARepository;
@@ -53,7 +54,7 @@ public class QnAService {
         return QnADto.of(qnA);
     }
 
-    public List<QnADto> searchQnA(String query) {
+    public QnAListDto searchQnA(String query) {
         List<QnA> qnAList = qnARepository.searchByQuery(query, 5L);
         Iterator<QnA> iter = qnAList.listIterator();
 
@@ -61,10 +62,10 @@ public class QnAService {
         while(iter.hasNext()) {
             qnADtoList.add(QnADto.of(iter.next()));
         }
-        return qnADtoList;
+        return QnAListDto.of(qnADtoList);
     }
 
-    public List<QnADto> pageQnA(Long pageId) {
+    public QnAListDto pageQnA(Long pageId) {
         Long startQnAIndex = (pageId - 1L) * 5L;
         List<QnA> qnAList = qnARepository.findByPage(startQnAIndex, 5L);
         Iterator<QnA> iter = qnAList.listIterator();
@@ -73,6 +74,6 @@ public class QnAService {
         while(iter.hasNext()) {
             qnADtoList.add(QnADto.of(iter.next()));
         }
-        return qnADtoList;
+        return QnAListDto.of(qnADtoList);
     }
 }
