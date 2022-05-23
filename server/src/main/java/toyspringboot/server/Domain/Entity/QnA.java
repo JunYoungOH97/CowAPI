@@ -41,6 +41,7 @@ public class QnA {
     private Timestamp createdDate;
 
     @Column
+    @NotNull
     private Timestamp updatedDate;
 
     @Column

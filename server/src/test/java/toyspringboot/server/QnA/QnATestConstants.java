@@ -17,6 +17,7 @@ public class QnATestConstants extends DefaultTestConstants {
 
     // ---------- test information ----------
     public static final String QnA_search_query = "공지";
+    public static final Long QnA_Page = 1L;
 
     // 존재하지 않는 QnA
     public static final Long QnA_id = 2L;

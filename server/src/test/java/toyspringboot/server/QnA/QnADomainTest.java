@@ -12,8 +12,7 @@ import toyspringboot.server.TestModule.DomainTest;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static toyspringboot.server.QnA.QnATestConstants.*;
 import static toyspringboot.server.QnA.QnATestConstants.Create_Date;
 import static toyspringboot.server.QnA.QnATestConstants.Creator_Member;
@@ -68,17 +67,48 @@ public class QnADomainTest  extends DomainTest {
         List<QnA> qnAList =  qnARepository.searchByQuery(QnA_search_query);
 
         // then
-        boolean flag = true;
+        boolean isContain = true;
+        boolean isDeleted = false;
         for(QnA foundQnA : qnAList) {
             if (!foundQnA.getTitle().contains(QnA_search_query) &&
-                !foundQnA.getContent().contains(QnA_search_query) &&
-                !foundQnA.getIsDeleted().equals(true)) {
-
-                flag = false;
+                !foundQnA.getContent().contains(QnA_search_query)) {
+                isContain = false;
+                break;
+            }
+            if(foundQnA.getIsDeleted().equals(true)) {
+                isDeleted = true;
                 break;
             }
         }
 
-        assertTrue(flag);
+        assertTrue(isContain);
+        assertFalse(isDeleted);
     }
+//
+//    @Test
+//    @DisplayName("[Domain] QnA 페이지 네이션")
+//    public void QnAPageTest() {
+//        // given
+//
+//        // when
+//        List<QnA> qnAList = qnARepository.findByPage(QnA_Page);
+//
+//        // then
+//        boolean isCnt = true;
+//        boolean isOrdered = true;
+//
+//        if(qnAList.size() > 5) {
+//            isCnt = false;
+//        }
+//
+//        for(int i = 0; i < qnAList.size() - 1; i++) {
+//            if(qnAList.get(i).getUpdatedDate().toLocalDateTime().isAfter(qnAList.get(i + 1).getUpdatedDate().toLocalDateTime())) {
+//                isOrdered = false;
+//                break;
+//            }
+//        }
+//
+//        assertTrue(isCnt);
+//        assertTrue(isOrdered);
+//    }
 }
