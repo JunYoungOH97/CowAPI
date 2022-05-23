@@ -75,8 +75,8 @@ public class QnAController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "success")
     })
-    @GetMapping("/QnAs")
-    public QnAListDto searchQnA(@PathVariable(value = "query") String query) {
+    @GetMapping("/QnAs/QnA")
+    public QnAListDto searchQnA(@RequestParam(value = "query") String query) {
         System.out.println("query = " + query);
         return qnAService.searchQnA(query);
     }
