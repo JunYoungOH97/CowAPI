@@ -80,7 +80,18 @@ public class QnAControllerTest extends ControllerTest {
         String header = Exist_User_email;
 
         // when
-        ResultActions actions = deleteRequest(baseUrl(QnA_update_API), header, request, MediaType.APPLICATION_JSON);
+        ResultActions actions = deleteRequest(baseUrl(QnA_delete_API), header, request, MediaType.APPLICATION_JSON);
+
+        // then
+        actions.andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    @DisplayName("[Controller] QnA 검색 테스트")
+    public void searchTest() throws Exception {
+        // given
+        // when
+        ResultActions actions = getRequest(baseUrl(QnA_Query_API), MediaType.APPLICATION_JSON);
 
         // then
         actions.andExpect(MockMvcResultMatchers.status().isOk());
