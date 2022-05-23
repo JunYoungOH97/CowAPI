@@ -80,7 +80,14 @@ public class QnA {
         if(qnADto.getDeletedDate() != null) deletedDate = qnADto.getDeletedDate();
         if(qnADto.getCreator() != null) creator = qnADto.getCreator();
         if(qnADto.getUserDto() != null) user = User.of(qnADto.getUserDto());
+
         updatedDate = Timestamp.valueOf(LocalDateTime.now());
+        updater = "API";
+    }
+
+    public void deleteQnA() {
+        isDeleted = true;
+        deletedDate = Timestamp.valueOf(LocalDateTime.now());
         updater = "API";
     }
 
