@@ -62,7 +62,17 @@ public class QnAService {
             qnADtoList.add(QnADto.of(iter.next()));
         }
         return qnADtoList;
+    }
 
+    public List<QnADto> pageQnA(Long pageId) {
+        Long startQnAIndex = (pageId - 1L) * 5L;
+        List<QnA> qnAList = qnARepository.findByPage(startQnAIndex, 5L);
+        Iterator<QnA> iter = qnAList.listIterator();
 
+        List<QnADto> qnADtoList = new ArrayList<>();
+        while(iter.hasNext()) {
+            qnADtoList.add(QnADto.of(iter.next()));
+        }
+        return qnADtoList;
     }
 }
