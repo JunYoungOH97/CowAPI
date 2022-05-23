@@ -11,8 +11,7 @@ import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Repository.QnARepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +27,8 @@ public class QnAService {
         return QnADto.of(qnARepository.save(qnA));
     }
 
-    public QnADto readQnA(Long qnAId) {
+    public QnADto readQnA(String userToken, Long qnAId) {
+        UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(FORBIDDEN, "접근 권한이 없습니다.")));
         QnA qnA = qnARepository.findById(qnAId).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다."));
         return QnADto.of(qnA);
     }

@@ -31,13 +31,16 @@ public class QnAController {
     }
 
 
-//    @ApiOperation(value = "QnA 조회", notes = "QnA 게시글 조회 API 입니다.")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "success"),
-//            @ApiResponse(code = 404, message = "존재하지 않는 사용자 입니다."),
-//    })
-//    @PostMapping("/QnAs/{QnAId)")
-//    public QnADto readQnA(@PathVariable(value = "QnAId") Long qnAId) {
-//        return qnAService.readQnA(qnAId);
-//    }
+    @ApiOperation(value = "QnA 조회", notes = "QnA 게시글 조회 API 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success"),
+            @ApiResponse(code = 403, message = "접근 권한이 없습니다."),
+            @ApiResponse(code = 404, message = "존재하지 않는 사용자 입니다.")
+    })
+    @GetMapping("/QnAs/{QnAId}")
+    public QnADto readQnA(@RequestHeader("Authorization") String userToken,
+                          @PathVariable(value = "QnAId") Long qnAId) {
+        System.out.println("userToken = " + userToken + ", qnAId = " + qnAId.toString());
+        return qnAService.readQnA(userToken, qnAId);
+    }
 }

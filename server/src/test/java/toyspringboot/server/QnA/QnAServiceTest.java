@@ -46,7 +46,7 @@ public class QnAServiceTest extends ServiceTest {
     public void readTest() {
         // given
         // when
-        QnADto foundQnA = qnAService.readQnA(Exist_QnA_id);
+        QnADto foundQnA = qnAService.readQnA(Exist_User_email, Exist_QnA_id);
 
         // then
         assertEquals(Exist_QnA_title, foundQnA.getTitle());
