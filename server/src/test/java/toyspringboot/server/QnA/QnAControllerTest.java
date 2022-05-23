@@ -96,4 +96,16 @@ public class QnAControllerTest extends ControllerTest {
         // then
         actions.andExpect(MockMvcResultMatchers.status().isOk());
     }
+
+    @Test
+    @DisplayName("[Controller] QnA page 테스트")
+    public void pageQnA() throws Exception {
+        // given
+
+        // when
+        ResultActions actions = getRequest(baseUrl(QnA_Page_API), MediaType.APPLICATION_JSON);
+
+        // then
+        actions.andExpect(MockMvcResultMatchers.status().isOk());
+    }
 }
