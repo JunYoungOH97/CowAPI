@@ -113,4 +113,36 @@ public class QnAServiceTest extends ServiceTest {
         assertFalse(isDeleted);
     }
 
+    @Test
+    @DisplayName("[Service] QnA page")
+    public void QnAPageTest() {
+        // given
+
+        // when
+        List<QnADto> qnADtoList = qnAService.pageQnA(QnA_Page);
+
+        // then
+        boolean isCnt = true;
+        boolean isOrdered = true;
+        boolean isDeleted = false;
+
+        if(qnADtoList.size() > QnA_Page_cnt) {
+            isCnt = false;
+        }
+
+        for(int i = 0; i < qnADtoList.size() - 1; i++) {
+            if(qnADtoList.get(i).getUpdatedDate().toLocalDateTime().isAfter(qnADtoList.get(i + 1).getUpdatedDate().toLocalDateTime())) {
+                isOrdered = false;
+                break;
+            }
+            if(qnADtoList.get(i).getIsDeleted()) {
+                isDeleted = true;
+                break;
+            }
+        }
+
+        assertTrue(isCnt);
+        assertTrue(isOrdered);
+        assertFalse(isDeleted);
+    }
 }

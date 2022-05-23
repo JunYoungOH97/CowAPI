@@ -106,7 +106,7 @@ public class QnADomainTest  extends DomainTest {
         boolean isOrdered = true;
         boolean isDeleted = false;
 
-        if(qnAList.size() > 5) {
+        if(qnAList.size() > QnA_Page_cnt) {
             isCnt = false;
         }
 
