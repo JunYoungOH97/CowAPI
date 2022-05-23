@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import toyspringboot.server.Domain.Dto.QnADto;
+import toyspringboot.server.Domain.Dto.QnAListDto;
 import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Entity.User;
@@ -12,8 +13,9 @@ import toyspringboot.server.Service.QnAService;
 import toyspringboot.server.Service.UserService;
 import toyspringboot.server.TestModule.ServiceTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static toyspringboot.server.User.UserTestConstants.*;
 
 import static toyspringboot.server.QnA.QnATestConstants.*;
@@ -86,4 +88,63 @@ public class QnAServiceTest extends ServiceTest {
         assertTrue(qnA.getIsDeleted());
     }
 
+    @Test
+    @DisplayName("[Service] QnA 검색 테스트")
+    public void searchTest() {
+        // given
+        // when
+        QnAListDto qnAListDto = qnAService.searchQnA(QnA_search_query);
+
+        // then
+        boolean isContain = true;
+        boolean isDeleted = false;
+
+        for(QnADto foundQnADto : qnAListDto.getQnADtoList()) {
+            if (!foundQnADto.getTitle().contains(QnA_search_query) && !foundQnADto.getContent().contains(QnA_search_query)) {
+                isContain = false;
+                break;
+            }
+            if(foundQnADto.getIsDeleted().equals(true)) {
+                isDeleted = true;
+                break;
+            }
+        }
+
+        assertTrue(isContain);
+        assertFalse(isDeleted);
+    }
+
+    @Test
+    @DisplayName("[Service] QnA page")
+    public void QnAPageTest() {
+        // given
+
+        // when
+        QnAListDto qnAListDto = qnAService.pageQnA(QnA_Page);
+        List<QnADto> qnADtoList = qnAListDto.getQnADtoList();
+
+        // then
+        boolean isCnt = true;
+        boolean isOrdered = true;
+        boolean isDeleted = false;
+
+        if(qnADtoList.size() > QnA_Page_cnt) {
+            isCnt = false;
+        }
+
+        for(int i = 0; i < qnADtoList.size() - 1; i++) {
+            if(qnADtoList.get(i).getUpdatedDate().toLocalDateTime().isAfter(qnADtoList.get(i + 1).getUpdatedDate().toLocalDateTime())) {
+                isOrdered = false;
+                break;
+            }
+            if(qnADtoList.get(i).getIsDeleted()) {
+                isDeleted = true;
+                break;
+            }
+        }
+
+        assertTrue(isCnt);
+        assertTrue(isOrdered);
+        assertFalse(isDeleted);
+    }
 }

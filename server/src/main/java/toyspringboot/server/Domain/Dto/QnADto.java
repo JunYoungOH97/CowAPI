@@ -29,9 +29,12 @@ public class QnADto {
 
     public void setCreateQnA(UserDto userDto) {
         this.setIsDeleted(false);
-        this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
         this.setCreator("API");
         this.setUserDto(userDto);
+
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+        this.setCreatedDate(timestamp);
+        this.setUpdatedDate(timestamp);
     }
 
     public static QnADto of(QnA qnA) {

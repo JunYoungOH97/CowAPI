@@ -6,10 +6,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import toyspringboot.server.Domain.Dto.QnADto;
+import toyspringboot.server.Domain.Dto.QnAListDto;
 import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Repository.QnARepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -47,5 +52,28 @@ public class QnAService {
         if(qnA.getIsDeleted().equals(true)) throw new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다.");
         qnA.deleteQnA();
         return QnADto.of(qnA);
+    }
+
+    public QnAListDto searchQnA(String query) {
+        List<QnA> qnAList = qnARepository.searchByQuery(query, 5L);
+        Iterator<QnA> iter = qnAList.listIterator();
+
+        List<QnADto> qnADtoList = new ArrayList<>();
+        while(iter.hasNext()) {
+            qnADtoList.add(QnADto.of(iter.next()));
+        }
+        return QnAListDto.of(qnADtoList);
+    }
+
+    public QnAListDto pageQnA(Long pageId) {
+        Long startQnAIndex = (pageId - 1L) * 5L;
+        List<QnA> qnAList = qnARepository.findByPage(startQnAIndex, 5L);
+        Iterator<QnA> iter = qnAList.listIterator();
+
+        List<QnADto> qnADtoList = new ArrayList<>();
+        while(iter.hasNext()) {
+            qnADtoList.add(QnADto.of(iter.next()));
+        }
+        return QnAListDto.of(qnADtoList);
     }
 }

@@ -8,10 +8,13 @@ import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import toyspringboot.server.Domain.Dto.QnADto;
+import toyspringboot.server.Domain.Dto.QnAListDto;
 import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Service.QnAService;
 import toyspringboot.server.Service.UserService;
+
+import java.util.List;
 
 @Api(tags = {"QnA 게시판"})
 @RequestMapping(value = "/api/v1")
@@ -66,5 +69,23 @@ public class QnAController {
     public QnADto deleteQnA(@RequestHeader("Authorization") String userToken,
                           @RequestBody QnADto qnADto) {
         return qnAService.deleteQnA(userToken, qnADto);
+    }
+
+    @ApiOperation(value = "QnA 검색", notes = "QnA 게시글 (제목, 내용) 검색 API 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success")
+    })
+    @GetMapping("/QnAs/QnA/search")
+    public QnAListDto searchQnA(@RequestParam(value = "query") String query) {
+        return qnAService.searchQnA(query);
+    }
+
+    @ApiOperation(value = "QnA 리스트 페이지", notes = "QnA 페이지별 리스트 API 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success")
+    })
+    @GetMapping("/QnAs/QnA/page")
+    public QnAListDto QnAPage(@RequestParam(value = "page") Long page) {
+        return qnAService.pageQnA(page);
     }
 }

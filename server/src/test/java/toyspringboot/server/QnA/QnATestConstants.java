@@ -12,10 +12,16 @@ public class QnATestConstants extends DefaultTestConstants {
     public static final String QnA_update_API = "/QnAs/QnA";
     public static final String QnA_delete_API = "/QnAs/QnA";
 
-    public static final String QnA_List_API = "/QnAs/page/1";
-    public static final String QnA_Query_API = "/QnAs/공지";
+    public static final String QnA_Page_API = "/QnAs/QnA/page?page=1";
+    public static final String QnA_Query_API = "/QnAs/QnA/search?query=공지";
 
     // ---------- test information ----------
+    public static final String QnA_search_query = "공지";
+    public static final Long QnA_search_cnt = 5L;
+
+    public static final Long QnA_Page = 1L;
+    public static final Long QnA_Page_cnt = 5L;
+
     // 존재하지 않는 QnA
     public static final Long QnA_id = 2L;
     public static final String QnA_user = "test@junyoung.com";

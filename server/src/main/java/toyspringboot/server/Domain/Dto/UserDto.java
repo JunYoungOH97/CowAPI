@@ -26,8 +26,11 @@ public class UserDto {
     public void setCreatedUser() {
         this.setAdmin(false);
         this.setIsDeleted(false);
-        this.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
         this.setCreator("API");
+
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+        this.setCreatedDate(timestamp);
+        this.setUpdatedDate(timestamp);
     }
 
     public static UserDto of(User userEntity) {
