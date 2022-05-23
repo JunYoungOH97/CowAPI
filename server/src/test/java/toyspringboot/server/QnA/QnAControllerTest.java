@@ -45,4 +45,24 @@ public class QnAControllerTest extends ControllerTest {
         // then
         actions.andExpect(MockMvcResultMatchers.status().isOk());
     }
+
+    @Test
+    @DisplayName("[Controller] QnA 수정 테스트")
+    public void updateTest() throws Exception {
+        // given
+        String request = getRequestJson(QnADto.builder()
+                .id(Exist_QnA_id)
+                .title(QnA_title)
+                .content(QnA_content)
+                .build()
+        );
+
+        String header = Exist_User_email;
+
+        // when
+        ResultActions actions = getRequest(baseUrl(QnA_update_API), header, MediaType.APPLICATION_JSON);
+
+        // then
+        actions.andExpect(MockMvcResultMatchers.status().isOk());
+    }
 }
