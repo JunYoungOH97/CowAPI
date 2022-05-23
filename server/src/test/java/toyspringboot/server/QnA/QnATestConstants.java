@@ -12,8 +12,8 @@ public class QnATestConstants extends DefaultTestConstants {
     public static final String QnA_update_API = "/QnAs/QnA";
     public static final String QnA_delete_API = "/QnAs/QnA";
 
-    public static final String QnA_Page_API = "/QnAs/page/1";
-    public static final String QnA_Query_API = "/QnAs/QnA?query=공지";
+    public static final String QnA_Page_API = "/QnAs/QnA/page?page=1";
+    public static final String QnA_Query_API = "/QnAs/QnA/search?query=공지";
 
     // ---------- test information ----------
     public static final String QnA_search_query = "공지";

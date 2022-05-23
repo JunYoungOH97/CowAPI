@@ -75,9 +75,17 @@ public class QnAController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "success")
     })
-    @GetMapping("/QnAs/QnA")
+    @GetMapping("/QnAs/QnA/search")
     public QnAListDto searchQnA(@RequestParam(value = "query") String query) {
-        System.out.println("query = " + query);
         return qnAService.searchQnA(query);
+    }
+
+    @ApiOperation(value = "QnA 리스트 페이지", notes = "QnA 페이지별 리스트 API 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success")
+    })
+    @GetMapping("/QnAs/QnA/page")
+    public QnAListDto QnAPage(@RequestParam(value = "page") Long page) {
+        return qnAService.pageQnA(page);
     }
 }
