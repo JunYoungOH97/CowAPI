@@ -36,4 +36,21 @@ public class QnAServiceTest extends ServiceTest {
         // then
         assertEquals(createdQnA.getTitle(), QnA_title);
     }
+
+    @Test
+    @DisplayName("[Service] QnA 조회 테스트")
+    public void readTest() {
+        // given
+        QnADto qnADto = QnADto.builder()
+                .id(Exist_QnA_id)
+                .title(Exist_QnA_title)
+                .content(Exist_QnA_title)
+                .build();
+
+        // when
+        QnADto foundQnA = qnAService.readQnA(qnADto);
+
+        // then
+        assertEquals(foundQnA.getTitle(), Exist_QnA_title);
+    }
 }
