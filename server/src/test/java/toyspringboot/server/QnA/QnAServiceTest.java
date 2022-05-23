@@ -13,6 +13,7 @@ import toyspringboot.server.Service.UserService;
 import toyspringboot.server.TestModule.ServiceTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static toyspringboot.server.User.UserTestConstants.*;
 
 import static toyspringboot.server.QnA.QnATestConstants.*;
@@ -37,7 +38,7 @@ public class QnAServiceTest extends ServiceTest {
         QnADto createdQnA = qnAService.createQnA(Exist_User_email, qnADto);
 
         // then
-        assertEquals(createdQnA.getTitle(), QnA_title);
+        assertEquals(QnA_title, createdQnA.getTitle());
     }
 
     @Test
@@ -50,7 +51,7 @@ public class QnAServiceTest extends ServiceTest {
         QnADto foundQnA = qnAService.readQnA(qnADto);
 
         // then
-        assertEquals(foundQnA.getTitle(), Exist_QnA_title);
+        assertEquals(Exist_QnA_title, foundQnA.getTitle());
     }
 
     @Test
@@ -67,9 +68,24 @@ public class QnAServiceTest extends ServiceTest {
         // then
         QnA qnA = qnARepository.findById(updatedQnA.getId()).get();
 
-        assertEquals(qnA.getId(), Exist_QnA_id);
-        assertEquals(qnA.getContent(), QnA_content);
+        assertEquals(Exist_QnA_id, qnA.getId());
+        assertEquals(QnA_content, qnA.getContent());
+    }
 
+    @Test
+    @DisplayName("[Service] QnA 삭제 테스트")
+    public void deleteTest() {
+        // given
+        QnADto qnADto = QnADto.of(qnARepository.findById(Exist_QnA_id).get());
+
+        // when
+        QnADto deletedQnA = qnAService.deleteQnA(Exist_User_email, qnADto);
+
+        // then
+        QnA qnA = qnARepository.findById(deletedQnA.getId()).get();
+
+        assertEquals(Exist_QnA_id, qnA.getId());
+        assertTrue(qnA.getIsDeleted());
     }
 
 }
