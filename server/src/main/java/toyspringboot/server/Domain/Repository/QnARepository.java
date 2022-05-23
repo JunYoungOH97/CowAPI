@@ -17,4 +17,8 @@ public interface QnARepository extends JpaRepository<QnA, Long> {
             "And q.isDeleted != TRUE " +
             "Limit 5", nativeQuery = true)
     List<QnA> searchByQuery(@Param("query") String query);
+
+
+    @Query(value = "Select * From QnA q order by q.updatedDate Limit :pageId, :pageId * 5", nativeQuery = true)
+    List<QnA> findByPage(@Param("pageId") Long pageId);
 }

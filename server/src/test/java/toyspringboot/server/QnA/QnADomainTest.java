@@ -84,31 +84,31 @@ public class QnADomainTest  extends DomainTest {
         assertTrue(isContain);
         assertFalse(isDeleted);
     }
-//
-//    @Test
-//    @DisplayName("[Domain] QnA 페이지 네이션")
-//    public void QnAPageTest() {
-//        // given
-//
-//        // when
-//        List<QnA> qnAList = qnARepository.findByPage(QnA_Page);
-//
-//        // then
-//        boolean isCnt = true;
-//        boolean isOrdered = true;
-//
-//        if(qnAList.size() > 5) {
-//            isCnt = false;
-//        }
-//
-//        for(int i = 0; i < qnAList.size() - 1; i++) {
-//            if(qnAList.get(i).getUpdatedDate().toLocalDateTime().isAfter(qnAList.get(i + 1).getUpdatedDate().toLocalDateTime())) {
-//                isOrdered = false;
-//                break;
-//            }
-//        }
-//
-//        assertTrue(isCnt);
-//        assertTrue(isOrdered);
-//    }
+
+    @Test
+    @DisplayName("[Domain] QnA 페이지 네이션")
+    public void QnAPageTest() {
+        // given
+
+        // when
+        List<QnA> qnAList = qnARepository.findByPage(QnA_Page);
+
+        // then
+        boolean isCnt = true;
+        boolean isOrdered = true;
+
+        if(qnAList.size() > 5) {
+            isCnt = false;
+        }
+
+        for(int i = 0; i < qnAList.size() - 1; i++) {
+            if(qnAList.get(i).getUpdatedDate().toLocalDateTime().isAfter(qnAList.get(i + 1).getUpdatedDate().toLocalDateTime())) {
+                isOrdered = false;
+                break;
+            }
+        }
+
+        assertTrue(isCnt);
+        assertTrue(isOrdered);
+    }
 }
