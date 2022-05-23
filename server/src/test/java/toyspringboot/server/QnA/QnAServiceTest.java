@@ -12,8 +12,7 @@ import toyspringboot.server.Service.QnAService;
 import toyspringboot.server.Service.UserService;
 import toyspringboot.server.TestModule.ServiceTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static toyspringboot.server.User.UserTestConstants.*;
 
 import static toyspringboot.server.QnA.QnATestConstants.*;
@@ -84,6 +83,32 @@ public class QnAServiceTest extends ServiceTest {
 
         assertEquals(Exist_QnA_id, qnA.getId());
         assertTrue(qnA.getIsDeleted());
+    }
+
+    @Test
+    @DisplayName("[Service] QnA 검색 테스트")
+    public void searchTest() {
+        // given
+        // when
+        List<QnADto> qnADtoList = qnAService.searchQnA(QnA_search_query);
+
+        // then
+        boolean isContain = true;
+        boolean isDeleted = false;
+
+        for(QnADto foundQnADto : qnADtoList) {
+            if (!foundQnADto.getTitle().contains(QnA_search_query) && !foundQnADto.getContent().contains(QnA_search_query)) {
+                isContain = false;
+                break;
+            }
+            if(foundQnADto.getIsDeleted().equals(true)) {
+                isDeleted = true;
+                break;
+            }
+        }
+
+        assertTrue(isContain);
+        assertFalse(isDeleted);
     }
 
 }
