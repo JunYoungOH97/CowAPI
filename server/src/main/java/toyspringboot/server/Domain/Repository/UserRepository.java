@@ -17,6 +17,6 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
-    boolean existsByEmail(String email);
-    Optional<User> findByEmail(String email);
+    boolean existsByEmail(Object email);
+    Optional<User> findByEmail(Object email);
 }
