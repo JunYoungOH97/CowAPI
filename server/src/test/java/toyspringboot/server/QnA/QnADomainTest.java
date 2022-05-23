@@ -9,6 +9,7 @@ import toyspringboot.server.Domain.Repository.QnARepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
 import toyspringboot.server.TestModule.DomainTest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -57,5 +58,29 @@ public class QnADomainTest  extends DomainTest {
         // then (expect, actual)
         assertTrue(foundQnA.isPresent());
         foundQnA.ifPresent(qnA -> assertEquals(Exist_QnA_id, qnA.getId()));
+    }
+
+    @Test
+    @DisplayName("[Domain] QnA query 조회 테스트")
+    public void searchTest() {
+        // given
+        // when
+        List<QnA> qnAList =  qnARepository.searchByQuery(QnA_search_query);
+
+        // then
+        boolean flag = true;
+        for(QnA foundQnA : qnAList) {
+            if (!foundQnA.getTitle().contains(QnA_search_query)) {
+                flag = false;
+                break;
+            }
+
+            if(!foundQnA.getContent().contains(QnA_search_query)) {
+                flag = false;
+                break;
+            }
+        }
+
+        assertTrue(flag);
     }
 }

@@ -16,6 +16,8 @@ public class QnATestConstants extends DefaultTestConstants {
     public static final String QnA_Query_API = "/QnAs/공지";
 
     // ---------- test information ----------
+    public static final String QnA_search_query = "공지";
+
     // 존재하지 않는 QnA
     public static final Long QnA_id = 2L;
     public static final String QnA_user = "test@junyoung.com";
