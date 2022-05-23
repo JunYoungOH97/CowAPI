@@ -12,13 +12,15 @@ import java.util.Optional;
 @Repository
 public interface QnARepository extends JpaRepository<QnA, Long> {
     @Query(value =
-            "Select * From QnA q Where (q.title Like %:query% " +
-            "Or q.content Like %:query%) " +
+            "Select * From QnA q Where (q.title Like %:query% Or q.content Like %:query%) " +
             "And q.isDeleted != TRUE " +
-            "Limit 5", nativeQuery = true)
-    List<QnA> searchByQuery(@Param("query") String query);
+            "Limit :searchCnt", nativeQuery = true)
+    List<QnA> searchByQuery(@Param("query") String query, @Param("searchCnt") Long searchCnt);
 
 
-    @Query(value = "Select * From QnA q order by q.updatedDate Limit :pageId, :pageId * 5", nativeQuery = true)
-    List<QnA> findByPage(@Param("pageId") Long pageId);
+    @Query(value =
+            "Select * From QnA q Where q.isDeleted != TRUE " +
+            "Order by q.updatedDate DESC, q.id ASC " +
+            "Limit :pageId, :pageCnt", nativeQuery = true)
+    List<QnA> findByPage(@Param("pageId") Long pageId, @Param("pageCnt") Long pageCnt);
 }

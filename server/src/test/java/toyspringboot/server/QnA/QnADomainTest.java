@@ -64,11 +64,13 @@ public class QnADomainTest  extends DomainTest {
     public void searchTest() {
         // given
         // when
-        List<QnA> qnAList =  qnARepository.searchByQuery(QnA_search_query);
+        List<QnA> qnAList =  qnARepository.searchByQuery(QnA_search_query, QnA_search_cnt);
 
         // then
         boolean isContain = true;
         boolean isDeleted = false;
+        boolean isCnt = true;
+
         for(QnA foundQnA : qnAList) {
             if (!foundQnA.getTitle().contains(QnA_search_query) &&
                 !foundQnA.getContent().contains(QnA_search_query)) {
@@ -81,21 +83,28 @@ public class QnADomainTest  extends DomainTest {
             }
         }
 
+        if(qnAList.size() > QnA_search_cnt) {
+            isCnt = false;
+        }
+
         assertTrue(isContain);
         assertFalse(isDeleted);
+        assertTrue(isCnt);
     }
 
     @Test
     @DisplayName("[Domain] QnA 페이지 네이션")
     public void QnAPageTest() {
         // given
+        final Long startIndex = (QnA_Page - 1L) * QnA_Page_cnt;
 
         // when
-        List<QnA> qnAList = qnARepository.findByPage(QnA_Page);
+        List<QnA> qnAList = qnARepository.findByPage(startIndex, QnA_Page_cnt);
 
         // then
         boolean isCnt = true;
         boolean isOrdered = true;
+        boolean isDeleted = false;
 
         if(qnAList.size() > 5) {
             isCnt = false;
@@ -106,9 +115,14 @@ public class QnADomainTest  extends DomainTest {
                 isOrdered = false;
                 break;
             }
+            if(qnAList.get(i).getIsDeleted()) {
+                isDeleted = true;
+                break;
+            }
         }
 
         assertTrue(isCnt);
         assertTrue(isOrdered);
+        assertFalse(isDeleted);
     }
 }
