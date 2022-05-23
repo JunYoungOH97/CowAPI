@@ -70,16 +70,16 @@ public class QnADomainTest  extends DomainTest {
         // then
         boolean flag = true;
         for(QnA foundQnA : qnAList) {
-            if (!foundQnA.getTitle().contains(QnA_search_query)) {
+            if (!foundQnA.getTitle().contains(QnA_search_query) && !foundQnA.getContent().contains(QnA_search_query)) {
                 flag = false;
                 break;
             }
 
-            if(!foundQnA.getContent().contains(QnA_search_query)) {
-                flag = false;
-                break;
-            }
+            System.out.println(foundQnA.getTitle() +" " + foundQnA.getContent());
         }
+
+        System.out.println("test");
+
 
         assertTrue(flag);
     }
