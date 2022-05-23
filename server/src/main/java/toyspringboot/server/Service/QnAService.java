@@ -11,6 +11,10 @@ import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Repository.QnARepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.*;
 
 @Service
@@ -47,5 +51,18 @@ public class QnAService {
         if(qnA.getIsDeleted().equals(true)) throw new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다.");
         qnA.deleteQnA();
         return QnADto.of(qnA);
+    }
+
+    public List<QnADto> searchQnA(String query) {
+        List<QnA> qnAList = qnARepository.searchByQuery(query, 5L);
+        Iterator<QnA> iter = qnAList.listIterator();
+
+        List<QnADto> qnADtoList = new ArrayList<>();
+        while(iter.hasNext()) {
+            qnADtoList.add(QnADto.of(iter.next()));
+        }
+        return qnADtoList;
+
+
     }
 }
