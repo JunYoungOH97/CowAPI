@@ -21,8 +21,8 @@ public class UserService {
         if(userRepository.existsByEmail(userDto.getEmail())) {
             throw new ResponseStatusException(CONFLICT, "이미 가입되어 있는 유저입니다");
         }
-
-        User user = User.of(UserDto.setCreatedUser(userDto));
+        userDto.setCreatedUser();
+        User user = User.of(userDto);
         return UserDto.of(userRepository.save(user));
     }
 

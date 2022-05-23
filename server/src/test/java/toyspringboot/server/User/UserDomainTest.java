@@ -28,6 +28,7 @@ public class UserDomainTest extends DomainTest {
                 .isDeleted(false)
                 .createdDate(Create_Date)
                 .creator(Creator_Member)
+                .updatedDate(Create_Date)
                 .build();
 
         // when

@@ -5,9 +5,7 @@ import lombok.*;
 import toyspringboot.server.Domain.Entity.User;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -25,13 +23,14 @@ public class UserDto {
     private String creator;
     private String updater;
 
-    public static UserDto setCreatedUser(UserDto userDto) {
-        userDto.setAdmin(false);
-        userDto.setIsDeleted(false);
-        userDto.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
-        userDto.setCreator("API");
+    public void setCreatedUser() {
+        this.setAdmin(false);
+        this.setIsDeleted(false);
+        this.setCreator("API");
 
-        return userDto;
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+        this.setCreatedDate(timestamp);
+        this.setUpdatedDate(timestamp);
     }
 
     public static UserDto of(User userEntity) {

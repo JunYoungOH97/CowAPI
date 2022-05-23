@@ -47,6 +47,7 @@ public class User {
     private Timestamp createdDate;
 
     @Column
+    @NotNull
     private Timestamp updatedDate;
 
     @Column
