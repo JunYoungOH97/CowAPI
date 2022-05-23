@@ -22,6 +22,7 @@ public class QnATestConstants extends DefaultTestConstants {
     public static final String QnA_title = "테스트 입니다.";
     public static final Boolean QnA_isDeleted = true;
     public static final Integer QnA_Index = 1;
+    public static final String QnA_content = "test content";
 
     // 존재하는 QnA
     public static final Long Exist_QnA_id = 1L;

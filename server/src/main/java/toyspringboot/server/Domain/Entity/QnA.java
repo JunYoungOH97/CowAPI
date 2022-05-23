@@ -4,6 +4,8 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
 import org.jetbrains.annotations.NotNull;
+import toyspringboot.server.Domain.Dto.QnADto;
+import toyspringboot.server.Domain.Dto.UserDto;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -52,5 +54,21 @@ public class QnA {
     @ManyToOne
     @JoinColumn(name = "User_email")
     private User user;
+
+
+    public static QnA of(QnADto qnADto) {
+        return QnA.builder()
+                .id(qnADto.getId())
+                .title(qnADto.getTitle())
+                .content(qnADto.getContent())
+                .isDeleted(qnADto.getIsDeleted())
+                .createdDate(qnADto.getCreatedDate())
+                .updatedDate(qnADto.getUpdatedDate())
+                .deletedDate(qnADto.getDeletedDate())
+                .creator(qnADto.getCreator())
+                .updater(qnADto.getUpdater())
+                .user(User.of(qnADto.getUserDto()))
+                .build();
+    }
 
 }
