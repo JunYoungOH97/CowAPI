@@ -2,9 +2,6 @@ package toyspringboot.server.QnA;
 
 import toyspringboot.server.DefaultTestConstants;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
 public class QnATestConstants extends DefaultTestConstants {
     // ---------- API ----------
     public static final String QnA_create_API = "/QnAs/QnA";
