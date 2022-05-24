@@ -31,8 +31,8 @@ public class NoticeTestConstants {
     public static final String Exist_Notice_title = "title";
     public static final String Exist_Notice_content = "no content";
     public static final Boolean Exist_Notice_isDeleted = false;
-    public static final Timestamp Exist_Notice_createdDate = Timestamp.valueOf("2022-05-24 10:32:35");
-    public static final Timestamp Exist_Notice_updatedDate = Timestamp.valueOf("2022-05-24 10:32:35");
+    public static final Timestamp Exist_Notice_createdDate = Timestamp.valueOf("2022-05-24 19:32:35");
+    public static final Timestamp Exist_Notice_updatedDate = Timestamp.valueOf("2022-05-24 19:32:35");
     public static final Timestamp Exist_Notice_deletedDate = null;
     public static final String Exist_Notice_creator = "Directly";
     public static final String Exist_Notice_updater = "Directly";
