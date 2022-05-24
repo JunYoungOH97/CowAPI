@@ -52,6 +52,7 @@ public class QnA {
     private String creator;
 
     @Column
+    @NotNull
     private String updater;
 
     @ManyToOne

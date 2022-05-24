@@ -36,6 +36,8 @@ public class QnADomainTest  extends DomainTest {
                 .isDeleted(QnA_isDeleted)
                 .createdDate(Create_Date)
                 .creator(Creator_Member)
+                .updatedDate(Create_Date)
+                .updater(Creator_Member)
                 .user(user)
                 .build();
 
