@@ -63,27 +63,4 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<QnA> QnAs = new ArrayList<>();
-
-
-    public void updateUser(UserDto userDto) {
-        if(userDto.getPassword() != null) password = userDto.getPassword();
-        if(userDto.getAdmin() != null) admin = userDto.getAdmin();
-        if(userDto.getIsDeleted() != null) isDeleted = userDto.getIsDeleted();
-        if(userDto.getCreatedDate() != null) createdDate = userDto.getCreatedDate();
-        if(userDto.getUpdatedDate() != null) updatedDate = Timestamp.valueOf(LocalDateTime.now());
-        if(userDto.getDeletedDate() != null) deletedDate = userDto.getDeletedDate();
-        if(userDto.getCreator() != null) creator = userDto.getCreator();
-        if(userDto.getUpdater() != null) updater = "API";
-    }
-
-    public void deleteUser() {
-        if(isDeleted.equals(false)) {
-            isDeleted = true;
-            deletedDate = Timestamp.valueOf(LocalDateTime.now());
-            updater = "API";
-        }
-        else {
-            throw new ResponseStatusException(BAD_REQUEST, "이미 삭제된 유저 입니다.");
-        }
-    }
 }

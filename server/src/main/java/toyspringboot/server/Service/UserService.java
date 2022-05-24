@@ -34,13 +34,13 @@ public class UserService {
 
     public UserDto updateUser(String userToken, UserDto userDto) {
         User user = userRepository.findByEmail(userDto.getEmail()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재 하지 않는 유저입니다."));
-        user.updateUser(userDto);
+        userRepository.updateUser(user, userDto);
         return UserDto.of(user);
     }
 
     public UserDto deleteUser(String userToken, UserDto userDto) {
         User user = userRepository.findByEmail(userDto.getEmail()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재 하지 않는 유저입니다."));
-        user.deleteUser();
+        userRepository.deleteUser(user);
         return UserDto.of(user);
     }
 }
