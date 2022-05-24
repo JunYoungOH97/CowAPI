@@ -49,4 +49,18 @@ public class UserDto {
                 .build();
 
     }
+
+    public static User toEntity(UserDto userDto) {
+        return User.builder()
+                .email(userDto.getEmail())
+                .password(userDto.getPassword())
+                .admin(userDto.getAdmin())
+                .isDeleted(userDto.getIsDeleted())
+                .createdDate(userDto.getCreatedDate())
+                .updatedDate(userDto.getUpdatedDate())
+                .deletedDate(userDto.getDeletedDate())
+                .creator(userDto.getCreator())
+                .updater(userDto.getUpdater())
+                .build();
+    }
 }

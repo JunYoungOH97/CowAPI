@@ -64,19 +64,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<QnA> QnAs = new ArrayList<>();
 
-    public static User of(UserDto userDto) {
-        return User.builder()
-                .email(userDto.getEmail())
-                .password(userDto.getPassword())
-                .admin(userDto.getAdmin())
-                .isDeleted(userDto.getIsDeleted())
-                .createdDate(userDto.getCreatedDate())
-                .updatedDate(userDto.getUpdatedDate())
-                .deletedDate(userDto.getDeletedDate())
-                .creator(userDto.getCreator())
-                .updater(userDto.getUpdater())
-                .build();
-    }
 
     public void updateUser(UserDto userDto) {
         if(userDto.getPassword() != null) password = userDto.getPassword();
