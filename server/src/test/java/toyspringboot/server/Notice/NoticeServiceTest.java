@@ -30,10 +30,10 @@ public class NoticeServiceTest extends ServiceTest {
                 .build();
 
         // when
-        NoticeDto newNoticeDto = noticeService.createNotice(Exist_User_email, noticeDto);
+        NoticeDto newNoticeDto = noticeService.createNotice(Test_Notice_user, noticeDto);
 
         // then
-        assertEquals(Exist_User_email, newNoticeDto.getUserDto().getEmail());
+        assertEquals(Test_Notice_user, newNoticeDto.getUserDto().getEmail());
         assertEquals(Test_Notice_title, newNoticeDto.getTitle());
         assertEquals(Test_Notice_content, newNoticeDto.getContent());
         assertEquals(Test_Notice_createdDate, newNoticeDto.getCreatedDate());
