@@ -42,7 +42,7 @@ public class QnAService {
         UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(FORBIDDEN, "접근 권한이 없습니다.")));
         QnA qnA = qnARepository.findById(qnADto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다."));
         if(qnA.getIsDeleted().equals(true)) throw new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다.");
-        qnA.updateQnA(qnADto);
+        qnARepository.updateQnA(qnA, qnADto);
         return QnADto.of(qnA);
     }
 
@@ -50,7 +50,7 @@ public class QnAService {
         UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(FORBIDDEN, "삭제 권한이 없습니다.")));
         QnA qnA = qnARepository.findById(qnADto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다."));
         if(qnA.getIsDeleted().equals(true)) throw new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다.");
-        qnA.deleteQnA();
+        qnARepository.deleteQnA(qnA);
         return QnADto.of(qnA);
     }
 
