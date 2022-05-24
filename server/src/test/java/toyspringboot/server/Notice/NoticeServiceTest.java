@@ -56,6 +56,38 @@ public class NoticeServiceTest extends ServiceTest {
         // then
         assertEquals(Exist_Notice_id, foundNoticeDto.getId());
     }
+    
+    @Test
+    @DisplayName("[Service] 공지 수정 테스트")
+    public void updateTest() {
+        // given
+        NoticeDto noticeDto = NoticeDto.builder()
+                .title(Test_Notice_title)
+                .content(Test_Notice_content)
+                .build();
 
+        // when
+        NoticeDto updatedNotice = noticeService.updateNotice(Exist_User_email, noticeDto);
+
+        // then
+        assertEquals(Test_Notice_title, updatedNotice.getTitle());
+        assertEquals(Test_Notice_content, updatedNotice.getContent());
+        assertEquals(Exist_User_email, updatedNotice.getUserDto().getEmail());
+    }
+    
+    @Test
+    @DisplayName("[Service] 공지 삭제 테스트")
+    public void deleteTest() {
+        // given
+        NoticeDto noticeDto = NoticeDto.builder()
+                .id(Exist_Notice_id)
+                .build();
+
+        // when
+        NoticeDto deletedNotice = noticeService.deleteNotice(noticeDto);
+
+        // then
+        assertTrue(deletedNotice.getIsDeleted());
+    }
     
 }
