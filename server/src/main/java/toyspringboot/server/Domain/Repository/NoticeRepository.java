@@ -23,4 +23,10 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
 
         notice.setUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
     }
+
+    default void deleteNotice(Notice notice) {
+        notice.setIsDeleted(true);
+        notice.setUpdater("API");
+        notice.setDeletedDate(Timestamp.valueOf(LocalDateTime.now()));
+    }
 }

@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import toyspringboot.server.Domain.Dto.NoticeDto;
 import toyspringboot.server.Domain.Entity.Notice;
-import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.NoticeRepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
@@ -55,6 +54,17 @@ public class NoticeDomainTest extends DomainTest {
         assertEquals(Test_Notice_content, newNotice.getContent());
         assertEquals(Exist_User_email, newNotice.getUser().getEmail());
     }
+    @Test
+    @DisplayName("[Domain] 공지 조회 테스트")
+    public void readTest() {
+        // given
+        // when
+        Optional<Notice> notice = noticeRepository.findById(Exist_Notice_id);
+
+        // then
+        assertTrue(notice.isPresent());
+        notice.ifPresent(qnA -> assertEquals(Exist_Notice_id, notice.get().getId()));
+    }
     
     @Test
     @DisplayName("[Domain] 공지 수정 테스트")
@@ -76,28 +86,15 @@ public class NoticeDomainTest extends DomainTest {
     }
     
     @Test
-    @DisplayName("[Domain] 공지 조회 테스트")
-    public void readTest() {
-        // given
-        // when
-        Optional<Notice> notice = noticeRepository.findById(Exist_Notice_id);
-
-        // then
-        assertTrue(notice.isPresent());
-        notice.ifPresent(qnA -> assertEquals(Exist_Notice_id, notice.get().getId()));
-    }
-    
-    @Test
     @DisplayName("[Domain] 공지 삭제 테스트")
     public void deleteTest() {
         // given
         Notice notice = noticeRepository.findById(Exist_Notice_id).get();
 
         // when
-        notice.deleteNotice(notice);
+        noticeRepository.deleteNotice(notice);
 
         // then
         assertTrue(notice.getIsDeleted());
     }
-    
 }
