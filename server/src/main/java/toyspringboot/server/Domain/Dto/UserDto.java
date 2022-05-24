@@ -30,7 +30,7 @@ public class UserDto {
         this.setIsDeleted(false);
         this.setCreator("API");
 
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         this.setCreatedDate(timestamp);
 
         this.setUpdatedDate(timestamp);

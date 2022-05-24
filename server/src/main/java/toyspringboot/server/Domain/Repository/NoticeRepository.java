@@ -8,6 +8,8 @@ import toyspringboot.server.Domain.Entity.Notice;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 
 @Repository
@@ -21,7 +23,7 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
         if(noticeDto.getUserDto() != null) notice.setUser(UserDto.toEntity(noticeDto.getUserDto()));
         if(noticeDto.getUpdater() != null) notice.setUpdater(noticeDto.getUpdater());
 
-        notice.setUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
+        notice.setUpdatedDate(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
     }
 
     default void deleteNotice(Notice notice) {
