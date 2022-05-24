@@ -34,7 +34,9 @@ public class QnADto {
 
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
         this.setCreatedDate(timestamp);
+
         this.setUpdatedDate(timestamp);
+        this.setUpdater("API");
     }
 
     public static QnADto of(QnA qnA) {
