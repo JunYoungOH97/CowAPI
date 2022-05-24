@@ -1,9 +1,11 @@
 package toyspringboot.server.Notice;
 
+import org.aspectj.weaver.ast.Not;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import toyspringboot.server.Domain.Dto.NoticeDto;
+import toyspringboot.server.Domain.Entity.Notice;
 import toyspringboot.server.Domain.Repository.NoticeRepository;
 import toyspringboot.server.Domain.Repository.QnARepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
@@ -40,4 +42,20 @@ public class NoticeServiceTest extends ServiceTest {
         assertEquals(Exist_User_email, newNoticeDto.getUserDto().getEmail());
     }
 
+    @Test
+    @DisplayName("[Service] 공지 조회 테스트")
+    public void readTest() {
+        // given
+        NoticeDto noticeDto = NoticeDto.builder()
+                .id(Exist_Notice_id)
+                .build();
+
+        // when
+        NoticeDto foundNoticeDto = noticeService.readNotice(Exist_User_email, noticeDto);
+
+        // then
+        assertEquals(Exist_Notice_id, foundNoticeDto.getId());
+    }
+
+    
 }
