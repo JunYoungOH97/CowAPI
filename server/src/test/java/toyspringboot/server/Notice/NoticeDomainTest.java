@@ -87,4 +87,17 @@ public class NoticeDomainTest extends DomainTest {
         notice.ifPresent(qnA -> assertEquals(Exist_Notice_id, notice.get().getId()));
     }
     
+    @Test
+    @DisplayName("[Domain] 공지 삭제 테스트")
+    public void deleteTest() {
+        // given
+        Notice notice = noticeRepository.findById(Exist_Notice_id).get();
+
+        // when
+        notice.deleteNotice(notice);
+
+        // then
+        assertTrue(notice.getIsDeleted());
+    }
+    
 }
