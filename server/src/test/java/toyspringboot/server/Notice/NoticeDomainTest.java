@@ -90,9 +90,12 @@ public class NoticeDomainTest extends DomainTest {
     public void deleteTest() {
         // given
         Notice notice = noticeRepository.findById(Exist_Notice_id).get();
+        NoticeDto noticeDto = NoticeDto.builder()
+                .updater(Test_Notice_updater)
+                .build();
 
         // when
-        noticeRepository.deleteNotice(notice);
+        noticeRepository.deleteNotice(notice, noticeDto);
 
         // then
         assertTrue(notice.getIsDeleted());

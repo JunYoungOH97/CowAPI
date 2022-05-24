@@ -19,16 +19,16 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
         if(noticeDto.getTitle() != null) notice.setTitle(noticeDto.getTitle());
         if(noticeDto.getContent() != null) notice.setContent(noticeDto.getContent());
         if(noticeDto.getCreatedDate() != null) notice.setCreatedDate(noticeDto.getCreatedDate());
-        if(noticeDto.getCreator() != null) notice.setCreator(noticeDto.getCreator());
         if(noticeDto.getUserDto() != null) notice.setUser(UserDto.toEntity(noticeDto.getUserDto()));
+        if(noticeDto.getCreator() != null) notice.setCreator(noticeDto.getCreator());
         if(noticeDto.getUpdater() != null) notice.setUpdater(noticeDto.getUpdater());
 
         notice.setUpdatedDate(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
     }
 
-    default void deleteNotice(Notice notice) {
+    default void deleteNotice(Notice notice, NoticeDto noticeDto) {
         notice.setIsDeleted(true);
-        notice.setUpdater("API");
-        notice.setDeletedDate(Timestamp.valueOf(LocalDateTime.now()));
+        notice.setUpdater(noticeDto.getUpdater());
+        notice.setDeletedDate(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
     }
 }
