@@ -65,11 +65,11 @@ public class NoticeDomainTest extends DomainTest {
                 .build();
 
         // when
-        Notice updatedNotice = noticeRepository.updateNotice(notice, noticeDto);
+        noticeRepository.updateNotice(notice, noticeDto);
 
         // then
-        assertEquals(Test_Notice_title, updatedNotice.getTitle());
-        assertEquals(Test_Notice_content, updatedNotice.getContent());
+        assertEquals(Test_Notice_title, notice.getTitle());
+        assertEquals(Test_Notice_content, notice.getContent());
     }
     
 }
