@@ -60,21 +60,6 @@ public class QnA {
     private User user;
 
 
-    public static QnA of(QnADto qnADto) {
-        return QnA.builder()
-                .id(qnADto.getId())
-                .title(qnADto.getTitle())
-                .content(qnADto.getContent())
-                .isDeleted(qnADto.getIsDeleted())
-                .createdDate(qnADto.getCreatedDate())
-                .updatedDate(qnADto.getUpdatedDate())
-                .deletedDate(qnADto.getDeletedDate())
-                .creator(qnADto.getCreator())
-                .updater(qnADto.getUpdater())
-                .user(UserDto.toEntity(qnADto.getUserDto()))
-                .build();
-    }
-
     public void updateQnA(QnADto qnADto) {
         if(qnADto.getTitle() != null) title = qnADto.getTitle();
         if(qnADto.getContent() != null) content = qnADto.getContent();
