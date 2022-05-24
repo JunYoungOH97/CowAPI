@@ -6,6 +6,8 @@ import toyspringboot.server.Domain.Entity.User;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -28,7 +30,7 @@ public class UserDto {
         this.setIsDeleted(false);
         this.setCreator("API");
 
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         this.setCreatedDate(timestamp);
 
         this.setUpdatedDate(timestamp);
