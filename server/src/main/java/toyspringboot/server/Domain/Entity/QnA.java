@@ -58,24 +58,4 @@ public class QnA {
     @ManyToOne
     @JoinColumn(name = "User_email")
     private User user;
-
-
-    public void updateQnA(QnADto qnADto) {
-        if(qnADto.getTitle() != null) title = qnADto.getTitle();
-        if(qnADto.getContent() != null) content = qnADto.getContent();
-        if(qnADto.getCreatedDate() != null) createdDate = qnADto.getCreatedDate();
-        if(qnADto.getDeletedDate() != null) deletedDate = qnADto.getDeletedDate();
-        if(qnADto.getCreator() != null) creator = qnADto.getCreator();
-        if(qnADto.getUserDto() != null) user = UserDto.toEntity(qnADto.getUserDto());
-
-        updatedDate = Timestamp.valueOf(LocalDateTime.now());
-        updater = "API";
-    }
-
-    public void deleteQnA() {
-        isDeleted = true;
-        deletedDate = Timestamp.valueOf(LocalDateTime.now());
-        updater = "API";
-    }
-
 }

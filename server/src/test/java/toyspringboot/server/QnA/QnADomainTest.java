@@ -3,6 +3,8 @@ package toyspringboot.server.QnA;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.server.ResponseStatusException;
+import toyspringboot.server.Domain.Dto.QnADto;
 import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.QnARepository;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static toyspringboot.server.QnA.QnATestConstants.*;
 import static toyspringboot.server.QnA.QnATestConstants.Create_Date;
 import static toyspringboot.server.QnA.QnATestConstants.Creator_Member;
@@ -51,7 +54,7 @@ public class QnADomainTest  extends DomainTest {
 
     @Test
     @DisplayName("[Domain] QnA 조회 테스트")
-    public void updateTest() throws Exception {
+    public void readTest() throws Exception {
         // given
         // when
         Optional<QnA> foundQnA = (Optional<QnA>) test(Exist_QnA_id, qnARepository, "findById");
@@ -126,5 +129,37 @@ public class QnADomainTest  extends DomainTest {
         assertTrue(isCnt);
         assertTrue(isOrdered);
         assertFalse(isDeleted);
+    }
+
+    @Test
+    @DisplayName("[Domain] QnA 수정 테스트")
+    public void updateTest() {
+        // given
+        QnA qnA = qnARepository.findById(Exist_QnA_id).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다."));
+        QnADto qnADto = QnADto.builder()
+                .id(Exist_QnA_id)
+                .title(QnA_title)
+                .content(QnA_content)
+                .build();
+
+        // when
+        qnARepository.updateQnA(qnA, qnADto);
+
+        // then
+        assertEquals(QnA_title, qnA.getTitle());
+        assertEquals(QnA_content, qnA.getContent());
+    }
+    
+    @Test
+    @DisplayName("[Domain] QnA 삭제 테스트")
+    public void deleteTest() {
+        // given
+        QnA qnA = qnARepository.findById(Exist_QnA_id).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다."));
+
+        // when
+        qnARepository.deleteQnA(qnA);
+
+        //then
+        assertTrue(qnA.getIsDeleted());
     }
 }
