@@ -11,7 +11,10 @@ import toyspringboot.server.Domain.Repository.NoticeRepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
 import toyspringboot.server.TestModule.DomainTest;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static toyspringboot.server.DefaultTestConstants.Create_Date;
 import static toyspringboot.server.DefaultTestConstants.Creator_Member;
 import static toyspringboot.server.QnA.QnATestConstants.*;
@@ -70,6 +73,18 @@ public class NoticeDomainTest extends DomainTest {
         // then
         assertEquals(Test_Notice_title, notice.getTitle());
         assertEquals(Test_Notice_content, notice.getContent());
+    }
+    
+    @Test
+    @DisplayName("[Domain] 공지 조회 테스트")
+    public void readTest() {
+        // given
+        // when
+        Optional<Notice> notice = noticeRepository.findById(Exist_Notice_id);
+
+        // then
+        assertTrue(notice.isPresent());
+        notice.ifPresent(qnA -> assertEquals(Exist_Notice_id, notice.get().getId()));
     }
     
 }
