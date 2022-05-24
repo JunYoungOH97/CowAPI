@@ -3,6 +3,7 @@ package toyspringboot.server.Notice;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import toyspringboot.server.Domain.Dto.NoticeDto;
 import toyspringboot.server.Domain.Entity.Notice;
 import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Entity.User;
@@ -27,7 +28,7 @@ public class NoticeDomainTest extends DomainTest {
     private NoticeRepository noticeRepository;
 
     @Test
-    @DisplayName("[Domain] Notice 생성 테스트")
+    @DisplayName("[Domain] 공지 생성 테스트")
     public void createTest() {
         // given
         User user = userRepository.findByEmail(Exist_User_email).get();
@@ -49,7 +50,26 @@ public class NoticeDomainTest extends DomainTest {
         // then
         assertEquals(Test_Notice_title, newNotice.getTitle());
         assertEquals(Test_Notice_content, newNotice.getContent());
-        assertEquals(Test_Notice_id, newNotice.getId());
+        assertEquals(Exist_User_email, newNotice.getUser().getEmail());
+    }
+    
+    @Test
+    @DisplayName("[Domain] 공지 수정 테스트")
+    public void updateTest() {
+        // given
+        Notice notice = noticeRepository.findById(Exist_Notice_id).get();
+
+        NoticeDto noticeDto = NoticeDto.builder()
+                .title(Test_Notice_title)
+                .content(Test_Notice_content)
+                .build();
+
+        // when
+        Notice updatedNotice = noticeRepository.updateNotice(notice, noticeDto);
+
+        // then
+        assertEquals(Test_Notice_title, updatedNotice.getTitle());
+        assertEquals(Test_Notice_content, updatedNotice.getContent());
     }
     
 }

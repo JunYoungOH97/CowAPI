@@ -1,6 +1,8 @@
 package toyspringboot.server.Domain.Dto;
 
 import lombok.*;
+import toyspringboot.server.Domain.Entity.Notice;
+import toyspringboot.server.Domain.Entity.User;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
