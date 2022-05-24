@@ -2,7 +2,11 @@ package toyspringboot.server.User;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.UserRepository;
@@ -12,6 +16,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static toyspringboot.server.User.UserTestConstants.*;
+
 
 public class UserDomainTest extends DomainTest {
     @Autowired
@@ -29,6 +34,7 @@ public class UserDomainTest extends DomainTest {
                 .createdDate(Create_Date)
                 .creator(Creator_Member)
                 .updatedDate(Create_Date)
+                .updater(Creator_Member)
                 .build();
 
         // when
