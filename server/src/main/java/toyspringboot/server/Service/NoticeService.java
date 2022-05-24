@@ -41,6 +41,10 @@ public class NoticeService {
         return NoticeDto.of(notice);
     }
 
-    
-
+    public NoticeDto deleteNotice(String userToken, NoticeDto noticeDto) {
+        UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
+        Notice notice = noticeRepository.findById(noticeDto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 공지 입니다."));;
+        noticeRepository.deleteNotice(notice);
+        return NoticeDto.of(notice);
+    }
 }

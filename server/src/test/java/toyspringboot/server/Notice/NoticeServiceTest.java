@@ -85,7 +85,7 @@ public class NoticeServiceTest extends ServiceTest {
                 .build();
 
         // when
-        NoticeDto deletedNotice = noticeService.deleteNotice(noticeDto);
+        NoticeDto deletedNotice = noticeService.deleteNotice(Exist_Notice_user, noticeDto);
 
         // then
         assertTrue(deletedNotice.getIsDeleted());
