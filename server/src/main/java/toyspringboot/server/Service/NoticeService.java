@@ -30,8 +30,17 @@ public class NoticeService {
 
     public NoticeDto readNotice(String userToken, NoticeDto noticeDto) {
         UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
-        Notice notice = noticeRepository.findById(noticeDto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다."));
+        Notice notice = noticeRepository.findById(noticeDto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 공지 입니다."));
         return NoticeDto.of(notice);
     }
+
+    public NoticeDto updateNotice(String userToken, NoticeDto noticeDto) {
+        UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
+        Notice notice = noticeRepository.findById(noticeDto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 공지 입니다."));;
+        noticeRepository.updateNotice(notice, noticeDto);
+        return NoticeDto.of(notice);
+    }
+
+    
 
 }
