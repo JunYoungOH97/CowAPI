@@ -1,12 +1,14 @@
 package toyspringboot.server.Domain.Dto;
 
 import com.fasterxml.jackson.databind.ser.std.TimeZoneSerializer;
+import io.swagger.annotations.ApiModel;
 import lombok.*;
 import org.apache.tomcat.jni.Local;
 import toyspringboot.server.Domain.Entity.QnA;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -34,7 +36,9 @@ public class QnADto {
 
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
         this.setCreatedDate(timestamp);
+
         this.setUpdatedDate(timestamp);
+        this.setUpdater("API");
     }
 
     public static QnADto of(QnA qnA) {
@@ -52,3 +56,4 @@ public class QnADto {
                 .build();
     }
 }
+

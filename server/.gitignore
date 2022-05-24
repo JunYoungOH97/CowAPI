@@ -43,3 +43,4 @@ application-db.properties
 application-h2.properties
 application-jwt.properties
 application-swagger.properties
+application-testDB.properties

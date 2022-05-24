@@ -22,7 +22,7 @@ public class UserService {
             throw new ResponseStatusException(CONFLICT, "이미 가입되어 있는 유저입니다");
         }
         userDto.setCreatedUser();
-        User user = User.of(userDto);
+        User user = UserDto.toEntity(userDto);
         return UserDto.of(userRepository.save(user));
     }
 

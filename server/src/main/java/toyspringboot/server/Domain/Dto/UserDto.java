@@ -30,7 +30,9 @@ public class UserDto {
 
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
         this.setCreatedDate(timestamp);
+
         this.setUpdatedDate(timestamp);
+        this.setUpdater("API");
     }
 
     public static UserDto of(User userEntity) {
@@ -46,5 +48,19 @@ public class UserDto {
                 .updater(userEntity.getUpdater())
                 .build();
 
+    }
+
+    public static User toEntity(UserDto userDto) {
+        return User.builder()
+                .email(userDto.getEmail())
+                .password(userDto.getPassword())
+                .admin(userDto.getAdmin())
+                .isDeleted(userDto.getIsDeleted())
+                .createdDate(userDto.getCreatedDate())
+                .updatedDate(userDto.getUpdatedDate())
+                .deletedDate(userDto.getDeletedDate())
+                .creator(userDto.getCreator())
+                .updater(userDto.getUpdater())
+                .build();
     }
 }
