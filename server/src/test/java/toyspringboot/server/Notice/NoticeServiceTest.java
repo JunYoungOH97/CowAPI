@@ -9,6 +9,7 @@ import toyspringboot.server.Domain.Entity.Notice;
 import toyspringboot.server.Domain.Repository.NoticeRepository;
 import toyspringboot.server.Domain.Repository.QnARepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
+import toyspringboot.server.Service.NoticeService;
 import toyspringboot.server.Service.QnAService;
 import toyspringboot.server.TestModule.ServiceTest;
 
