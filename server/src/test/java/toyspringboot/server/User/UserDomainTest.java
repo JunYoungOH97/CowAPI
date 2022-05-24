@@ -68,7 +68,7 @@ public class UserDomainTest extends DomainTest {
                 .build();
 
         // when
-        user.updateUser(userDto);
+        userRepository.updateUser(user, userDto);
 
         // then
         assertEquals(user.getPassword(), User_password);
@@ -84,7 +84,7 @@ public class UserDomainTest extends DomainTest {
 
         // when
 //        User deletedUser = (User) test(userDto, userRepository, "deleteByEmail");
-        user.deleteUser();
+        userRepository.deleteUser(user);
 
         // then
         assertEquals(user.getIsDeleted(), User_IsDeleted);
