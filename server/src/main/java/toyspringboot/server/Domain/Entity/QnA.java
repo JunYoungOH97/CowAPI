@@ -71,7 +71,7 @@ public class QnA {
                 .deletedDate(qnADto.getDeletedDate())
                 .creator(qnADto.getCreator())
                 .updater(qnADto.getUpdater())
-                .user(User.of(qnADto.getUserDto()))
+                .user(UserDto.toEntity(qnADto.getUserDto()))
                 .build();
     }
 
@@ -81,7 +81,7 @@ public class QnA {
         if(qnADto.getCreatedDate() != null) createdDate = qnADto.getCreatedDate();
         if(qnADto.getDeletedDate() != null) deletedDate = qnADto.getDeletedDate();
         if(qnADto.getCreator() != null) creator = qnADto.getCreator();
-        if(qnADto.getUserDto() != null) user = User.of(qnADto.getUserDto());
+        if(qnADto.getUserDto() != null) user = UserDto.toEntity(qnADto.getUserDto());
 
         updatedDate = Timestamp.valueOf(LocalDateTime.now());
         updater = "API";
