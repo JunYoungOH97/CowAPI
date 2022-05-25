@@ -38,11 +38,12 @@ public class NoticeDomainTest extends DomainTest {
         Notice notice = Notice.builder()
                 .title(Test_Notice_title)
                 .content(Test_Notice_content)
-                .createdDate(Create_Date)
-                .creator(Creator_Member)
-                .updatedDate(Update_Date)
-                .updater(Update_Member)
-                .isDeleted(false)
+                .isDeleted(Test_Notice_isDeleted)
+                .createdDate(Test_Notice_createdDate)
+                .updatedDate(Test_Notice_updatedDate)
+                .deletedDate(Test_Notice_deletedDate)
+                .creator(Test_Notice_creator)
+                .updater(Test_Notice_updater)
                 .user(user)
                 .build();
 
@@ -52,6 +53,12 @@ public class NoticeDomainTest extends DomainTest {
         // then
         assertEquals(Test_Notice_title, newNotice.getTitle());
         assertEquals(Test_Notice_content, newNotice.getContent());
+        assertEquals(Test_Notice_isDeleted, newNotice.getIsDeleted());
+        assertEquals(Test_Notice_createdDate, newNotice.getCreatedDate());
+        assertEquals(Test_Notice_updatedDate, newNotice.getUpdatedDate());
+        assertEquals(Test_Notice_deletedDate, newNotice.getDeletedDate());
+        assertEquals(Test_Notice_creator, newNotice.getCreator());
+        assertEquals(Test_Notice_updater, newNotice.getUpdater());
         assertEquals(Exist_User_email, newNotice.getUser().getEmail());
     }
     @Test
@@ -59,11 +66,11 @@ public class NoticeDomainTest extends DomainTest {
     public void readTest() {
         // given
         // when
-        Optional<Notice> notice = noticeRepository.findById(Exist_Notice_id);
+        Optional<Notice> foundNotice = noticeRepository.findById(Exist_Notice_id);
 
         // then
-        assertTrue(notice.isPresent());
-        notice.ifPresent(qnA -> assertEquals(Exist_Notice_id, notice.get().getId()));
+        assertTrue(foundNotice.isPresent());
+        foundNotice.ifPresent(notice -> assertEquals(Exist_Notice_id, foundNotice.get().getId()));
     }
     
     @Test
@@ -75,14 +82,27 @@ public class NoticeDomainTest extends DomainTest {
         NoticeDto noticeDto = NoticeDto.builder()
                 .title(Test_Notice_title)
                 .content(Test_Notice_content)
+                .isDeleted(Exist_Notice_isDeleted)
+                .createdDate(Exist_Notice_createdDate)
+                .updatedDate(Test_Notice_updatedDate)
+                .deletedDate(Exist_Notice_deletedDate)
+                .creator(Exist_Notice_creator)
+                .updater(Test_Notice_updater)
                 .build();
 
         // when
         noticeRepository.updateNotice(notice, noticeDto);
 
         // then
+        assertEquals(Exist_Notice_id, notice.getId());
         assertEquals(Test_Notice_title, notice.getTitle());
         assertEquals(Test_Notice_content, notice.getContent());
+        assertEquals(Exist_Notice_isDeleted, notice.getIsDeleted());
+        assertEquals(Exist_Notice_createdDate, notice.getCreatedDate());
+        assertEquals(Test_Notice_updatedDate, notice.getUpdatedDate());
+        assertEquals(Exist_Notice_deletedDate, notice.getDeletedDate());
+        assertEquals(Exist_Notice_creator, notice.getCreator());
+        assertEquals(Test_Notice_updater, notice.getUpdater());
     }
     
     @Test
