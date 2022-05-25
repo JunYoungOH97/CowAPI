@@ -53,6 +53,7 @@ public class NoticeDomainTest extends DomainTest {
         assertEquals(Test_Notice_title, newNotice.getTitle());
         assertEquals(Test_Notice_content, newNotice.getContent());
         assertEquals(Exist_User_email, newNotice.getUser().getEmail());
+        assertTrue(newNotice.getUser().getAdmin());
     }
     @Test
     @DisplayName("[Domain] 공지 조회 테스트")
@@ -83,6 +84,7 @@ public class NoticeDomainTest extends DomainTest {
         // then
         assertEquals(Test_Notice_title, notice.getTitle());
         assertEquals(Test_Notice_content, notice.getContent());
+        assertTrue(notice.getUser().getAdmin());
     }
     
     @Test
@@ -99,5 +101,6 @@ public class NoticeDomainTest extends DomainTest {
 
         // then
         assertTrue(notice.getIsDeleted());
+        assertTrue(notice.getUser().getAdmin());
     }
 }
