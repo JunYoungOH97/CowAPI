@@ -62,4 +62,10 @@ public class ControllerTest extends ServerApplicationTests {
                 .content(json)
                 .contentType(mediaType));
     }
+
+    public ResultActions deleteRequest(String api, String header, MediaType mediaType) throws Exception {
+        return mockMvc.perform(delete(api)
+                .header(HttpHeaders.AUTHORIZATION, header)
+                .contentType(mediaType));
+    }
 }
