@@ -40,6 +40,7 @@ public class NoticeServiceTest extends ServiceTest {
         assertEquals(Test_Notice_creator, newNoticeDto.getCreator());
         assertEquals(Test_Notice_updatedDate, newNoticeDto.getUpdatedDate());
         assertEquals(Test_Notice_updater, newNoticeDto.getUpdater());
+        assertTrue(newNoticeDto.getUserDto().getAdmin());
     }
 
     @Test
@@ -92,6 +93,7 @@ public class NoticeServiceTest extends ServiceTest {
         assertEquals(Exist_Notice_deletedDate, updatedNotice.getDeletedDate());
         assertEquals(Exist_Notice_creator, updatedNotice.getCreator());
         assertEquals(Test_Notice_updater, updatedNotice.getUpdater());
+        assertTrue(updatedNotice.getUserDto().getAdmin());
     }
     
     @Test
@@ -118,6 +120,7 @@ public class NoticeServiceTest extends ServiceTest {
         assertEquals(Test_Notice_deletedDate, deletedNotice.getDeletedDate());
         assertEquals(Exist_Notice_creator, deletedNotice.getCreator());
         assertEquals(Test_Notice_updater, deletedNotice.getUpdater());
+        assertTrue(deletedNotice.getUserDto().getAdmin());
     }
     
 }
