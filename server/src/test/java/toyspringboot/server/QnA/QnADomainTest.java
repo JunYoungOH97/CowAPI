@@ -9,7 +9,7 @@ import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.QnARepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
-import toyspringboot.server.TestModule.DomainTest;
+import toyspringboot.server.TestModuleReflection.DomainTest;
 
 import java.util.List;
 import java.util.Optional;

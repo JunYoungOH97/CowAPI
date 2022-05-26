@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import toyspringboot.server.Domain.Dto.NoticeDto;
 import toyspringboot.server.Service.NoticeService;
-import toyspringboot.server.TestModule.ServiceTest;
+import toyspringboot.server.TestModuleReflection.ServiceTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 

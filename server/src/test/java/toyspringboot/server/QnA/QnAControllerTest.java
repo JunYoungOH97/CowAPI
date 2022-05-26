@@ -6,11 +6,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import toyspringboot.server.Domain.Dto.QnADto;
-import toyspringboot.server.Domain.Dto.UserDto;
-import toyspringboot.server.TestModule.ControllerTest;
+import toyspringboot.server.TestModuleReflection.ControllerTest;
 
 import static toyspringboot.server.User.UserTestConstants.*;
-import static toyspringboot.server.User.UserTestConstants.SignUp_API;
 import static toyspringboot.server.QnA.QnATestConstants.*;
 
 public class QnAControllerTest extends ControllerTest {

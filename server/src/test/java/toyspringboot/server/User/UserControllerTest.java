@@ -2,16 +2,12 @@ package toyspringboot.server.User;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import toyspringboot.server.Controller.UserController;
 import toyspringboot.server.Domain.Dto.UserDto;
-import toyspringboot.server.TestModule.ControllerTest;
+import toyspringboot.server.TestModuleReflection.ControllerTest;
 
 import static toyspringboot.server.User.UserTestConstants.*;
 

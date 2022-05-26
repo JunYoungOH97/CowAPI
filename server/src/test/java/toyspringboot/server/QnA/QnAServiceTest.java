@@ -5,13 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import toyspringboot.server.Domain.Dto.QnADto;
 import toyspringboot.server.Domain.Dto.QnAListDto;
-import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Domain.Entity.QnA;
-import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.QnARepository;
 import toyspringboot.server.Service.QnAService;
-import toyspringboot.server.Service.UserService;
-import toyspringboot.server.TestModule.ServiceTest;
+import toyspringboot.server.TestModuleReflection.ServiceTest;
 
 import java.util.List;
 
