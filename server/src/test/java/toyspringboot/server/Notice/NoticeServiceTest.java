@@ -47,12 +47,8 @@ public class NoticeServiceTest extends ServiceTest {
     @DisplayName("[Service] 공지 조회 테스트")
     public void readTest() {
         // given
-        NoticeDto noticeDto = NoticeDto.builder()
-                .id(Exist_Notice_id)
-                .build();
-
         // when
-        NoticeDto foundNoticeDto = noticeService.readNotice(Exist_User_email, noticeDto);
+        NoticeDto foundNoticeDto = noticeService.readNotice(Exist_User_email, Exist_Notice_id);
 
         // then
         assertEquals(Exist_Notice_id, foundNoticeDto.getId());

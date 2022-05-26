@@ -8,9 +8,9 @@ import java.time.format.DateTimeFormatter;
 public class NoticeTestConstants {
     // ---------- API ----------
     public static final String Notice_create_API = "/notices/notice";
-    public static final String Notice_read_API = "/notices/1";
+    public static final String Notice_read_API = "/notices/notice?noticeId=1";
     public static final String Notice_update_API = "/notices/notice";
-    public static final String Notice_delete_API = "/notices/notice";
+    public static final String Notice_delete_API = "/notices/notice?noticeId=1";
 
     // ---------- test information ----------
     // 존재하지 않는 QnA

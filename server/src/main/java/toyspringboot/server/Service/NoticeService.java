@@ -12,8 +12,7 @@ import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Repository.NoticeRepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
 
-import static org.springframework.http.HttpStatus.FORBIDDEN;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @Service
 @RequiredArgsConstructor
@@ -30,16 +29,16 @@ public class NoticeService {
         return NoticeDto.of(noticeRepository.save(notice));
     }
 
-    public NoticeDto readNotice(String userToken, NoticeDto noticeDto) {
+    public NoticeDto readNotice(String userToken, Long noticeId) {
         UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(FORBIDDEN, "존재하지 않는 사용자 입니다.")));
-        Notice notice = noticeRepository.findById(noticeDto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 공지 입니다."));
+        Notice notice = noticeRepository.findById(noticeId).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 공지 입니다."));
         return NoticeDto.of(notice);
     }
 
     public NoticeDto updateNotice(String userToken, NoticeDto noticeDto) {
         UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
         if(!userDto.getAdmin()) throw new ResponseStatusException(FORBIDDEN, "공지 수정 권한이 없습니다.");
-        Notice notice = noticeRepository.findById(noticeDto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 공지 입니다."));;
+        Notice notice = noticeRepository.findById(noticeDto.getId()).orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, "존재하지 않는 공지 입니다."));;
         noticeRepository.updateNotice(notice, noticeDto);
         return NoticeDto.of(notice);
     }
@@ -47,7 +46,7 @@ public class NoticeService {
     public NoticeDto deleteNotice(String userToken, NoticeDto noticeDto) {
         UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
         if(!userDto.getAdmin()) throw new ResponseStatusException(FORBIDDEN, "공지 삭제 권한이 없습니다.");
-        Notice notice = noticeRepository.findById(noticeDto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 공지 입니다."));;
+        Notice notice = noticeRepository.findById(noticeDto.getId()).orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, "존재하지 않는 공지 입니다."));;
         noticeRepository.deleteNotice(notice, noticeDto);
         return NoticeDto.of(notice);
     }
