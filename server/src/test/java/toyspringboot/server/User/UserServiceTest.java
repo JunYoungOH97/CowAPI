@@ -3,6 +3,7 @@ package toyspringboot.server.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -36,8 +37,15 @@ public class UserServiceTest {
         UserDto userDto = UserDto.builder()
                 .email(User_email)
                 .password(User_password)
+                .admin(User_admin)
+                .isDeleted(User_IsDeleted)
+                .createdDate(Create_Date)
+                .creator(Creator_Member)
+                .updatedDate(Update_Date)
+                .updater(Update_Member)
                 .build();
-        when(userService.signUp(any(UserDto.class))).thenReturn(userDto);
+
+        when(userRepository.save(any(User.class))).thenReturn(UserDto.toEntity(userDto));
 
         // when
 //        UserDto newUser = (UserDto) test(userDto, userService, "signUp");
@@ -55,6 +63,7 @@ public class UserServiceTest {
                 .email(Exist_User_email)
                 .password(Exist_User_password)
                 .build();
+        when(userService.signIn(any(UserDto.class))).thenReturn(userDto);
 
         // when
 //        UserDto newUser = (UserDto) test(userDto, userService, "signIn");
