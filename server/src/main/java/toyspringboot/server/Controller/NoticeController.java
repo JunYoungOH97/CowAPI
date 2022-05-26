@@ -60,7 +60,7 @@ public class NoticeController {
             @ApiResponse(code = 404, message = "존재하지 않는 사용자 입니다."),
     })
     @DeleteMapping("/notices/notice")
-    public NoticeDto deleteNotice(@RequestHeader("Authorization") String userToken, @RequestBody NoticeDto noticeDto) {
-        return noticeService.deleteNotice(userToken, noticeDto);
+    public NoticeDto deleteNotice(@RequestHeader("Authorization") String userToken, @RequestParam("noticeId") Long noticeId) {
+        return noticeService.deleteNotice(userToken, noticeId, "API");
     }
 }
