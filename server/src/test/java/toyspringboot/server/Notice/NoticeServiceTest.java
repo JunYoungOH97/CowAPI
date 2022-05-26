@@ -96,14 +96,8 @@ public class NoticeServiceTest extends ServiceTest {
     @DisplayName("[Service] 공지 삭제 테스트")
     public void deleteTest() {
         // given
-        NoticeDto noticeDto = NoticeDto.builder()
-                .id(Exist_Notice_id)
-                .deletedDate(Test_Notice_deletedDate)
-                .updater(Test_Notice_updater)
-                .build();
-
         // when
-        NoticeDto deletedNotice = noticeService.deleteNotice(Exist_Notice_user, noticeDto);
+        NoticeDto deletedNotice = noticeService.deleteNotice(Exist_Notice_user, Exist_Notice_id, Test_Notice_updater);
 
         // then
         assertEquals(Exist_Notice_id, deletedNotice.getId());

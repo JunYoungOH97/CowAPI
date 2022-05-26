@@ -26,9 +26,9 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
         notice.setUpdatedDate(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
     }
 
-    default void deleteNotice(Notice notice, NoticeDto noticeDto) {
+    default void deleteNotice(Notice notice, String updater) {
         notice.setIsDeleted(true);
-        notice.setUpdater(noticeDto.getUpdater());
+        notice.setUpdater(updater);
         notice.setDeletedDate(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
     }
 }
