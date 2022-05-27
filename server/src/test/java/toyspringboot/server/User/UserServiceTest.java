@@ -8,7 +8,7 @@ import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.UserRepository;
 import toyspringboot.server.Service.UserService;
-import toyspringboot.server.TestModuleReflection.ServiceTest;
+import toyspringboot.server.TestConfig.ServiceTest;
 
 
 import java.util.Optional;
@@ -121,7 +121,6 @@ public class UserServiceTest extends ServiceTest {
 
         String userToken = "testToken";
         when(userRepository.findByEmail(any(String.class))).thenReturn(Optional.ofNullable(UserDto.toEntity(userDto)));
-
 
         // when
         UserDto updateUser = userService.deleteUser(userToken, userDto);
