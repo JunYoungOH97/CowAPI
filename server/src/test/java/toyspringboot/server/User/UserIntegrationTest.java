@@ -13,7 +13,7 @@ import static toyspringboot.server.User.UserTestConstants.*;
 
 public class UserIntegrationTest extends IntegrationTest {
     @Test
-    @DisplayName("[API] 회원가입 테스트")
+    @DisplayName("[Integration] 회원가입 테스트")
     public void signUpTest() throws Exception {
         // given
         String request = getRequestJson(UserDto.builder()
@@ -30,7 +30,7 @@ public class UserIntegrationTest extends IntegrationTest {
     }
 
     @Test
-    @DisplayName("[API] 로그인 테스트")
+    @DisplayName("[Integration] 로그인 테스트")
     public void signInTest() throws Exception {
         // given
         String json = getRequestJson(UserDto.builder()
@@ -46,7 +46,7 @@ public class UserIntegrationTest extends IntegrationTest {
     }
 
     @Test
-    @DisplayName("[API] 사용자 정보 수정 테스트")
+    @DisplayName("[Integration] 사용자 정보 수정 테스트")
     public void updateUserTest() throws Exception {
         // given
         String json = getRequestJson(UserDto.builder()
@@ -64,7 +64,7 @@ public class UserIntegrationTest extends IntegrationTest {
     }
 
     @Test
-    @DisplayName("[API] 사용자 삭제 테스트")
+    @DisplayName("[Integration] 사용자 삭제 테스트")
     public void deleteUserTest() throws Exception {
         // given
         String json = getRequestJson(UserDto.builder()
