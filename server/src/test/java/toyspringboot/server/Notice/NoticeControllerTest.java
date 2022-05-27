@@ -6,8 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import toyspringboot.server.Domain.Dto.NoticeDto;
-import toyspringboot.server.Domain.Entity.Notice;
-import toyspringboot.server.TestModule.ControllerTest;
+import toyspringboot.server.TestModuleReflection.ControllerTest;
 
 import static toyspringboot.server.User.UserTestConstants.Exist_User_email;
 

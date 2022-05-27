@@ -1,4 +1,4 @@
-package toyspringboot.server.TestModule;
+package toyspringboot.server.TestModuleReflection;
 
 import toyspringboot.server.ServerApplicationTests;
 

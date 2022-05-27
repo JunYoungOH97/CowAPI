@@ -2,21 +2,14 @@ package toyspringboot.server.User;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.UserRepository;
-import toyspringboot.server.TestModule.DomainTest;
-
-import java.util.Optional;
+import toyspringboot.server.TestConfig.DomainTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static toyspringboot.server.User.UserTestConstants.*;
-
 
 public class UserDomainTest extends DomainTest {
     @Autowired
@@ -24,7 +17,7 @@ public class UserDomainTest extends DomainTest {
 
     @Test
     @DisplayName("[Domain] 사용자 생성 테스트")
-    public void createTest() throws Exception {
+    public void createTest() {
         // given
         User user = User.builder()
                 .email(User_email)
@@ -38,7 +31,7 @@ public class UserDomainTest extends DomainTest {
                 .build();
 
         // when
-        User newUser = (User) test(user, userRepository, "save");
+        User newUser = userRepository.save(user);
 
         // then
         assertEquals(user.getEmail(), newUser.getEmail());
@@ -46,21 +39,20 @@ public class UserDomainTest extends DomainTest {
 
     @Test
     @DisplayName("[Domain] 사용자 조회 테스트")
-    public void readTest() throws Exception {
+    public void readTest() {
         // given
         // when
-        Optional<User> foundUser = (Optional<User>) test(Exist_User_email, userRepository, "findByEmail");
+        User user = userRepository.findByEmail(Exist_User_email).orElseThrow();
 
         // then
-        assertTrue(foundUser.isPresent());
-        foundUser.ifPresent(user -> assertEquals(Exist_User_email, user.getEmail()));
+        assertEquals(Exist_User_email, user.getEmail());
     }
 
     @Test
     @DisplayName("[Domain] 사용자 수정 테스트")
-    public void updateTest() throws Exception {
+    public void updateTest() {
         // given
-        User user = userRepository.findByEmail(Exist_User_email).get();
+        User user = userRepository.findByEmail(Exist_User_email).orElseThrow();
 
         UserDto userDto = UserDto.builder()
                 .email(Exist_User_email)
@@ -76,14 +68,13 @@ public class UserDomainTest extends DomainTest {
 
     @Test
     @DisplayName("[Domain] 사용자 삭제 테스트")
-    public void deleteTest() throws Exception {
+    public void deleteTest() {
         // given
-        User user = userRepository.findByEmail(Exist_User_email).get();
+        User user = userRepository.findByEmail(Exist_User_email).orElseThrow();
 
         String userToken = "testToken";
 
         // when
-//        User deletedUser = (User) test(userDto, userRepository, "deleteByEmail");
         userRepository.deleteUser(user);
 
         // then

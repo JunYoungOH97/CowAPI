@@ -8,15 +8,12 @@ import toyspringboot.server.Domain.Entity.Notice;
 import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.NoticeRepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
-import toyspringboot.server.TestModule.DomainTest;
+import toyspringboot.server.TestModuleReflection.DomainTest;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static toyspringboot.server.DefaultTestConstants.Create_Date;
-import static toyspringboot.server.DefaultTestConstants.Creator_Member;
-import static toyspringboot.server.QnA.QnATestConstants.*;
 import static toyspringboot.server.User.UserTestConstants.Exist_User_email;
 
 import static toyspringboot.server.Notice.NoticeTestConstants.*;
