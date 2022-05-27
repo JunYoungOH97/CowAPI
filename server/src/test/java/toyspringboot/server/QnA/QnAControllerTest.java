@@ -2,16 +2,24 @@ package toyspringboot.server.QnA;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import toyspringboot.server.Controller.QnAController;
 import toyspringboot.server.Domain.Dto.QnADto;
-import toyspringboot.server.TestModuleReflection.ControllerTest;
+import toyspringboot.server.Service.QnAService;
+import toyspringboot.server.TestConfig.ControllerTest;
 
 import static toyspringboot.server.User.UserTestConstants.*;
 import static toyspringboot.server.QnA.QnATestConstants.*;
 
+@WebMvcTest(QnAController.class)
 public class QnAControllerTest extends ControllerTest {
+    @MockBean
+    private QnAService qnAService;
+
     @Test
     @DisplayName("[Controller] QnA 생성 테스트")
     public void createTest() throws Exception {
