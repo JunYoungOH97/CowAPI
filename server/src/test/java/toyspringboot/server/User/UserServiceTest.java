@@ -50,7 +50,6 @@ public class UserServiceTest extends ServiceTest {
         // then
         assertEquals(userDto.getEmail(), newUser.getEmail());
         verify(userRepository).save(any(User.class));
-
     }
 
     @Test
