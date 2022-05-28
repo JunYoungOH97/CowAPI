@@ -1,47 +1,72 @@
 package toyspringboot.server.User;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import toyspringboot.server.Controller.UserController;
 import toyspringboot.server.Domain.Dto.UserDto;
+import toyspringboot.server.Domain.Entity.User;
+import toyspringboot.server.Domain.Repository.UserRepository;
 import toyspringboot.server.Service.UserService;
 import toyspringboot.server.TestConfig.ControllerTest;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import static toyspringboot.server.User.UserTestConstants.*;
 
 
 @WebMvcTest(UserController.class)
 public class UserControllerTest extends ControllerTest {
-    @MockBean
-    private UserService userService;
+    @MockBean(name="Service")
+    private static UserService userService;
+
+    @MockBean(name="Repository")
+    private static UserRepository userRepository;
+
+    private static UserDto userDto;
+
+    @BeforeAll
+    public static void settingDefaultUser() {
+        userDto = UserDto.builder()
+                .isDeleted(User_IsDeleted)
+                .createdDate(Create_Date)
+                .creator(Creator_Member)
+                .updatedDate(Update_Date)
+                .updater(Update_Member)
+                .build();
+    }
 
     @Test
     @DisplayName("[Controller] 회원가입 테스트")
     public void signUpTest() throws Exception {
         // given
-        String request = getRequestJson(UserDto.builder()
-                .email(User_email)
-                .password(User_password)
-                .admin(User_admin)
-                .build());
+//        UserDto userDto = UserDto.builder()
+//                .email(User_email)
+//                .password(User_password)
+//                .admin(User_admin)
+//                .build();
+
+        userDto.setEmail(User_email);
+        userDto.setPassword(User_password);
+        userDto.setAdmin(User_admin);
+
+        String request = getRequestJson(userDto);
+
+        when(userService.signUp(any(UserDto.class))).thenReturn(userDto);
+        when(userRepository.save(mock(User.class))).thenReturn(UserDto.toEntity(userDto));
+
         // when
         ResultActions actions = postRequest(baseUrl(SignUp_API), request, MediaType.APPLICATION_JSON);
 
         // then
         actions.andExpect(MockMvcResultMatchers.status().isOk());
+        verify(userService).signUp(any(UserDto.class));
+        verify(userRepository, never()).save(any(User.class));
     }
 
 
