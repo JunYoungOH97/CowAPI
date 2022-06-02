@@ -13,15 +13,17 @@ import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Service.QnAService;
 import toyspringboot.server.Service.UserService;
+import toyspringboot.server.Slack.SlackService;
 
 import java.util.List;
 
 @Api(tags = {"QnA 게시판"})
-//@RequestMapping(value = "/api/v1")
+@RequestMapping(value = "/api/v1")
 @RestController
 @RequiredArgsConstructor
 public class QnAController {
     private final QnAService qnAService;
+    private final SlackService slackService;
 
     @ApiOperation(value = "QnA 생성", notes = "QnA 게시글 생성 API 입니다.")
     @ApiResponses({
@@ -30,6 +32,7 @@ public class QnAController {
     })
     @PostMapping("/QnAs/QnA")
     public QnADto createQnA(@RequestHeader("Authorization") String userToken, @RequestBody QnADto qnADto) {
+        slackService.postSlackMessage("새로운 QnA가 생성되었습니다.");
         return qnAService.createQnA(userToken, qnADto);
     }
 
@@ -86,12 +89,5 @@ public class QnAController {
     @GetMapping("/QnAs/QnA/page")
     public QnAListDto QnAPage(@RequestParam(value = "page") Long page) {
         return qnAService.pageQnA(page);
-    }
-
-
-    @GetMapping("/slack")
-    public String Slack() {
-        qnAService.NoticeToSlack();
-        return "notice is send";
     }
 }

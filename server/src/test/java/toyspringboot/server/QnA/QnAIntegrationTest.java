@@ -2,10 +2,13 @@ package toyspringboot.server.QnA;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import toyspringboot.server.Domain.Dto.QnADto;
+import toyspringboot.server.Domain.Entity.QnA;
+import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.TestConfig.IntegrationTest;
 
 import static toyspringboot.server.QnA.QnATestConstants.*;
@@ -19,7 +22,11 @@ public class QnAIntegrationTest extends IntegrationTest {
         // given
         String request = getRequestJson(QnADto.builder()
                 .title(QnA_title)
-                .content(QnA_content)
+                .isDeleted(QnA_isDeleted)
+                .createdDate(Create_Date)
+                .creator(Creator_Member)
+                .updatedDate(Create_Date)
+                .updater(Creator_Member)
                 .build()
         );
 

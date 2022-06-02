@@ -13,7 +13,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 public class SwaggerConfig {
 
-    @Bean
+    @Bean(name = "Swagger")
     public Docket restAPI() {
         return new Docket(DocumentationType.OAS_30)
                 .useDefaultResponseMessages(true)

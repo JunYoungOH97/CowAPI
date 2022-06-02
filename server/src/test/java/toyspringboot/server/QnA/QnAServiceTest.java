@@ -3,6 +3,7 @@ package toyspringboot.server.QnA;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import toyspringboot.server.Domain.Dto.QnADto;
 import toyspringboot.server.Domain.Dto.QnAListDto;
 import toyspringboot.server.Domain.Entity.QnA;
@@ -17,6 +18,7 @@ import static toyspringboot.server.User.UserTestConstants.*;
 
 import static toyspringboot.server.QnA.QnATestConstants.*;
 
+@SpringBootTest
 public class QnAServiceTest extends ServiceTest {
     @Autowired
     private QnAService qnAService;
