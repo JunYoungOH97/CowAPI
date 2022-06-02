@@ -44,3 +44,8 @@ application-h2.properties
 application-jwt.properties
 application-swagger.properties
 application-testDB.properties
+application-slack.properties
+
+
+## Mac
+.DS_Store

@@ -11,6 +11,7 @@ import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Repository.QnARepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
+import toyspringboot.server.Slack.SlackService;
 
 import java.util.ArrayList;
 import java.util.Iterator;
