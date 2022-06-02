@@ -11,6 +11,7 @@ import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Repository.QnARepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
+import toyspringboot.server.Slack.SlackService;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,6 +25,14 @@ import static org.springframework.http.HttpStatus.*;
 public class QnAService {
     private final QnARepository qnARepository;
     private final UserRepository userRepository;
+
+    @Autowired
+    private SlackService slackService;
+
+    public void NoticeToSlack() {
+        slackService.postSlackMessage("공지 테스트");
+    }
+
 
     public QnADto createQnA(String userToken, QnADto qnADto) {
         UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));

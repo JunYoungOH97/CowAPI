@@ -17,7 +17,7 @@ import toyspringboot.server.Service.UserService;
 import java.util.List;
 
 @Api(tags = {"QnA 게시판"})
-@RequestMapping(value = "/api/v1")
+//@RequestMapping(value = "/api/v1")
 @RestController
 @RequiredArgsConstructor
 public class QnAController {
@@ -32,7 +32,6 @@ public class QnAController {
     public QnADto createQnA(@RequestHeader("Authorization") String userToken, @RequestBody QnADto qnADto) {
         return qnAService.createQnA(userToken, qnADto);
     }
-
 
     @ApiOperation(value = "QnA 조회", notes = "QnA 게시글 조회 API 입니다.")
     @ApiResponses({
@@ -87,5 +86,12 @@ public class QnAController {
     @GetMapping("/QnAs/QnA/page")
     public QnAListDto QnAPage(@RequestParam(value = "page") Long page) {
         return qnAService.pageQnA(page);
+    }
+
+
+    @GetMapping("/slack")
+    public String Slack() {
+        qnAService.NoticeToSlack();
+        return "notice is send";
     }
 }
