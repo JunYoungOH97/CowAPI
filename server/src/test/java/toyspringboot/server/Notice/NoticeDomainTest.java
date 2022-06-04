@@ -3,6 +3,8 @@ package toyspringboot.server.Notice;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import toyspringboot.server.Domain.Dto.NoticeDto;
 import toyspringboot.server.Domain.Entity.Notice;
 import toyspringboot.server.Domain.Entity.User;
@@ -18,7 +20,8 @@ import static toyspringboot.server.User.UserTestConstants.Exist_User_email;
 
 import static toyspringboot.server.Notice.NoticeTestConstants.*;
 
-
+@SpringBootTest
+@Transactional
 public class NoticeDomainTest extends DomainTest {
     @Autowired
     private UserRepository userRepository;

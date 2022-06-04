@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.*;
 import toyspringboot.server.Domain.Dto.NoticeDto;
 import toyspringboot.server.Domain.Dto.QnADto;
@@ -15,6 +16,7 @@ import toyspringboot.server.Service.NoticeService;
 @RequestMapping(value = "/api/v1")
 @RestController
 @RequiredArgsConstructor
+@EnableWebSecurity
 public class NoticeController {
     private final NoticeService noticeService;
 
