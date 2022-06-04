@@ -10,9 +10,6 @@ import toyspringboot.server.Domain.Entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
-
 
 // 유저의 권한을 제공하는 필터
 @Component

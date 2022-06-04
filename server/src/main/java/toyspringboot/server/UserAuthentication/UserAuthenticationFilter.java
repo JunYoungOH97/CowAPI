@@ -2,10 +2,7 @@ package toyspringboot.server.UserAuthentication;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.AuthenticationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.util.StringUtils;
-import toyspringboot.server.Domain.Entity.User;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
