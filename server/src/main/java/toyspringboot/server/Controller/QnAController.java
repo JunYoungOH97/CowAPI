@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.*;
 import toyspringboot.server.Domain.Dto.QnADto;
 import toyspringboot.server.Domain.Dto.QnAListDto;
@@ -20,6 +21,7 @@ import java.util.List;
 @Api(tags = {"QnA 게시판"})
 @RequestMapping(value = "/api/v1")
 @RestController
+//@EnableWebSecurity
 @RequiredArgsConstructor
 public class QnAController {
     private final QnAService qnAService;

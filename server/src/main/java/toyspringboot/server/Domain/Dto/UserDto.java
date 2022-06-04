@@ -2,12 +2,17 @@ package toyspringboot.server.Domain.Dto;
 
 
 import lombok.*;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.authority.SimpleGrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetailsService;
 import toyspringboot.server.Domain.Entity.User;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 
 @Getter
 @Setter
@@ -24,6 +29,7 @@ public class UserDto {
     private Timestamp deletedDate;
     private String creator;
     private String updater;
+
 
     public void setCreatedUser() {
         this.setAdmin(false);

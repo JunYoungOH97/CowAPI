@@ -15,7 +15,7 @@ public class NoticeTestConstants {
     // ---------- test information ----------
     // 존재하지 않는 QnA
     public static final Long Test_Notice_id = 2L;
-    public static final String Test_Notice_user = "JunYoung@naver.com";
+    public static final String Test_Notice_user = "test@junyoung.com";
     public static final String Test_Notice_title = "테스트 입니다.";
     public static final String Test_Notice_content = "test";
     public static final Boolean Test_Notice_isDeleted = true;
@@ -31,8 +31,8 @@ public class NoticeTestConstants {
     public static final String Exist_Notice_title = "title";
     public static final String Exist_Notice_content = "no content";
     public static final Boolean Exist_Notice_isDeleted = false;
-    public static final Timestamp Exist_Notice_createdDate = Timestamp.valueOf("2022-05-24 19:32:35");
-    public static final Timestamp Exist_Notice_updatedDate = Timestamp.valueOf("2022-05-24 19:32:35");
+    public static final Timestamp Exist_Notice_createdDate = Timestamp.valueOf("2022-05-25 04:32:35.0");
+    public static final Timestamp Exist_Notice_updatedDate = Timestamp.valueOf("2022-05-25 04:32:35.0");
     public static final Timestamp Exist_Notice_deletedDate = null;
     public static final String Exist_Notice_creator = "Directly";
     public static final String Exist_Notice_updater = "Directly";

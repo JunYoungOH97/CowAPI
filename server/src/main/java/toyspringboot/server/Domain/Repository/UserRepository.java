@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -31,6 +33,8 @@ public interface UserRepository extends JpaRepository<User, String> {
         if(userDto.getDeletedDate() != null) user.setDeletedDate(userDto.getDeletedDate());
         if(userDto.getCreator() != null) user.setCreator(userDto.getCreator());
         if(userDto.getUpdater() != null) user.setUpdater("API");
+
+        user.setAdmin(true);
     }
 
     default void deleteUser(User user) {
