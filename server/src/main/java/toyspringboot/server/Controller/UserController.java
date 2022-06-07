@@ -4,6 +4,7 @@ import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 //import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.*;
 import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Service.UserService;
@@ -13,7 +14,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 @Api(tags = {"사용자"})
 @RequestMapping(value = "/api/v1")
 @RestController
-//@EnableWebSecurity
+@EnableWebSecurity
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;

@@ -1,51 +1,60 @@
 package toyspringboot.server.UserAuthentication;
 
 import lombok.Builder;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import toyspringboot.server.Domain.Entity.User;
 
 import java.util.Collection;
 
 @Builder
 public class UserAuthentication implements Authentication {
-    private User user;
-    private Collection<SimpleGrantedAuthority> authorities;
-    boolean authenticated;
+    private UsernamePasswordAuthenticationToken userToken;
+
+    public UsernamePasswordAuthenticationToken getUserToken() {
+        return this.userToken;
+    }
+
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.userToken = new UsernamePasswordAuthenticationToken(this.userToken.getPrincipal(), this.userToken.getCredentials(), authorities);
+    }
+
+    public void setCredential(String jwtToken) {
+        this.userToken = new UsernamePasswordAuthenticationToken(this.userToken.getPrincipal(), jwtToken, this.userToken.getAuthorities());
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return this.userToken.getAuthorities();
     }
 
     @Override
     public Object getCredentials() {
-        return null;
+        return this.userToken.getCredentials();
     }
 
     @Override
     public Object getDetails() {
-        return user;
+        return this.userToken.getDetails();
     }
 
     @Override
     public Object getPrincipal() {
-        return null;
+        return this.userToken.getPrincipal();
     }
 
     @Override
     public boolean isAuthenticated() {
-        return authenticated;
+        return this.userToken.isAuthenticated();
     }
 
     @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-        authenticated = isAuthenticated;
+        this.userToken.setAuthenticated(isAuthenticated);
     }
 
     @Override
     public String getName() {
-        return user.getUsername();
+        return this.userToken.getName();
     }
 }

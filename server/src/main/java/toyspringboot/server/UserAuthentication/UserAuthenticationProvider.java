@@ -1,42 +1,60 @@
 package toyspringboot.server.UserAuthentication;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import toyspringboot.server.Domain.Entity.User;
 
-import javax.servlet.http.HttpServletRequest;
+import java.security.Key;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 
-// 유저의 권한을 제공하는 필터
 @Component
 @RequiredArgsConstructor
-public class UserAuthenticationProvider implements AuthenticationProvider {
-    private final UserAuthenticationConverter userAuthenticationConverter;
+public class UserAuthenticationProvider {
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24;
+    private static final String secretKey = "secretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKey";
 
+    private final UserAuthenticationService userAuthenticationService;
 
-    public Authentication provideRole(HttpServletRequest httpServletRequest) {
-        Authentication userAuthentication = userAuthenticationConverter.convert(httpServletRequest);
-        Authentication authentication =  authenticate(userAuthentication);
-        if(supports(authentication.getClass())) return authentication;
-        else return null;
+    public void setUserAuthenticationUserDetail(UserAuthentication userAuthentication) {
+        UserDetails userDetails = userAuthenticationService.loadUserByUsername(userAuthentication.getPrincipal().toString());
+        userAuthentication.getUserToken().setDetails(userDetails);
     }
 
-    @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        return (Authentication) UserAuthentication.builder()
-                .authorities((Collection<SimpleGrantedAuthority>) ((User) authentication.getDetails()).getAuthorities())
-                .authenticated(true)
-                .build();
+    public void setUserAuthenticationToken (UserAuthentication userAuthentication) {
+        String jwtToken = getJwtToken(userAuthentication);
+        userAuthentication.setCredential(jwtToken);
     }
 
-    @Override
-    public boolean supports(Class<?> authentication) {
-        return true;
+    public void setUserAuthenticationRole (UserAuthentication userAuthentication) {
+        UserDetails userDetails = userAuthenticationService.loadUserByUsername(userAuthentication.getPrincipal().toString());
+        userAuthentication.setAuthorities(userDetails.getAuthorities());
     }
 
 
+    public Key getKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public String getJwtToken(UserAuthentication userAuthentication) {
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + ACCESS_TOKEN_EXPIRE_TIME);
+
+        return Jwts.builder()
+                .setSubject(userAuthentication.getName()) // 사용자
+                .setIssuedAt(new Date()) // 현재 시간 기반으로 생성
+                .setExpiration(expiryDate) // 만료 시간 세팅
+                .signWith(getKey(), SignatureAlgorithm.HS512) // 사용할 암호화 알고리즘, signature 에 들어갈 secret 값 세팅
+                .compact();
+    }
 }

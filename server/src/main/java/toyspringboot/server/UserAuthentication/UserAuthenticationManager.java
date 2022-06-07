@@ -1,23 +1,44 @@
 package toyspringboot.server.UserAuthentication;
 
-import lombok.NoArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.DisabledException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.naming.factory.SendMailFactory;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
+import toyspringboot.server.Domain.Entity.User;
 
-
-// 유저가 권한이 있는지 확인하는 필터
+import javax.crypto.SecretKey;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
+import java.util.Date;
+//
+//// 유저의 권한을 제공하는 필터
 @Component
-@NoArgsConstructor
-public class UserAuthenticationManager implements AuthenticationManager {
+@RequiredArgsConstructor
+public class UserAuthenticationManager implements AuthenticationProvider {
+    private final UserAuthenticationProvider userAuthenticationProvider;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        // 인가가 되지 않은 접근을 하려고 할 때
-        if(authentication.isAuthenticated()) throw new DisabledException("인가가 되지 않은 사용자 입니다.");
-//        else if(authentication.getCredentials()) return new BadCredentialsException("BadCredentialsException");
-        return authentication;
+        UserAuthentication userAuthentication = (UserAuthentication) authentication;
+        userAuthenticationProvider.setUserAuthenticationToken(userAuthentication);
+        userAuthenticationProvider.setUserAuthenticationRole(userAuthentication);
+        userAuthenticationProvider.setUserAuthenticationUserDetail(userAuthentication);
+
+        System.out.println("Email : " + authentication.getName() + " authentication = " + authentication.getCredentials());
+        return userAuthentication;
+    }
+
+    @Override
+    public boolean supports(Class<?> authentication) {
+        return UserAuthentication.class.isAssignableFrom(authentication);
     }
 }

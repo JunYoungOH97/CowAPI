@@ -1,18 +1,20 @@
 package toyspringboot.server.UserAuthentication;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.UserRepository;
 
 import java.util.Collections;
 
-// 유저 정보를 가져오는 Service
-@Repository
+@Component
 @RequiredArgsConstructor
 public class UserAuthenticationService implements UserDetailsService {
     private final UserRepository userRepository;
