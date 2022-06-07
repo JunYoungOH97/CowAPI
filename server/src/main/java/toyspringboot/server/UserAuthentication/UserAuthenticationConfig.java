@@ -8,11 +8,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @RequiredArgsConstructor
 public class UserAuthenticationConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-    private final UserAuthenticationProvider userAuthenticationProvider;
+    private final UserAuthenticationConverter userAuthenticationConverter;
+    private final UserAuthenticationManager userAuthenticationManager;
 
     @Override
     public void configure(HttpSecurity httpSecurity) {
-        UserAuthenticationFilter userAuthenticationFilter = new UserAuthenticationFilter(userAuthenticationProvider);
+        UserAuthenticationFilter userAuthenticationFilter = new UserAuthenticationFilter(userAuthenticationConverter, userAuthenticationManager);
         httpSecurity.addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

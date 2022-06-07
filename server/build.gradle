@@ -32,9 +32,9 @@ dependencies {
 
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
-//	implementation group: 'io.jsonwebtoken', name:'jjwt-impl', version:'0.11.2'
-//	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
-//	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+	implementation group: 'io.jsonwebtoken', name:'jjwt-impl', version:'0.11.2'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
 
 	implementation 'com.slack.api:bolt:1.22.1'
 	implementation 'com.slack.api:bolt-servlet:1.22.1'

@@ -15,6 +15,7 @@ import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.NoticeRepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
+import toyspringboot.server.UserAuthentication.UserAuthenticationConverter;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -24,12 +25,10 @@ import static org.springframework.http.HttpStatus.*;
 public class NoticeService {
     private final NoticeRepository noticeRepository;
     private final UserRepository userRepository;
-
+    private final UserAuthenticationConverter userAuthenticationConverter;
     public NoticeDto createNotice(String userToken, NoticeDto noticeDto) {
-//        if(!userDto.getAdmin()) throw new ResponseStatusException(FORBIDDEN, "공지 생성 권한이 없습니다.");
-//        userSecurity.loadUserByUsername(userToken);
-        UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
-//        UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
+        String userEmail = userAuthenticationConverter.getUserEmailFromRequestHeader(userToken);
+        UserDto userDto = UserDto.of(userRepository.findByEmail(userEmail).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
         noticeDto.setCreateNoticeDto(userDto);
         Notice notice = NoticeDto.toEntity(noticeDto);
         return NoticeDto.of(noticeRepository.save(notice));
