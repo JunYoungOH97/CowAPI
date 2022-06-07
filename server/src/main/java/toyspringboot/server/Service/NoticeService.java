@@ -27,7 +27,7 @@ public class NoticeService {
     private final UserRepository userRepository;
     private final UserAuthenticationConverter userAuthenticationConverter;
     public NoticeDto createNotice(String userToken, NoticeDto noticeDto) {
-        String userEmail = userAuthenticationConverter.getUserEmailFromToken(userToken);
+        String userEmail = userAuthenticationConverter.getUserEmailFromRequestHeader(userToken);
         UserDto userDto = UserDto.of(userRepository.findByEmail(userEmail).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
         noticeDto.setCreateNoticeDto(userDto);
         Notice notice = NoticeDto.toEntity(noticeDto);

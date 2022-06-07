@@ -15,10 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import toyspringboot.server.UserAuthentication.UserAuthenticationConfig;
-import toyspringboot.server.UserAuthentication.UserAuthenticationConverter;
-import toyspringboot.server.UserAuthentication.UserAuthenticationManager;
-import toyspringboot.server.UserAuthentication.UserAuthenticationService;
+import toyspringboot.server.UserAuthentication.*;
 
 
 @Configuration
@@ -28,28 +25,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserAuthenticationService userAuthenticationService;
     private final UserAuthenticationConverter userAuthenticationConverter;
     private final UserAuthenticationManager userAuthenticationManager;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
 
     // UserDetailsService 구현체
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userAuthenticationService).passwordEncoder(passwordEncoder());
-    }
-
-    private PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    @Override
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userAuthenticationService).passwordEncoder(passwordEncoder());
+//    }
+//
+//    private PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 
     // 기본 설정
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
+                .httpBasic().disable()
 //                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .csrf().disable()
+                .cors().disable()
                 .exceptionHandling()
-
-//                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-//                .accessDeniedHandler(jwtAccessDeniedHandler)
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedHandler(jwtAccessDeniedHandler)
 
                 .and()
                     .sessionManagement()
@@ -63,14 +64,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(HttpMethod.DELETE, "/api/v1/notices/notice/**").hasRole("ADMIN")
                     .antMatchers(HttpMethod.GET, "/api/v1/notices/notice/**").hasAnyRole("ADMIN", "USER")
                     .antMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
-                    .antMatchers("**users**").permitAll()
                     .anyRequest().authenticated()
-
 
                 .and()
                     .apply(new UserAuthenticationConfig(userAuthenticationConverter, userAuthenticationManager));
+    }
 
-
-
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers(HttpMethod.POST, "/api/v1/users/**");
     }
 }

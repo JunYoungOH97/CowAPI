@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 //import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.*;
+import toyspringboot.server.Domain.Dto.TokenDto;
 import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Service.UserService;
 
@@ -24,7 +25,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "success"),
             @ApiResponse(code = 409, message = "이미 가입되어 있는 이메일입니다."),
     })
-    @PostMapping("/users/newUser")
+    @PostMapping("/users/signup")
     public UserDto signUp(@RequestBody UserDto userDto) {
         return userService.signUp(userDto);
     }
@@ -35,8 +36,8 @@ public class UserController {
             @ApiResponse(code = 400, message = "비밀번호가 틀렸습니다."),
             @ApiResponse(code = 404, message = "존재 하지 않는 사용자입니다.")
     })
-    @PostMapping("/users/user")
-    public UserDto signIn(@RequestBody UserDto userDto) {
+    @PostMapping("/users/login")
+    public TokenDto signIn(@RequestBody UserDto userDto) {
         return userService.signIn(userDto);
     }
 

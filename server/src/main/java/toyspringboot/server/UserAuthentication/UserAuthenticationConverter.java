@@ -2,25 +2,34 @@ package toyspringboot.server.UserAuthentication;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import toyspringboot.server.Domain.Dto.TokenDto;
 import toyspringboot.server.Domain.Entity.User;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Key;
 
 @Component
 @NoArgsConstructor
 public class UserAuthenticationConverter implements AuthenticationConverter {
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String BEARER_PREFIX = "Bearer ";
-    private static final String secretKey = "secretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKey";
+
+    @Value(value = "${jwt.secret}")
+    String secretKey;
 
     @Override
     public Authentication convert(HttpServletRequest request) {
@@ -49,9 +58,14 @@ public class UserAuthenticationConverter implements AuthenticationConverter {
         return null;
     }
 
-    public String getUserEmailFromToken(String headerToken) {
+    private Key getKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    private String getUserEmailFromToken(String headerToken) {
         Claims claims = Jwts.parserBuilder()
-                .setSigningKey(secretKey)
+                .setSigningKey(getKey())
                 .build()
                 .parseClaimsJws(headerToken)
                 .getBody();
@@ -59,10 +73,19 @@ public class UserAuthenticationConverter implements AuthenticationConverter {
         return claims.getSubject();
     }
 
-    public String getTempUserEmail(String token) {
-        if (StringUtils.hasText(token) && token.startsWith(BEARER_PREFIX)) {
-            return token.substring(7);
+    public String getUserEmailFromRequestHeader(String userToken) {
+        if (StringUtils.hasText(userToken) && userToken.startsWith(BEARER_PREFIX)) {
+            userToken = userToken.substring(7);
+            return getUserEmailFromToken(userToken);
         }
-        return null;
+        else {
+            return null;
+        }
+    }
+
+    public void getUserTokenForLogin(User user) {
+        String credentials = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
+        String email = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        System.out.println("user = " + email + " token : " + credentials);
     }
 }
