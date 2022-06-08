@@ -53,22 +53,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(jwtAccessDeniedHandler)
 
                 .and()
-                    .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
 
                 .and()
-                    .authorizeRequests()
-                    .antMatchers(HttpMethod.POST, "/api/v1/notices/notice").hasRole("ADMIN")
-                    .antMatchers(HttpMethod.PUT, "/api/v1/notices/notice").hasRole("ADMIN")
-                    .antMatchers(HttpMethod.DELETE, "/api/v1/notices/notice/**").hasRole("ADMIN")
-                    .antMatchers(HttpMethod.GET, "/api/v1/notices/notice/**").hasAnyRole("ADMIN", "USER")
-                    .antMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
-                    .anyRequest().authenticated()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/api/v1/notices/notice").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/v1/notices/notice").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/v1/notices/notice/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/v1/notices/notice/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
+                .anyRequest().authenticated()
 
                 .and()
-                    .apply(new UserAuthenticationConfig(userAuthenticationConverter, userAuthenticationManager));
-//
+                .apply(new UserAuthenticationConfig(userAuthenticationConverter, userAuthenticationManager));
+
 //                .and()
 //                    .oauth2Login()
 //                    .authorizationEndpoint()
@@ -77,8 +77,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers(HttpMethod.POST, "/api/v1/users/**")
-                .antMatchers(HttpMethod.GET,"/api/v1/users/**")
-                .antMatchers(HttpMethod.GET,"/api/v1/redis");
+        web.ignoring().antMatchers(HttpMethod.POST, "/users/**")
+                .antMatchers(HttpMethod.GET,"/users/oauth**")
+                .antMatchers(HttpMethod.GET,"/oauth/{resourceServer}**");
     }
 }

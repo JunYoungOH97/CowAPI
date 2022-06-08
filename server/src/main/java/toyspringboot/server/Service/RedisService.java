@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import toyspringboot.server.Domain.Entity.OAuthState;
 
 @Service
 @NoArgsConstructor
@@ -13,16 +14,15 @@ public class RedisService {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-
-    public void saveToRedis(String email, String state) {
+    public void saveOAuthState(OAuthState oAuthState) {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
 
-        valueOperations.set(email, state);
+        valueOperations.set(oAuthState.getEmail(), oAuthState.getState());
     }
 
-    public String get(String email) {
+    public OAuthState getOAuthState(String email) {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
-
-        return valueOperations.get(email);
+        String state = valueOperations.get(email);
+        return OAuthState.builder().email(email).state(state).build();
     }
 }
