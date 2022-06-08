@@ -68,10 +68,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                     .apply(new UserAuthenticationConfig(userAuthenticationConverter, userAuthenticationManager));
+//
+//                .and()
+//                    .oauth2Login()
+//                    .authorizationEndpoint()
+//                    .baseUri("/api/v1/users/oauth");
     }
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers(HttpMethod.POST, "/api/v1/users/**");
+        web.ignoring().antMatchers(HttpMethod.POST, "/api/v1/users/**")
+                .antMatchers(HttpMethod.GET,"/api/v1/users/**")
+                .antMatchers(HttpMethod.GET,"/api/v1/redis");
     }
 }

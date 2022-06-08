@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.web.bind.annotation.*;
 import toyspringboot.server.Domain.Dto.RedirectURIDto;
 import toyspringboot.server.Domain.Dto.UserDto;
+import toyspringboot.server.Domain.Entity.OAuthState;
 import toyspringboot.server.Service.OAuthUserService;
 
 @Api(tags = {"사용자"})
@@ -17,11 +18,15 @@ import toyspringboot.server.Service.OAuthUserService;
 public class OAuthUserController {
     private final OAuthUserService oAuthUserService;
 
-    @GetMapping("users/oauth")
+    @GetMapping("/users/oauth")
     public RedirectURIDto OAuthLogin(@RequestBody UserDto userDto, @RequestParam String resourceServer) {
         return oAuthUserService.getRedirectURI(userDto, resourceServer);
     }
 
+    @GetMapping("/redis")
+    public OAuthState test() {
+        return oAuthUserService.test();
+    }
 
 
 }

@@ -7,13 +7,13 @@ import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 
-@Entity
 @Builder
 @Getter
 @NoArgsConstructor
 @RedisHash(value = "state", timeToLive = 30)
-public class OAuthState {
+public class OAuthState implements Serializable {
     @Id
     private String email;
     private String state;
