@@ -46,6 +46,7 @@ application-swagger.properties
 application-testDB.properties
 application-slack.properties
 application-security.properties
+application-oauth.properties
 
 ## Mac
 .DS_Store
