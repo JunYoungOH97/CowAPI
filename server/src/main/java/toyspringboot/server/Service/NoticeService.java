@@ -35,27 +35,17 @@ public class NoticeService {
     }
 
     public NoticeDto readNotice(String userToken, Long noticeId) {
-//        userSecurity.loadUserByUsername(userToken);
-//        UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(FORBIDDEN, "존재하지 않는 사용자 입니다.")));
-        User user = userRepository.findByEmail(userToken).get();
-        System.out.println("email = " + userToken + " User : " + user.getAuthorities());
         Notice notice = noticeRepository.findById(noticeId).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 공지 입니다."));
         return NoticeDto.of(notice);
     }
 
     public NoticeDto updateNotice(String userToken, NoticeDto noticeDto) {
-//        userSecurity.loadUserByUsername(userToken);
-//        UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
-//        if(!userDto.getAdmin()) throw new ResponseStatusException(FORBIDDEN, "공지 수정 권한이 없습니다.");
         Notice notice = noticeRepository.findById(noticeDto.getId()).orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, "존재하지 않는 공지 입니다."));;
         noticeRepository.updateNotice(notice, noticeDto);
         return NoticeDto.of(notice);
     }
 
     public NoticeDto deleteNotice(String userToken, Long noticeId, String updater) {
-//        UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
-//        if(!userDto.getAdmin()) throw new ResponseStatusException(FORBIDDEN, "공지 삭제 권한이 없습니다.");
-//        userSecurity.loadUserByUsername(userToken);
         Notice notice = noticeRepository.findById(noticeId).orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, "존재하지 않는 공지 입니다."));;
         noticeRepository.deleteNotice(notice, updater);
         return NoticeDto.of(notice);

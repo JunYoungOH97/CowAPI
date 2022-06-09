@@ -3,6 +3,7 @@ package toyspringboot.server.Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,6 +13,8 @@ import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.UserRepository;
 import toyspringboot.server.UserAuthentication.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 import static org.springframework.http.HttpStatus.*;
 
 @Service
@@ -19,7 +22,7 @@ import static org.springframework.http.HttpStatus.*;
 @Transactional
 public class UserService {
     private final UserRepository userRepository;
-    private final UserAuthenticationProvider userAuthenticationProvider;
+    private final UserAuthenticationManager userAuthenticationManager;
 
 
     public UserDto signUp(UserDto userDto) {
@@ -35,10 +38,16 @@ public class UserService {
         User foundUser = userRepository.findByEmail(userDto.getEmail()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다."));
         if(!foundUser.getPassword().equals(userDto.getPassword())) throw new ResponseStatusException(BAD_REQUEST, "비밀번호가 틀렸습니다.");
 
-        // user 권한 부여
-        String userToken = userAuthenticationProvider.generateToken(foundUser.getUsername());
+        // new user authentication
+        UserAuthentication userAuthentication = UserAuthentication.builder()
+                .userToken(new UsernamePasswordAuthenticationToken(foundUser.getUsername(), foundUser.getPassword()))
+                .build();
 
-        return TokenDto.builder().accessToken(userToken).build();
+        userAuthentication = (UserAuthentication) userAuthenticationManager.authenticate(userAuthentication);
+
+        SecurityContextHolder.getContext().setAuthentication(userAuthentication);
+
+        return TokenDto.builder().accessToken(userAuthentication.getUserToken().getCredentials().toString()).build();
     }
 
     public UserDto updateUser(String userToken, UserDto userDto) {
@@ -51,6 +60,14 @@ public class UserService {
         User user = userRepository.findByEmail(userDto.getEmail()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재 하지 않는 유저입니다."));
         userRepository.deleteUser(user);
         return UserDto.of(user);
+    }
+
+    public void OAuthUserSave(UserDto userDto) {
+        if(!userRepository.existsByEmail(userDto.getEmail())) {
+            userDto.setCreatedUser();
+            User user = UserDto.toEntity(userDto);
+            userRepository.save(user);
+        }
     }
 }
 

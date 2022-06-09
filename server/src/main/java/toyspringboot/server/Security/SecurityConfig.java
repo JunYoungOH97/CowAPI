@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -36,23 +37,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userAuthenticationService).passwordEncoder(passwordEncoder());
     }
 
-    private PasswordEncoder passwordEncoder() {
+    @Bean
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     // 기본 설정
     @Override
+    public void configure(WebSecurity web) {
+        web.ignoring()
+                .antMatchers("/v3/api-docs/**", "/swagger-ui/**")
+                .antMatchers("/users/oauth", "/oauth/naver**", "/api/v1/users/signup", "/api/v1/users/login");
+    }
+
+    @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .httpBasic().disable()
-                .csrf().disable()
-                .cors().disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .cors().configurationSource(corsConfigurationSource())
 
                 .and()
-                .authorizeHttpRequests()
-                .antMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
+                .httpBasic().disable()
+                .csrf().disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
                 .apply(new UserAuthenticationConfig(userAuthenticationConverter, userAuthenticationManager))
@@ -65,20 +72,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeHttpRequests()
                 .antMatchers("/api/v1/user/**").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/api/v1/admin/**", "/api/v1/admin/**").hasRole("ADMIN")
-                .anyRequest().permitAll();
+                .antMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated();
     }
 
 
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOriginPatterns((List.of("*")));
-//        configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE"));
-//        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
-//        configuration.setAllowCredentials(true);
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOriginPatterns((List.of("*"))); // 허용할 URL
+        configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE")); // 허용할 Http Method
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type")); // 허용할 Header
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }

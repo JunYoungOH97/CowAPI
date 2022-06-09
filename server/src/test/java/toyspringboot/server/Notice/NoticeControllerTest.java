@@ -32,6 +32,7 @@ public class NoticeControllerTest extends IntegrationTest {
 
 //        String JwtToken = userAuthenticationProvider.generateToken(Exist_User_email);
         String JwtToken = userAuthenticationProvider.generateToken("User");
+        System.out.println(JwtToken);
 
         // when
         ResultActions actions = postRequest(baseUrl(Notice_create_API), JwtToken, request, MediaType.APPLICATION_JSON);

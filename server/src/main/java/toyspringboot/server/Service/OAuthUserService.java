@@ -28,7 +28,7 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class OAuthUserService extends DefaultOAuth2UserService {
+public class OAuthUserService {
     private final RedisService redisService;
     private final UserService userService;
 
@@ -107,12 +107,11 @@ public class OAuthUserService extends DefaultOAuth2UserService {
         // User Info 요청 하고 받기
         OAuthUserInfoDto userInfo = client.post()
                 .uri(userInfoUri)
-                .header(HttpHeaders.AUTHORIZATION, generateToken(accessToken.getToken_type(), "AAAAOHlkWZBKwz3w6Yg5Ht6ODRkiPt8_xog6UOho96QaUZIrElJUf3WLz6miELLDXdyODbjB7tcI1WZBH4c7yy4KBao"))
+                .header(HttpHeaders.AUTHORIZATION, generateToken(accessToken.getToken_type(), accessToken.getAccess_token()))
                 .retrieve()
                 .bodyToMono(OAuthUserInfoDto.class)
                 .block();
 
-//        userInfo.subscribe(System.out::println);
         assert userInfo != null;
 
         // state 삭제
@@ -124,7 +123,7 @@ public class OAuthUserService extends DefaultOAuth2UserService {
                 .password(userInfo.getResponse().getId())
                 .build();
 
-//        userService.signUp(userDto);
+        userService.OAuthUserSave(userDto);
 
         // 로그인
         // ...
