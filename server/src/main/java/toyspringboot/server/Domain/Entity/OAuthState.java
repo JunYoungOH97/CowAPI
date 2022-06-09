@@ -1,5 +1,6 @@
 package toyspringboot.server.Domain.Entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,14 +13,10 @@ import java.io.Serializable;
 @Builder
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @RedisHash(value = "state", timeToLive = 30)
 public class OAuthState implements Serializable {
     @Id
     private String email;
     private String state;
-
-    public OAuthState(String email, String state) {
-        this.email = email;
-        this.state = state;
-    }
 }

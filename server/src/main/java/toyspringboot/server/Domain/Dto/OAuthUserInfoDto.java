@@ -9,5 +9,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 @AllArgsConstructor
 @Builder
 public class OAuthUserInfoDto {
-    private String email;
+    private String resultcode;
+    private String message;
+    private OAuthResponseDto response;
 }

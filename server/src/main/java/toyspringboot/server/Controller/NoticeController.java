@@ -16,7 +16,6 @@ import toyspringboot.server.Service.NoticeService;
 @RequestMapping(value = "/api/v1")
 @RestController
 @RequiredArgsConstructor
-@EnableWebSecurity
 public class NoticeController {
     private final NoticeService noticeService;
 
@@ -26,7 +25,7 @@ public class NoticeController {
             @ApiResponse(code = 403, message = "공지를 생성할 권한이 없습니다."),
             @ApiResponse(code = 404, message = "존재하지 않는 사용자 입니다."),
     })
-    @PostMapping("/notices/notice")
+    @PostMapping("/admin/notices/notice")
     public NoticeDto createNotice(@RequestHeader("Authorization") String userToken, @RequestBody NoticeDto noticeDto) {
         return noticeService.createNotice(userToken, noticeDto);
     }
@@ -37,7 +36,7 @@ public class NoticeController {
             @ApiResponse(code = 403, message = "존재하지 않는 사용자 입니다."),
             @ApiResponse(code = 404, message = "존재하지 않는 공지 입니다."),
     })
-    @GetMapping("/notices/notice")
+    @GetMapping("/user/notices/notice")
     public NoticeDto readNotice(@RequestHeader("Authorization") String userToken, @RequestParam("noticeId") Long noticeId) {
         return noticeService.readNotice(userToken, noticeId);
     }
@@ -49,7 +48,7 @@ public class NoticeController {
             @ApiResponse(code = 403, message = "공지를 수정할 권한이 없습니다."),
             @ApiResponse(code = 404, message = "존재하지 않는 사용자 입니다."),
     })
-    @PutMapping("/notices/notice")
+    @PutMapping("/admin/notices/notice")
     public NoticeDto updateNotice(@RequestHeader("Authorization") String userToken, @RequestBody NoticeDto noticeDto) {
         return noticeService.updateNotice(userToken, noticeDto);
     }
@@ -61,7 +60,7 @@ public class NoticeController {
             @ApiResponse(code = 403, message = "공지를 수정할 권한이 없습니다."),
             @ApiResponse(code = 404, message = "존재하지 않는 사용자 입니다."),
     })
-    @DeleteMapping("/notices/notice")
+    @DeleteMapping("/admin/notices/notice")
     public NoticeDto deleteNotice(@RequestHeader("Authorization") String userToken, @RequestParam("noticeId") Long noticeId) {
         return noticeService.deleteNotice(userToken, noticeId, "API");
     }

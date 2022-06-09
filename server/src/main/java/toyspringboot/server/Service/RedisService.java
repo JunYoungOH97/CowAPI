@@ -12,17 +12,23 @@ import toyspringboot.server.Domain.Entity.OAuthState;
 @NoArgsConstructor
 public class RedisService {
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate<String, Boolean> redisTemplate;
 
-    public void saveOAuthState(OAuthState oAuthState) {
-        ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
-
-        valueOperations.set(oAuthState.getEmail(), oAuthState.getState());
+    public boolean saveOAuthState(String state) {
+        ValueOperations<String, Boolean> valueOperations = redisTemplate.opsForValue();
+        valueOperations.set(state, Boolean.TRUE);
+        return true;
     }
 
-    public OAuthState getOAuthState(String email) {
-        ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
-        String state = valueOperations.get(email);
-        return OAuthState.builder().email(email).state(state).build();
+    public boolean getOAuthState(String state) {
+        ValueOperations<String, Boolean> valueOperations = redisTemplate.opsForValue();
+        return Boolean.TRUE.equals(valueOperations.get(state));
+    }
+
+
+    public boolean deleteOAuthState(String state) {
+        ValueOperations<String, Boolean> valueOperations = redisTemplate.opsForValue();
+        valueOperations.set(state, Boolean.FALSE);
+        return true;
     }
 }

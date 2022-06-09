@@ -21,7 +21,6 @@ import java.util.List;
 @Api(tags = {"QnA 게시판"})
 @RequestMapping(value = "/api/v1")
 @RestController
-//@EnableWebSecurity
 @RequiredArgsConstructor
 public class QnAController {
     private final QnAService qnAService;
