@@ -15,7 +15,6 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 @Api(tags = {"사용자"})
 @RequestMapping(value = "/api/v1")
 @RestController
-@EnableWebSecurity
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;

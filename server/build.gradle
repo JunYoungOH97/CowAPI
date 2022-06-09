@@ -39,6 +39,12 @@ dependencies {
 	implementation 'com.slack.api:bolt:1.22.1'
 	implementation 'com.slack.api:bolt-servlet:1.22.1'
 	implementation 'com.slack.api:bolt-jetty:1.22.1'
+
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
 
 tasks.named('test') {

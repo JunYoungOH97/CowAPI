@@ -52,21 +52,21 @@ public class IntegrationTest extends ServerApplicationTests {
 
     public ResultActions postRequest(String api, String header, String json, MediaType mediaType) throws Exception {
         return mockMvc.perform(post(api)
-                .header(HttpHeaders.AUTHORIZATION, header)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + header)
                 .content(json)
                 .contentType(mediaType));
     }
 
     public ResultActions putRequest(String api, String header, String json, MediaType mediaType) throws Exception {
         return mockMvc.perform(put(api)
-                .header(HttpHeaders.AUTHORIZATION, header)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + header)
                 .content(json)
                 .contentType(mediaType));
     }
 
     public ResultActions getRequest(String api, String header, MediaType mediaType) throws Exception {
         return mockMvc.perform(get(api)
-                .header(HttpHeaders.AUTHORIZATION, header)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + header)
                 .contentType(mediaType));
     }
 
@@ -78,14 +78,14 @@ public class IntegrationTest extends ServerApplicationTests {
 
     public ResultActions deleteRequest(String api, String header, String json, MediaType mediaType) throws Exception {
         return mockMvc.perform(delete(api)
-                .header(HttpHeaders.AUTHORIZATION, header)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + header)
                 .content(json)
                 .contentType(mediaType));
     }
 
     public ResultActions deleteRequest(String api, String header, MediaType mediaType) throws Exception {
         return mockMvc.perform(delete(api)
-                .header(HttpHeaders.AUTHORIZATION, header)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + header)
                 .contentType(mediaType));
     }
 }
