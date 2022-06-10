@@ -3,6 +3,7 @@ package toyspringboot.server.Security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,10 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // 기본 설정
     @Override
-    public void configure(WebSecurity web) {
-        web.ignoring()
-                .antMatchers("/v3/api-docs/**", "/swagger-ui/**")
-                .antMatchers("/users/oauth", "/oauth/naver**", "/api/v1/users/signup", "/api/v1/users/login");
+    public void configure(WebSecurity webSecurity) {
+        webSecurity.ignoring()
+                .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/favicon.ico")
+                .antMatchers("/users/oauth", "/oauth/naver**", "/api/v1/users/signup", "/api/v1/users/login")
+                .antMatchers("/api/v1/dashboard");
     }
 
     @Override
@@ -62,7 +64,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
-                .apply(new UserAuthenticationConfig(userAuthenticationConverter, userAuthenticationManager))
+                .authorizeRequests()
+                .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/favicon.ico").permitAll()
+                .antMatchers("/users/oauth", "/oauth/naver**", "/api/v1/users/signup", "/api/v1/users/login").permitAll()
+                .antMatchers("/api/v1/dashboard").permitAll()
 
                 .and()
                 .exceptionHandling()
@@ -70,7 +75,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(jwtAccessDeniedHandler)
 
                 .and()
-                .authorizeHttpRequests()
+                .apply(new UserAuthenticationConfig(userAuthenticationConverter, userAuthenticationManager))
+
+                .and()
+                .authorizeRequests()
                 .antMatchers("/api/v1/user/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/api/v1/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
