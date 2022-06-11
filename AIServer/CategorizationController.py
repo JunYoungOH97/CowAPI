@@ -19,7 +19,7 @@ class CategorizationController:
         result = self.getResult()
 
         returnResult = dict()
-        returnResult["class"] = result[0]
+        returnResult["category"] = result[0]
         returnResult["score"] = result[1]
-        
+
         return returnResult
