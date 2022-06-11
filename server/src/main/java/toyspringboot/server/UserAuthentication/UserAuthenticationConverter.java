@@ -82,10 +82,4 @@ public class UserAuthenticationConverter implements AuthenticationConverter {
             return null;
         }
     }
-
-    public void getUserTokenForLogin(User user) {
-        String credentials = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
-        String email = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        System.out.println("user = " + email + " token : " + credentials);
-    }
 }

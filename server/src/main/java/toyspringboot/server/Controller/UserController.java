@@ -19,11 +19,11 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 public class UserController {
     private final UserService userService;
 
-    @ApiOperation(value = "회원가입", notes = "신규 사용자 회원가입 api 입니다.")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "success"),
-            @ApiResponse(code = 409, message = "이미 가입되어 있는 이메일입니다."),
-    })
+//    @ApiOperation(value = "회원가입", notes = "신규 사용자 회원가입 api 입니다.")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "success"),
+//            @ApiResponse(code = 409, message = "이미 가입되어 있는 이메일입니다."),
+//    })
     @PostMapping("/users/signup")
     public UserDto signUp(@RequestBody UserDto userDto) {
         return userService.signUp(userDto);
