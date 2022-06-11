@@ -24,6 +24,10 @@ public interface UserRepository extends JpaRepository<User, String> {
     boolean existsByEmail(Object email);
     Optional<User> findByEmail(Object email);
 
+
+    @Query(value = "SELECT COUNT(*) FROM User u WHERE DATEDIFF(DATE(u.createdDate), DATE(NOW())) = 0", nativeQuery = true)
+    Long getTodaySignup();
+
     default void updateUser(User user, UserDto userDto) {
         if(userDto.getPassword() != null) user.setPassword(userDto.getPassword());
         if(userDto.getAdmin() != null) user.setAdmin(userDto.getAdmin());

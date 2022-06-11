@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+import toyspringboot.server.Domain.Dto.DashboardDto;
 import toyspringboot.server.Domain.Dto.TokenDto;
 import toyspringboot.server.Domain.Dto.UserDto;
 import toyspringboot.server.Domain.Entity.User;
@@ -23,6 +24,7 @@ import static org.springframework.http.HttpStatus.*;
 public class UserService {
     private final UserRepository userRepository;
     private final UserAuthenticationManager userAuthenticationManager;
+    private final DashboardService dashboardService;
 
 
     public UserDto signUp(UserDto userDto) {

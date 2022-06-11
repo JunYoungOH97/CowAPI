@@ -23,7 +23,7 @@ public class WebfluxSecurityConfig {
 
                 .and()
                 .authorizeExchange()
-                .pathMatchers("/**", "/api/v1/dashboard").permitAll();
+                .pathMatchers("/**", "/api/v1/users/signup", "/api/v1/dashboard").permitAll();
 
         return serverHttpSecurity.build();
     }

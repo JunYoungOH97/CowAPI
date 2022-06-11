@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity webSecurity) {
         webSecurity.ignoring()
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/favicon.ico")
-                .antMatchers("/users/oauth", "/oauth/naver**", "/api/v1/users/signup", "/api/v1/users/login")
+                .antMatchers("/users/oauth", "/oauth/naver**", "/api/v1/users/signup", "users/login")
                 .antMatchers("/api/v1/dashboard");
     }
 
@@ -66,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/favicon.ico").permitAll()
-                .antMatchers("/users/oauth", "/oauth/naver**", "/api/v1/users/signup", "/api/v1/users/login").permitAll()
+                .antMatchers("/users/oauth", "/oauth/naver**", "/api/v1//users/signup", "/users/login").permitAll()
                 .antMatchers("/api/v1/dashboard").permitAll()
 
                 .and()
@@ -79,16 +79,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/user/**").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
     }
 
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    protected CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns((List.of("*"))); // 허용할 URL
+        configuration.setAllowedOriginPatterns((List.of("http://localhost:8080"))); // 허용할 URL
         configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE")); // 허용할 Http Method
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type")); // 허용할 Header
         configuration.setAllowCredentials(true);

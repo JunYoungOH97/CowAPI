@@ -9,6 +9,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
 import toyspringboot.server.Domain.Dto.DashboardDto;
 import toyspringboot.server.Domain.Entity.Dashboard;
+import toyspringboot.server.Domain.Repository.UserRepository;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -23,6 +24,8 @@ import static org.apache.tomcat.jni.Time.sleep;
 @RequiredArgsConstructor
 public class DashboardService {
     private final RedisService redisService;
+    private final UserRepository userRepository;
+
     private static final Long refreshTime = 2L;
 
     public Flux<ServerSentEvent<DashboardDto>> sse() {
@@ -33,14 +36,7 @@ public class DashboardService {
         if(dashboardDto == null) saveDashboard(DashboardDto.builder().id("dashboard").updatedTime(now).build());
 
         // 대시보드를 갱신한다.
-        DashboardDto updatedDashboard = DashboardDto.builder()
-                .todayUser(1L)
-                .totalUser(1L)
-                .responseTime(0.1)
-                .todayTps(0.1)
-                .updatedTime(now)
-                .build();
-
+        DashboardDto updatedDashboard = getUpdatedDashboard(now);
         updateDashboard(updatedDashboard);
 
         // 보낸다.
@@ -63,5 +59,25 @@ public class DashboardService {
 
     public boolean updateDashboard(DashboardDto dashboardDto) {
         return redisService.updateDashboard(DashboardDto.toEntity(dashboardDto));
+    }
+
+    public Long getTodayUser() {
+        return userRepository.getTodaySignup();
+
+    }
+
+    public Long getTotalUser() {
+        return userRepository.count();
+    }
+
+    public DashboardDto getUpdatedDashboard(Timestamp now) {
+        return DashboardDto.builder()
+                .todayUser(getTodayUser())
+                .totalUser(getTotalUser())
+                .responseTime(0.1)
+                .todayTps(0.1)
+                .updatedTime(now)
+                .build();
+
     }
 }
