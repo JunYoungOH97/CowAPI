@@ -48,8 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity webSecurity) {
         webSecurity.ignoring()
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/favicon.ico")
-                .antMatchers("/users/oauth", "/oauth/naver**", "/api/v1/users/signup", "users/login")
-                .antMatchers("/api/v1/dashboard");
+                .antMatchers("/users/oauth", "/oauth/naver**", "/users/signup**", "/users/login**")
+                .antMatchers("/api/v1/dashboard")
+                .antMatchers("/api/v1/ai/result");
+
     }
 
     @Override
@@ -64,10 +66,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
-                .authorizeRequests()
+                .authorizeHttpRequests()
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/favicon.ico").permitAll()
-                .antMatchers("/users/oauth", "/oauth/naver**", "/api/v1//users/signup", "/users/login").permitAll()
+                .antMatchers("/users/oauth", "/oauth/naver**", "/users/signup", "/users/login").permitAll()
                 .antMatchers("/api/v1/dashboard").permitAll()
+                .antMatchers("/api/v1/ai/result").permitAll()
 
                 .and()
                 .exceptionHandling()
@@ -79,8 +82,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/api/v1/user/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/ap1/v1/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
     }
 

@@ -13,7 +13,7 @@ import toyspringboot.server.Service.UserService;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Api(tags = {"사용자"})
-@RequestMapping(value = "/api/v1")
+//@RequestMapping(value = "/api/v1")
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -35,6 +35,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "비밀번호가 틀렸습니다."),
             @ApiResponse(code = 404, message = "존재 하지 않는 사용자입니다.")
     })
+
     @PostMapping("/users/login")
     public TokenDto signIn(@RequestBody UserDto userDto) {
         return userService.signIn(userDto);
