@@ -8,9 +8,18 @@ class CategorizationController:
         self.service.PipeLine()
 
     def setResult(self):
+        self.runPipeline()
         self.result = self.service.getResult()
 
     def getResult(self):
-        self.runPipeline()
-        self.setResult()
         return self.result
+
+    def returnToSpring(self):
+        self.setResult()
+        result = self.getResult()
+
+        returnResult = dict()
+        returnResult["class"] = result[0]
+        returnResult["score"] = result[1]
+        
+        return returnResult
