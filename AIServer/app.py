@@ -7,8 +7,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from secrets import *
 from fastapi.concurrency import run_in_threadpool
 from celery import Celery
+from pydantic import BaseModel
 
-
+class S3Dto(BaseModel):
+    s3Path: str
 
 app = FastAPI()
 
@@ -24,12 +26,12 @@ celery = Celery("CowAPI", broker=f'redis://{ip}:{port}')
 celery.conf.update()
 
 @celery.task()
-def task():
-    controller = CategorizationController()
+def task(s3Path):
+    controller = CategorizationController(s3Path)
     return controller.returnToSpring()
 
 
-@app.get("/")
-async def root():
-    result = task()
+@app.post("/")
+async def root(s3Dto : S3Dto):
+    result = task(s3Dto.s3Path)
     return jsonable_encoder(result)

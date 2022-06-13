@@ -5,8 +5,9 @@ import torchvision
 from CategorizationRepository import CategorizationRepository
 
 class CategotizationService:
-    def __init__(self):
+    def __init__(self, s3Path):
         self.repository = CategorizationRepository()
+        self.img = self.repository.getImg(s3Path)
 
 
     ## self.setModel()
@@ -42,8 +43,8 @@ class CategotizationService:
     def setData(self):
         self.getDataFromRepository()
 
-        input_image = Image.open(self.data)
-        input_tensor = self.preProcessing(input_image)
+        # input_image = Image.open(self.data)
+        input_tensor = self.preProcessing(self.img)
         self.input_batch = input_tensor.unsqueeze(0)
 
         if torch.cuda.is_available():
