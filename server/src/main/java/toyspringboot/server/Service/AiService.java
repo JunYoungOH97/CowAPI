@@ -12,11 +12,11 @@ public class AiService {
     @Value(value = "${AI.postURL}")
     String postURL;
 
-    public Mono<AiDto> responseAiResult() {
+    public Mono<AiDto> responseAiResult(String s3Path) {
         WebClient webClient = WebClient.create("http://localhost:8080");
 
         return webClient.get()
-                .uri(postURL)
+                .uri(postURL + "/path?s3Path")
                 .retrieve()
                 .bodyToMono(AiDto.class);
     }
