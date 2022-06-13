@@ -1,8 +1,8 @@
 from CategorizationService import CategotizationService
 
 class CategorizationController:
-    def __init__(self):
-        self.service = CategotizationService()
+    def __init__(self, s3Path):
+        self.service = CategotizationService(s3Path)
 
     def runPipeline(self):
         self.service.PipeLine()
