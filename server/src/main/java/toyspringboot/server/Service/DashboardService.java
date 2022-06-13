@@ -47,7 +47,7 @@ public class DashboardService {
         // 보낸다.
         return Flux.interval(Duration.ofSeconds(refreshTime))
                 .map(sequence -> ServerSentEvent.<DashboardDto> builder()
-                        .id("dashboard")
+                        .id("/ai/category")
                         .event("periodic-event")
                         .data(getDashboard())
                         .retry(Duration.ofSeconds(refreshTime))

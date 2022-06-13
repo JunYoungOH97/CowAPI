@@ -22,7 +22,7 @@ public class AiController {
     private final AwsS3Uploader s3Uploader;
 
 
-    @PostMapping("/{userId}/ai/result")
+    @PostMapping("/{userId}/ai/category")
     public Mono<AiDto> aiResponse(@RequestParam("images") MultipartFile multipartFile) throws IOException {
         String s3Path = s3Uploader.uploadFiles(multipartFile, "Spring");
         return aiService.responseAiResult(s3Path);
