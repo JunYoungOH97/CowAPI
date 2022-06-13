@@ -24,5 +24,6 @@ public class Dashboard implements Serializable {
     private Long todayUser;
     private Double todayTps;
     private Double responseTime;
+    private Long useServiceCnt;
     private Timestamp updatedTime;
 }

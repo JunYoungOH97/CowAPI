@@ -16,6 +16,7 @@ public class DashboardDto {
     private Long todayUser;
     private Double todayTps;
     private Double responseTime;
+    private Long useServiceCnt;
     private Timestamp updatedTime;
 
     public static DashboardDto of(Dashboard dashboard) {
@@ -24,6 +25,7 @@ public class DashboardDto {
                 .totalUser(dashboard.getTotalUser())
                 .todayUser(dashboard.getTodayUser())
                 .todayTps(dashboard.getTodayTps())
+                .useServiceCnt(dashboard.getUseServiceCnt())
                 .responseTime(dashboard.getResponseTime())
                 .updatedTime(dashboard.getUpdatedTime())
                 .build();
@@ -36,6 +38,7 @@ public class DashboardDto {
                 .todayUser(dashboardDto.getTodayUser())
                 .todayTps(dashboardDto.getTodayTps())
                 .responseTime(dashboardDto.getResponseTime())
+                .useServiceCnt(dashboardDto.getUseServiceCnt())
                 .updatedTime(dashboardDto.getUpdatedTime())
                 .build();
     }

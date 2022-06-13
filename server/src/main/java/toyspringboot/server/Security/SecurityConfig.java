@@ -49,8 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         webSecurity.ignoring()
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/favicon.ico")
                 .antMatchers("/users/oauth", "/oauth/naver**", "/users/signup**", "/users/login**")
-                .antMatchers("/api/v1/dashboard")
-                .antMatchers("/api/v1/ai/result");
+                .antMatchers("/dashboard")
+                .antMatchers("/ai/result");
 
     }
 
@@ -69,8 +69,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests()
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/favicon.ico").permitAll()
                 .antMatchers("/users/oauth", "/oauth/naver**", "/users/signup", "/users/login").permitAll()
-                .antMatchers("/api/v1/dashboard").permitAll()
-                .antMatchers("/api/v1/ai/result").permitAll()
+                .antMatchers("/dashboard").permitAll()
+                .antMatchers("/ai/result").permitAll()
 
                 .and()
                 .exceptionHandling()

@@ -12,7 +12,6 @@ public class AiService {
     @Value(value = "${AI.postURL}")
     String postURL;
 
-
     public Mono<AiDto> responseAiResult() {
         WebClient webClient = WebClient.create("http://localhost:8080");
 
