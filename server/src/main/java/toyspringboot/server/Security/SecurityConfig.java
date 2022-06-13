@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity webSecurity) {
         webSecurity.ignoring()
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/favicon.ico")
+                .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**")
                 .antMatchers("/users/oauth", "/oauth/naver**", "/users/signup**", "/users/login**")
                 .antMatchers("/dashboard")
                 .antMatchers("/**/ai/result")
@@ -59,8 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .cors().configurationSource(corsConfigurationSource())
-
                 .and()
+
                 .httpBasic().disable()
                 .csrf().disable()
                 .sessionManagement()
@@ -91,12 +92,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns((List.of("http://localhost:8080"))); // 허용할 URL
+        configuration.setAllowedOriginPatterns((List.of("http://localhost:3000", "http://localhost:8080"))); // 허용할 URL
         configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE")); // 허용할 Http Method
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type")); // 허용할 Header
         configuration.setAllowCredentials(true);
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/**", configuration); // add mapping
         return source;
     }
 }

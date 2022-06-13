@@ -58,6 +58,7 @@ public class RedisService {
     public boolean updateDashboard(Dashboard dashboard) {
         Dashboard foundDashboard = getDashboard();
 
+        foundDashboard.setId("dashboard");
         if(dashboard.getUpdatedTime() != null && foundDashboard.getUpdatedTime().toLocalDateTime().isAfter(dashboard.getUpdatedTime().toLocalDateTime())) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "업데이트 시간이 누락되었습니다.");
         if(dashboard.getUpdatedTime() != null) foundDashboard.setUpdatedTime(dashboard.getUpdatedTime());
         if(dashboard.getTotalUser() != null) foundDashboard.setTotalUser(dashboard.getTotalUser());
