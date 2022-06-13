@@ -48,6 +48,7 @@ application-slack.properties
 application-security.properties
 application-oauth.properties
 application-ai.properties
+application-s3.properties
 
 ## Mac
 .DS_Store
