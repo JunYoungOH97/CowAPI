@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import toyspringboot.server.Domain.Dto.AiDto;
+import toyspringboot.server.Domain.Dto.AiRequestDto;
 import toyspringboot.server.Domain.Dto.OAuthTokenDto;
 
 @Service
@@ -13,10 +14,13 @@ public class AiService {
     String postURL;
 
     public Mono<AiDto> responseAiResult(String s3Path) {
+        AiRequestDto aiRequestDto = AiRequestDto.builder().s3Path(s3Path).build();
+
         WebClient webClient = WebClient.create("http://localhost:8080");
 
-        return webClient.get()
-                .uri(postURL + "/path?s3Path")
+        return webClient.post()
+                .uri(postURL)
+                .bodyValue(aiRequestDto)
                 .retrieve()
                 .bodyToMono(AiDto.class);
     }
