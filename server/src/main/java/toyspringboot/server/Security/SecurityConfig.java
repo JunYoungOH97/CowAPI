@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**")
                 .antMatchers("/users/oauth", "/oauth/naver**", "/users/signup**", "/users/login**")
                 .antMatchers("/dashboard")
-                .antMatchers("/**/ai/result")
+                .antMatchers("/**/ai/**")
                 .antMatchers("/**/image");
 
     }
@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/favicon.ico").permitAll()
                 .antMatchers("/users/oauth", "/oauth/naver**", "/users/signup", "/users/login").permitAll()
                 .antMatchers("/dashboard").permitAll()
-                .antMatchers("/**/ai/result").permitAll()
+                .antMatchers("/**/ai/**").permitAll()
                 .antMatchers("/**/image").permitAll()
 
                 .and()
