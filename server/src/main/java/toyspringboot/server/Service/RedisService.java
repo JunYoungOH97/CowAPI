@@ -50,7 +50,7 @@ public class RedisService {
         try {
             return valueOperations.get("dashboard");
 
-        }catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             return null;
         }
     }
@@ -64,6 +64,7 @@ public class RedisService {
         if(dashboard.getTodayTps() != null) foundDashboard.setTodayTps(dashboard.getTodayTps());
         if(dashboard.getResponseTime() != null) foundDashboard.setResponseTime(dashboard.getResponseTime());
         if(dashboard.getTodayUser() != null) foundDashboard.setTodayUser(dashboard.getTodayUser());
+        if(dashboard.getUseServiceCnt() != null) foundDashboard.setUseServiceCnt(dashboard.getUseServiceCnt());
 
         saveDashboard(foundDashboard);
 

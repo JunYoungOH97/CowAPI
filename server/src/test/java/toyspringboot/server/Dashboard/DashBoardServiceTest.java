@@ -43,8 +43,8 @@ public class DashBoardServiceTest extends ServiceTest {
                 .id(id)
                 .totalUser(100L)
                 .todayUser(1L)
-                .todayTps(1.3)
-                .responseTime(0.3)
+                .responseTime(0.0D)
+                .responseTime(0.0D)
                 .updatedTime(Timestamp.valueOf(LocalDateTime.now()))
                 .build();
 
@@ -66,8 +66,8 @@ public class DashBoardServiceTest extends ServiceTest {
                 .id(id)
                 .totalUser(100L)
                 .todayUser(1L)
-                .todayTps(1.3)
-                .responseTime(0.3)
+                .responseTime(0.0D)
+                .responseTime(0.0D)
                 .updatedTime(Timestamp.valueOf(LocalDateTime.now()))
                 .build();
 
@@ -91,8 +91,8 @@ public class DashBoardServiceTest extends ServiceTest {
                 .id(id)
                 .totalUser(100L)
                 .todayUser(1L)
-                .todayTps(1.3)
-                .responseTime(0.3)
+                .responseTime(0.0D)
+                .responseTime(0.0D)
                 .updatedTime(Timestamp.valueOf(LocalDateTime.now()))
                 .build();
 

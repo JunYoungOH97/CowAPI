@@ -11,7 +11,6 @@ import toyspringboot.server.Domain.Dto.DashboardDto;
 import toyspringboot.server.Service.DashboardService;
 
 @Api(tags = {"대시보드"})
-@RequestMapping(value = "/api/v1")
 @RestController
 @RequiredArgsConstructor
 public class DashboardController {
