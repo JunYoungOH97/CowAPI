@@ -3,6 +3,8 @@ package toyspringboot.server.Controller;
 
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
@@ -23,8 +25,12 @@ public class AiController {
 
 
     @PostMapping("/{userId}/ai/category")
-    public Mono<AiDto> aiResponse(@RequestParam("images") MultipartFile multipartFile) throws IOException {
+    public ResponseEntity<AiDto> aiResponse(@RequestParam("images") MultipartFile multipartFile) throws IOException {
+        System.out.println("multipartFile = " + multipartFile.getOriginalFilename());
         String s3Path = s3Uploader.uploadFiles(multipartFile, "Spring");
-        return aiService.responseAiResult(s3Path);
+        AiDto aiDto = aiService.responseAiResult(s3Path);
+        System.out.println("multipartFile = " + aiDto.getCategory());
+
+        return new ResponseEntity<>(aiService.responseAiResult(s3Path), HttpStatus.OK);
     }
 }

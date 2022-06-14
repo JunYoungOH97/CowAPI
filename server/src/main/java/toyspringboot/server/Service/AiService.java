@@ -13,7 +13,7 @@ public class AiService {
     @Value(value = "${AI.postURL}")
     String postURL;
 
-    public Mono<AiDto> responseAiResult(String s3Path) {
+    public AiDto responseAiResult(String s3Path) {
         AiRequestDto aiRequestDto = AiRequestDto.builder().s3Path(s3Path).build();
 
         WebClient webClient = WebClient.create("http://localhost:8080");
@@ -22,6 +22,7 @@ public class AiService {
                 .uri(postURL)
                 .bodyValue(aiRequestDto)
                 .retrieve()
-                .bodyToMono(AiDto.class);
+                .bodyToMono(AiDto.class)
+                .block();
     }
 }
