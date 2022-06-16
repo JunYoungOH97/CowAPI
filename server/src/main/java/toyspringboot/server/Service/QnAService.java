@@ -12,6 +12,7 @@ import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Repository.QnARepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
 import toyspringboot.server.Slack.SlackService;
+import toyspringboot.server.UserAuthentication.UserAuthenticationConverter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,11 +26,14 @@ import static org.springframework.http.HttpStatus.*;
 public class QnAService {
     private final QnARepository qnARepository;
     private final UserRepository userRepository;
+    private final UserAuthenticationConverter userAuthenticationConverter;
 
     public QnADto createQnA(String userToken, QnADto qnADto) {
-        UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
+        String userEmail = userAuthenticationConverter.getUserEmailFromRequestHeader(userToken);
+        UserDto userDto = UserDto.of(userRepository.findByEmail(userEmail).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
         qnADto.setCreateQnA(userDto);
         QnA qnA = QnADto.toEntity(qnADto);
+        System.out.println("userToken = " + qnA.getTitle() + " " + qnA.getContent());
         return QnADto.of(qnARepository.save(qnA));
     }
 
@@ -41,17 +45,28 @@ public class QnAService {
     }
 
     public QnADto updateQnA(String userToken, QnADto qnADto) {
-        UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(FORBIDDEN, "접근 권한이 없습니다.")));
+        String userEmail = userAuthenticationConverter.getUserEmailFromRequestHeader(userToken);
+
+        UserDto userDto = UserDto.of(userRepository.findByEmail(userEmail).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
+
         QnA qnA = qnARepository.findById(qnADto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다."));
         if(qnA.getIsDeleted().equals(true)) throw new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다.");
+
+        if(!userDto.getEmail().equals(qnA.getUser().getEmail())) throw new ResponseStatusException(FORBIDDEN, "접근권한이 없습니다.");
+
         qnARepository.updateQnA(qnA, qnADto);
         return QnADto.of(qnA);
     }
 
     public QnADto deleteQnA(String userToken, QnADto qnADto) {
-        UserDto userDto = UserDto.of(userRepository.findByEmail(userToken).orElseThrow(() -> new ResponseStatusException(FORBIDDEN, "삭제 권한이 없습니다.")));
+        String userEmail = userAuthenticationConverter.getUserEmailFromRequestHeader(userToken);
+        UserDto userDto = UserDto.of(userRepository.findByEmail(userEmail).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.")));
+
         QnA qnA = qnARepository.findById(qnADto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다."));
         if(qnA.getIsDeleted().equals(true)) throw new ResponseStatusException(NOT_FOUND, "존재하지 않는 QnA 입니다.");
+
+        if(!qnA.getUser().getEmail().equals(userDto.getEmail())) throw new ResponseStatusException(FORBIDDEN, "접근권한이 없습니다.");
+
         qnARepository.deleteQnA(qnA);
         return QnADto.of(qnA);
     }

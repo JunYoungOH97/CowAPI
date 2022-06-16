@@ -17,6 +17,7 @@ import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Service.QnAService;
 import toyspringboot.server.Service.UserService;
 import toyspringboot.server.Slack.SlackService;
+import toyspringboot.server.UserAuthentication.UserAuthenticationConverter;
 
 import java.util.List;
 
@@ -32,9 +33,9 @@ public class QnAController {
             @ApiResponse(code = 404, message = "존재하지 않는 사용자 입니다."),
     })
     @PostMapping("/QnAs/QnA")
-    public QnADto createQnA(@RequestHeader("Authorization") String userToken, @RequestBody QnADto qnADto) {
+    public ResponseEntity<QnADto> createQnA(@RequestHeader("Authorization") String userToken, @RequestBody QnADto qnADto) {
         slackService.postSlackMessage("새로운 QnA가 생성되었습니다.");
-        return qnAService.createQnA(userToken, qnADto);
+        return new ResponseEntity<>(qnAService.createQnA(userToken, qnADto), HttpStatus.OK);
     }
 
     @ApiOperation(value = "QnA 조회", notes = "QnA 게시글 조회 API 입니다.")
@@ -89,6 +90,7 @@ public class QnAController {
     })
     @GetMapping("/QnAs/QnA/page")
     public ResponseEntity<QnAListDto>  QnAPage(@RequestParam(value = "page") Long page) {
+        System.out.println("page = " + page);
         return new ResponseEntity<>(qnAService.pageQnA(page), HttpStatus.OK);
     }
 }
