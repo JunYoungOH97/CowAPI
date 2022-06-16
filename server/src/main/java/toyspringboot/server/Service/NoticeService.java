@@ -7,15 +7,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-import toyspringboot.server.Domain.Dto.NoticeDto;
-import toyspringboot.server.Domain.Dto.QnADto;
-import toyspringboot.server.Domain.Dto.UserDto;
+import toyspringboot.server.Domain.Dto.*;
 import toyspringboot.server.Domain.Entity.Notice;
 import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.NoticeRepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
 import toyspringboot.server.UserAuthentication.UserAuthenticationConverter;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -46,8 +48,20 @@ public class NoticeService {
     }
 
     public NoticeDto deleteNotice(String userToken, Long noticeId, String updater) {
-        Notice notice = noticeRepository.findById(noticeId).orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, "존재하지 않는 공지 입니다."));;
+        Notice notice = noticeRepository.findById(noticeId).orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, "존재하지 않는 공지 입니다."));
         noticeRepository.deleteNotice(notice, updater);
         return NoticeDto.of(notice);
+    }
+
+    public NoticeListDto readNoticeList(Long pageId) {
+        Long startIndex = (pageId - 1L) * 5L;
+        List<Notice> noticeList = noticeRepository.findByPage(startIndex, 5L);
+        Iterator<Notice> iter = noticeList.listIterator();
+
+        List<NoticeDto> noticeDtoList = new ArrayList<>();
+        while(iter.hasNext()) {
+            noticeDtoList.add(NoticeDto.of(iter.next()));
+        }
+        return NoticeListDto.of(noticeDtoList);
     }
 }
