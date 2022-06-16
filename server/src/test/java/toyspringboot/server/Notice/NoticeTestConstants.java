@@ -12,6 +12,9 @@ public class NoticeTestConstants {
     public static final String Notice_update_API = "/notices/notice";
     public static final String Notice_delete_API = "/notices/notice?noticeId=1";
 
+    public static final String Notice_List_API = "/user/notices/notice/page?page=1";
+
+
     // ---------- test information ----------
     // 존재하지 않는 QnA
     public static final Long Test_Notice_id = 2L;
