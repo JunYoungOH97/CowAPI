@@ -52,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/oauth", "/oauth/naver**", "/users/signup**", "/users/login**")
                 .antMatchers("/dashboard")
                 .antMatchers("/**/ai/**")
+                .antMatchers("/QnAs/**")
                 .antMatchers("/**/image");
 
     }
@@ -73,6 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/oauth", "/oauth/naver**", "/users/signup", "/users/login").permitAll()
                 .antMatchers("/dashboard").permitAll()
                 .antMatchers("/**/ai/**").permitAll()
+                .antMatchers("/QnAs/**").permitAll()
                 .antMatchers("/**/image").permitAll()
 
                 .and()

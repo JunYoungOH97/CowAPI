@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import toyspringboot.server.Domain.Dto.QnADto;
 import toyspringboot.server.Domain.Dto.QnAListDto;
@@ -15,11 +17,10 @@ import toyspringboot.server.Domain.Entity.QnA;
 import toyspringboot.server.Service.QnAService;
 import toyspringboot.server.Service.UserService;
 import toyspringboot.server.Slack.SlackService;
+import toyspringboot.server.UserAuthentication.UserAuthenticationConverter;
 
 import java.util.List;
 
-@Api(tags = {"QnA 게시판"})
-@RequestMapping(value = "/api/v1")
 @RestController
 @RequiredArgsConstructor
 public class QnAController {
@@ -32,9 +33,9 @@ public class QnAController {
             @ApiResponse(code = 404, message = "존재하지 않는 사용자 입니다."),
     })
     @PostMapping("/QnAs/QnA")
-    public QnADto createQnA(@RequestHeader("Authorization") String userToken, @RequestBody QnADto qnADto) {
+    public ResponseEntity<QnADto> createQnA(@RequestHeader("Authorization") String userToken, @RequestBody QnADto qnADto) {
         slackService.postSlackMessage("새로운 QnA가 생성되었습니다.");
-        return qnAService.createQnA(userToken, qnADto);
+        return new ResponseEntity<>(qnAService.createQnA(userToken, qnADto), HttpStatus.OK);
     }
 
     @ApiOperation(value = "QnA 조회", notes = "QnA 게시글 조회 API 입니다.")
@@ -44,9 +45,9 @@ public class QnAController {
             @ApiResponse(code = 404, message = "존재하지 않는 사용자 입니다.")
     })
     @GetMapping("/QnAs/{QnAId}")
-    public QnADto readQnA(@RequestHeader("Authorization") String userToken,
-                          @PathVariable(value = "QnAId") Long qnAId) {
-        return qnAService.readQnA(userToken, qnAId);
+    public ResponseEntity<QnADto> readQnA(@RequestHeader("Authorization") String userToken,
+                                         @PathVariable(value = "QnAId") Long qnAId) {
+        return new ResponseEntity<>(qnAService.readQnA(userToken, qnAId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "QnA 수정", notes = "QnA 게시글 수정 API 입니다.")
@@ -56,7 +57,7 @@ public class QnAController {
             @ApiResponse(code = 404, message = "존재하지 않는 QnA 입니다.")
     })
     @PutMapping("/QnAs/QnA")
-    public QnADto readQnA(@RequestHeader("Authorization") String userToken,
+    public QnADto updateQnA(@RequestHeader("Authorization") String userToken,
                           @RequestBody QnADto qnADto) {
         return qnAService.updateQnA(userToken, qnADto);
     }
@@ -88,7 +89,8 @@ public class QnAController {
             @ApiResponse(code = 200, message = "success")
     })
     @GetMapping("/QnAs/QnA/page")
-    public QnAListDto QnAPage(@RequestParam(value = "page") Long page) {
-        return qnAService.pageQnA(page);
+    public ResponseEntity<QnAListDto>  QnAPage(@RequestParam(value = "page") Long page) {
+        System.out.println("page = " + page);
+        return new ResponseEntity<>(qnAService.pageQnA(page), HttpStatus.OK);
     }
 }
