@@ -7,39 +7,57 @@ import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.*;
 import toyspringboot.server.Domain.Dto.NoticeDto;
 import toyspringboot.server.Domain.Dto.NoticeListDto;
-import toyspringboot.server.Domain.Dto.QnADto;
-import toyspringboot.server.Domain.Entity.Notice;
 import toyspringboot.server.Service.NoticeService;
 
+@Api(tags = {"Notice"})
 @RestController
 @RequiredArgsConstructor
 public class NoticeController {
     private final NoticeService noticeService;
 
+    @ApiOperation(value = "공지 생성", notes = "공지사항 생성 API 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success"),
+    })
     @PostMapping("/admin/notices/notice")
     public NoticeDto createNotice(@RequestHeader("Authorization") String userToken, @RequestBody NoticeDto noticeDto) {
         return noticeService.createNotice(userToken, noticeDto);
     }
 
+    @ApiOperation(value = "공지 조회", notes = "공지사항 조회 API 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success"),
+    })
     @GetMapping("/user/notices/notice")
     public NoticeDto readNotice(@RequestHeader("Authorization") String userToken, @RequestParam("noticeId") Long noticeId) {
         return noticeService.readNotice(userToken, noticeId);
     }
 
+    @ApiOperation(value = "공지 수정", notes = "공지사항 수정 API 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success"),
+    })
     @PutMapping("/admin/notices/notice")
     public NoticeDto updateNotice(@RequestHeader("Authorization") String userToken, @RequestBody NoticeDto noticeDto) {
         return noticeService.updateNotice(userToken, noticeDto);
     }
 
+    @ApiOperation(value = "공지 삭제", notes = "공지사항 삭제 API 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success"),
+    })
     @DeleteMapping("/admin/notices/notice")
     public NoticeDto deleteNotice(@RequestHeader("Authorization") String userToken, @RequestParam("noticeId") Long noticeId) {
         return noticeService.deleteNotice(userToken, noticeId, "API");
     }
 
+    @ApiOperation(value = "공지 페이지네이션", notes = "공지사항 페이지네이션 API 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success"),
+    })
     @GetMapping("/user/notices/notice/page")
     public ResponseEntity<NoticeListDto> readNoticeList(@RequestParam(value = "page") Long page) {
         return new ResponseEntity<>(noticeService.readNoticeList(page), HttpStatus.OK);

@@ -20,7 +20,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
-                .paths(PathSelectors.ant("/api/v1/**"))
+                .paths(PathSelectors.ant("/**"))
                 .build();
     }
 

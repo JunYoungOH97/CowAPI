@@ -1,6 +1,9 @@
 package toyspringboot.server.Controller;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +15,16 @@ import reactor.core.publisher.Flux;
 import toyspringboot.server.Domain.Dto.DashboardDto;
 import toyspringboot.server.Service.DashboardService;
 
-@Api(tags = {"대시보드"})
+@Api(tags = {"Dash board"})
 @RestController
 @RequiredArgsConstructor
 public class DashboardController {
     private final DashboardService dashboardService;
 
+    @ApiOperation(value = "Dash Board", notes = "홈 화면인 대시보드 API 입니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success"),
+    })
     @GetMapping(value = "/dashboard")
     public ResponseEntity<Flux<ServerSentEvent<DashboardDto>>> sseDashboard() {
         return new ResponseEntity<>(dashboardService.sse(), HttpStatus.OK);

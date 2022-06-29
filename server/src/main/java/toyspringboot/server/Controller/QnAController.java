@@ -21,6 +21,7 @@ import toyspringboot.server.UserAuthentication.UserAuthenticationConverter;
 
 import java.util.List;
 
+@Api(tags = {"QnA"})
 @RestController
 @RequiredArgsConstructor
 public class QnAController {
