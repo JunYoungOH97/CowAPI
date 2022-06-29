@@ -1,8 +1,10 @@
-# 1. CowAPI
+# CowAPI
 
 ![CowAPI](https://user-images.githubusercontent.com/22286954/176443623-a4f0dd26-0603-4bf2-8a00-2562cd633653.jpg)
 
 <br>
+
+# 1. 프로젝트 소개
 
 ## 프로젝트 기획 배경
 - 다양한 기능들을 시도해보고 부족한 부분을 지속적으로 학습하기 위해 springboot framework 개인 프로젝트 진행합니다.
@@ -47,6 +49,8 @@
 ## 기타
 - Swagger를 통한 API 문서 자동화
 - TDD 기반 기능 구현
+
+<br>
 
 # 3. 프론트 엔드
 - 프론트엔드와의 소통을 원할하게 하기 위해 프론트 엔드 개발 시도합니다.
