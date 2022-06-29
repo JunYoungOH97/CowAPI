@@ -1,6 +1,6 @@
 # 1. CowAPI
 <hr>
 
-![CowAPI icon](./meta/CowAPI.jfif)
+![CowAPI icon](./imgs/CowAPI.jpg)
 
 <br>
