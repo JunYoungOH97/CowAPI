@@ -47,3 +47,9 @@
 ## 기타
 - Swagger를 통한 API 문서 자동화
 - TDD 기반 기능 구현
+
+# 3. 프론트 엔드
+- 프론트엔드와의 소통을 원할하게 하기 위해 프론트 엔드 개발 시도합니다.
+- 백엔드 학습이 주요 목표이므로 디자인 보다는 기능 중심의 개발을 합니다.
+- React + java script
+- Github : [여기](https://github.com/Oh-JunYoung/CowAPI-FrontEnd)
