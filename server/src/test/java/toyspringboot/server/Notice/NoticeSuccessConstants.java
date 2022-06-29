@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
-public class NoticeTestConstants {
+public class NoticeSuccessConstants {
     // ---------- API ----------
     public static final String Notice_create_API = "/notices/notice";
     public static final String Notice_read_API = "/notices/notice?noticeId=1";

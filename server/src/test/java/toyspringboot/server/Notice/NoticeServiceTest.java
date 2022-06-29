@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import static toyspringboot.server.Notice.NoticeTestConstants.*;
+import static toyspringboot.server.Notice.NoticeSuccessConstants.*;
 import static toyspringboot.server.User.UserTestConstants.*;
 
 @SpringBootTest

@@ -1,6 +1,5 @@
 package toyspringboot.server.Notice;
 
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import toyspringboot.server.UserAuthentication.UserAuthenticationProvider;
 
 import static toyspringboot.server.User.UserTestConstants.Exist_User_email;
 
-import static toyspringboot.server.Notice.NoticeTestConstants.*;
+import static toyspringboot.server.Notice.NoticeSuccessConstants.*;
 
 public class NoticeControllerTest extends IntegrationTest {
     @Autowired
