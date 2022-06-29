@@ -6,9 +6,11 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import toyspringboot.server.Domain.Dto.OAuthUserInfoDto;
-import toyspringboot.server.Domain.Dto.RedirectURIDto;
+import toyspringboot.server.Domain.ResponseDto.OAuthUserInfoResponseDto;
+import toyspringboot.server.Domain.ResponseDto.RedirectURIResponseDto;
 import toyspringboot.server.Service.OAuthUserService;
 
 @Api(tags = {"OAuth"})
@@ -23,8 +25,8 @@ public class OAuthUserController {
             @ApiResponse(code = 200, message = "success"),
     })
     @GetMapping("/users/oauth")
-    public RedirectURIDto OAuthLogin() {
-        return oAuthUserService.getRedirectURI();
+    public ResponseEntity<RedirectURIResponseDto> OAuthLogin() {
+        return new ResponseEntity<>(oAuthUserService.getRedirectURI().toResponse(), HttpStatus.OK);
     }
     
     // 4. Authorization Server 로 부터 Code 응답 받고 state 검증 후 Token 요청
@@ -33,7 +35,7 @@ public class OAuthUserController {
             @ApiResponse(code = 200, message = "success"),
     })
     @GetMapping("/oauth/naver")
-    public OAuthUserInfoDto OAuthCallback(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state) {
-        return oAuthUserService.requestAccessToken(code, state);
+    public ResponseEntity<OAuthUserInfoResponseDto> OAuthCallback(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state) {
+        return new ResponseEntity<>(oAuthUserService.requestAccessToken(code, state).toResponse(), HttpStatus.OK);
     }
 }

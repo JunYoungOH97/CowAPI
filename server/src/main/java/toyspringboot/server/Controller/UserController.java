@@ -2,15 +2,13 @@ package toyspringboot.server.Controller;
 
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import toyspringboot.server.Domain.Dto.TokenDto;
 import toyspringboot.server.Domain.Dto.UserDto;
+import toyspringboot.server.Domain.ResponseDto.TokenResponseDto;
+import toyspringboot.server.Domain.ResponseDto.UserResponseDto;
 import toyspringboot.server.Service.UserService;
-
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Api(tags = {"User"})
 @RestController
@@ -23,18 +21,19 @@ public class UserController {
             @ApiResponse(code = 200, message = "success"),
     })
     @PostMapping("/users/signup")
-    public UserDto signUp(@RequestBody UserDto userDto) {
-        return userService.signUp(userDto);
+    public ResponseEntity<UserResponseDto> signUp(@RequestBody UserDto userDto) {
+        return new ResponseEntity<>(userService.signUp(userDto).toResponse(), HttpStatus.OK);
     }
 
     @ApiOperation(value = "로그인", notes = "기존 사용자 로그인 api 입니다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "success"),
     })
-
-    @PostMapping("/users/login")
-    public TokenDto signIn(@RequestBody UserDto userDto) {
-        return userService.signIn(userDto);
+    @PostMapping("/users/signin")
+    public ResponseEntity<TokenResponseDto> signIn(@RequestBody UserDto userDto) {
+        return ResponseEntity
+                .ok()
+                .body(userService.signIn(userDto).toResponse());
     }
 
     @ApiOperation(value = "회원 수정", notes = "기존 사용자의 정보를 수정하는 api 입니다.")
@@ -42,8 +41,8 @@ public class UserController {
             @ApiResponse(code = 200, message = "success"),
     })
     @PutMapping("/users/user")
-    public UserDto updateUser(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
-        return userService.updateUser(userToken, userDto);
+    public ResponseEntity<UserResponseDto> updateUser(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
+        return new ResponseEntity<>(userService.updateUser(userToken, userDto).toResponse(), HttpStatus.OK);
     }
 
     @ApiOperation(value = "회원 삭제", notes = "기존 사용자를 삭제하는 api 입니다.")
@@ -51,7 +50,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "success"),
     })
     @DeleteMapping("/users/user")
-    public UserDto deleteUser(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
-        return userService.deleteUser(userToken, userDto);
+    public ResponseEntity<UserResponseDto> deleteUser(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
+        return new ResponseEntity<>(userService.deleteUser(userToken, userDto).toResponse(), HttpStatus.OK);
     }
 }

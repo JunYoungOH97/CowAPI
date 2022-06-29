@@ -3,6 +3,7 @@ package toyspringboot.server.Domain.Dto;
 import lombok.*;
 import toyspringboot.server.Domain.Entity.Notice;
 import toyspringboot.server.Domain.Entity.User;
+import toyspringboot.server.Domain.ResponseDto.NoticeResponseDto;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -26,6 +27,16 @@ public class NoticeDto {
     private String updater;
 
     private UserDto userDto;
+
+    public NoticeResponseDto toResponse() {
+        return NoticeResponseDto.builder()
+                .title(title)
+                .content(content)
+                .createdDate(createdDate)
+                .updatedDate(updatedDate)
+                .userEmail(userDto.getEmail())
+                .build();
+    }
 
     public void setCreateNoticeDto(UserDto userDto) {
         this.setIsDeleted(false);

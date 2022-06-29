@@ -14,6 +14,7 @@ import reactor.core.publisher.Flux;
 import toyspringboot.server.Domain.Dto.DashboardDto;
 import toyspringboot.server.Domain.Entity.Dashboard;
 import toyspringboot.server.Domain.Repository.UserRepository;
+import toyspringboot.server.Domain.ResponseDto.DashBoardResponseDto;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -33,7 +34,7 @@ public class DashboardService {
 
     private static final Long refreshTime = 2L;
 
-    public Flux<ServerSentEvent<DashboardDto>> sse() {
+    public Flux<ServerSentEvent<DashBoardResponseDto>> sse() {
         Timestamp now = Timestamp.valueOf(LocalDateTime.now());
 
         // 대시보드를 가져온다.
@@ -46,10 +47,10 @@ public class DashboardService {
 
         // 보낸다.
         return Flux.interval(Duration.ofSeconds(refreshTime))
-                .map(sequence -> ServerSentEvent.<DashboardDto> builder()
+                .map(sequence -> ServerSentEvent.<DashBoardResponseDto> builder()
                         .id("/ai/category")
                         .event("periodic-event")
-                        .data(getDashboard())
+                        .data(getDashboard().toResponse())
                         .retry(Duration.ofSeconds(refreshTime))
                         .build());
     }

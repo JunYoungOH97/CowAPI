@@ -5,14 +5,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
-import toyspringboot.server.Domain.Dto.DashboardDto;
+import toyspringboot.server.Domain.ResponseDto.DashBoardResponseDto;
 import toyspringboot.server.Service.DashboardService;
 
 @Api(tags = {"Dash board"})
@@ -26,7 +24,8 @@ public class DashboardController {
             @ApiResponse(code = 200, message = "success"),
     })
     @GetMapping(value = "/dashboard")
-    public ResponseEntity<Flux<ServerSentEvent<DashboardDto>>> sseDashboard() {
-        return new ResponseEntity<>(dashboardService.sse(), HttpStatus.OK);
+    public ResponseEntity<Flux<ServerSentEvent<DashBoardResponseDto>>> sseDashboard() {
+        return ResponseEntity.ok()
+                .body(dashboardService.sse());
     }
 }

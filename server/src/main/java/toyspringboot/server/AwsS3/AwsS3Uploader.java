@@ -32,7 +32,6 @@ public class AwsS3Uploader {
     public String upload(File uploadFile, String filePath) {
         String fileName = filePath + "/" + UUID.randomUUID() + uploadFile.getName();   // S3에 저장된 파일 이름
         String uploadImageUrl = putS3(uploadFile, fileName); // s3로 업로드
-        System.out.println("uploadFile = " + uploadFile + ", filePath = " + filePath);
         removeNewFile(uploadFile);
         return uploadImageUrl;
     }
@@ -55,7 +54,6 @@ public class AwsS3Uploader {
     // 로컬에 파일 업로드 하기
     private Optional<File> convert(MultipartFile file) throws IOException {
         File convertFile = new File(System.getProperty("user.dir") + "/" + file.getOriginalFilename());
-        System.out.println("file = " + System.getProperty("user.dir") + "/" + file.getOriginalFilename());
 
         if (convertFile.createNewFile()) { // 바로 위에서 지정한 경로에 File이 생성됨 (경로가 잘못되었다면 생성 불가능)
             try (FileOutputStream fos = new FileOutputStream(convertFile)) { // FileOutputStream 데이터를 파일에 바이트 스트림으로 저장하기 위함

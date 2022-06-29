@@ -1,6 +1,7 @@
 package toyspringboot.server.Domain.Dto;
 
 import lombok.*;
+import toyspringboot.server.Domain.ResponseDto.RedirectURIResponseDto;
 
 @Getter
 @Setter
@@ -9,4 +10,10 @@ import lombok.*;
 @Builder
 public class RedirectURIDto {
     private String redirectURI;
+
+    public RedirectURIResponseDto toResponse() {
+        return RedirectURIResponseDto.builder()
+                .redirectURI(redirectURI)
+                .build();
+    }
 }

@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import lombok.*;
 import org.apache.tomcat.jni.Local;
 import toyspringboot.server.Domain.Entity.QnA;
+import toyspringboot.server.Domain.ResponseDto.QnAResponseDto;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -28,6 +29,15 @@ public class QnADto {
 
     private UserDto userDto;
 
+    public QnAResponseDto toResponse() {
+        return QnAResponseDto.builder()
+                .title(title)
+                .content(content)
+                .createdDate(createdDate)
+                .updatedDate(updatedDate)
+                .email(userDto.getEmail())
+                .build();
+    }
 
     public void setCreateQnA(UserDto userDto) {
         this.setIsDeleted(false);
