@@ -1,16 +1,11 @@
 package toyspringboot.server.Service;
 
 import lombok.RequiredArgsConstructor;
-//import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import toyspringboot.server.Domain.Dto.*;
 import toyspringboot.server.Domain.Entity.Notice;
-import toyspringboot.server.Domain.Entity.QnA;
-import toyspringboot.server.Domain.Entity.User;
 import toyspringboot.server.Domain.Repository.NoticeRepository;
 import toyspringboot.server.Domain.Repository.UserRepository;
 import toyspringboot.server.UserAuthentication.UserAuthenticationConverter;
