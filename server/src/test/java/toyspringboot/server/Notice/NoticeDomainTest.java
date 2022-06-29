@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static toyspringboot.server.User.UserTestConstants.Exist_User_email;
 
-import static toyspringboot.server.Notice.NoticeTestConstants.*;
+import static toyspringboot.server.Notice.NoticeSuccessConstants.*;
 
 @SpringBootTest
 @Transactional
