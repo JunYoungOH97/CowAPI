@@ -7,6 +7,7 @@ import lombok.*;
 //import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.userdetails.UserDetailsService;
 import toyspringboot.server.Domain.Entity.User;
+import toyspringboot.server.Domain.ResponseDto.UserResponseDto;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -29,6 +30,12 @@ public class UserDto {
     private Timestamp deletedDate;
     private String creator;
     private String updater;
+
+    public UserResponseDto toResponse() {
+        return UserResponseDto.builder()
+                .email(email)
+                .build();
+    }
 
 
     public void setCreatedUser() {

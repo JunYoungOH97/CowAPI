@@ -10,12 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import reactor.core.publisher.Mono;
 import toyspringboot.server.AwsS3.AwsS3Uploader;
-import toyspringboot.server.Domain.Dto.AiDto;
-import toyspringboot.server.Domain.Dto.DashboardDto;
+import toyspringboot.server.Domain.ResponseDto.AiResponseDto;
 import toyspringboot.server.Service.AiService;
-import toyspringboot.server.Service.RedisService;
 
 import java.io.IOException;
 
@@ -31,12 +28,8 @@ public class AiController {
             @ApiResponse(code = 200, message = "success"),
     })
     @PostMapping("/{userId}/ai/category")
-    public ResponseEntity<AiDto> aiResponse(@RequestParam("images") MultipartFile multipartFile) throws IOException {
-        System.out.println("multipartFile = " + multipartFile.getOriginalFilename());
+    public ResponseEntity<AiResponseDto> aiResponse(@RequestParam("images") MultipartFile multipartFile) throws IOException {
         String s3Path = s3Uploader.uploadFiles(multipartFile, "Spring");
-        AiDto aiDto = aiService.responseAiResult(s3Path);
-        System.out.println("multipartFile = " + aiDto.getCategory());
-
-        return new ResponseEntity<>(aiService.responseAiResult(s3Path), HttpStatus.OK);
+        return new ResponseEntity<>(aiService.responseAiResult(s3Path).toResponse(), HttpStatus.OK);
     }
 }

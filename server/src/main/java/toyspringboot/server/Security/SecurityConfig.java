@@ -3,9 +3,8 @@ package toyspringboot.server.Security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,6 +23,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserAuthenticationService userAuthenticationService;
@@ -47,9 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity webSecurity) {
         webSecurity.ignoring()
-                .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/favicon.ico")
                 .antMatchers(
-
                         /* swagger v2 */
                         "/v2/api-docs",
                         "/swagger-resources",
@@ -62,59 +60,56 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         /* swagger v3 */
                         "/v3/api-docs/**",
                         "/swagger-ui/**")
-                .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**")
-                .antMatchers("/users/oauth", "/oauth/naver**", "/users/signup**", "/users/login**")
-                .antMatchers("/dashboard")
-                .antMatchers("/**/ai/**")
-                .antMatchers("/QnAs/**")
-                .antMatchers("/**/image");
 
+                .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico")
+
+                .antMatchers("/users/**", "/dashboard");
+
+//                .antMatchers("/users/oauth", "/oauth/naver**", "/users/signup", "/users/signin")
+//                .antMatchers("/dashboard")
+//                .antMatchers("/**/ai/**")
+//                .antMatchers("/QnAs/**")
+//                .antMatchers("/**/image");
     }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .cors().configurationSource(corsConfigurationSource())
-                .and()
+                .csrf().disable();
+//
+//                .exceptionHandling()
+//                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+//                .accessDeniedHandler(jwtAccessDeniedHandler)
 
-                .httpBasic().disable()
-                .csrf().disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//
+//                .and()
+//                .authorizeRequests()
+////                .antMatchers("/users/oauth", "/oauth/naver**", "/users/**", "/dashboard").permitAll()
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
+//                .anyRequest().permitAll();
 
-                .and()
-                .authorizeHttpRequests()
-                .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/favicon.ico").permitAll()
-                .antMatchers("/users/oauth", "/oauth/naver**", "/users/signup", "/users/login").permitAll()
-                .antMatchers("/dashboard").permitAll()
-                .antMatchers("/**/ai/**").permitAll()
-                .antMatchers("/QnAs/**").permitAll()
-                .antMatchers("/**/image").permitAll()
 
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .accessDeniedHandler(jwtAccessDeniedHandler)
+//                .and()
+//                .apply(new UserAuthenticationConfig(userAuthenticationConverter, userAuthenticationManager));
 
-                .and()
-                .apply(new UserAuthenticationConfig(userAuthenticationConverter, userAuthenticationManager))
-
-                .and()
-                .authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
-                .anyRequest().authenticated();
+        httpSecurity.cors().disable();
     }
 
-    protected CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns((List.of("http://localhost:3000", "http://localhost:8080"))); // 허용할 URL
-        configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE")); // 허용할 Http Method
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type")); // 허용할 Header
-        configuration.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // add mapping
-        return source;
-    }
+//    @Bean
+//    CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.setAllowedOriginPatterns((List.of("*"))); // 허용할 URL
+////        configuration.setAllowedOriginPatterns((List.of("http://localhost:3000", "http://localhost:8080"))); // 허용할 URL
+//        configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE")); // 허용할 Http Method
+//        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type")); // 허용할 Header
+//        configuration.setAllowCredentials(true);
+//
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration); // add mapping
+//        return source;
+//    }
 }

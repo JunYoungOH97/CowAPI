@@ -2,6 +2,7 @@ package toyspringboot.server.Domain.Dto;
 
 import lombok.*;
 import toyspringboot.server.Domain.Entity.Dashboard;
+import toyspringboot.server.Domain.ResponseDto.DashBoardResponseDto;
 
 import java.sql.Timestamp;
 
@@ -18,6 +19,16 @@ public class DashboardDto {
     private Double responseTime;
     private Long useServiceCnt;
     private Timestamp updatedTime;
+
+    public DashBoardResponseDto toResponse() {
+        return DashBoardResponseDto.builder()
+                .totalUser(totalUser)
+                .todayUser(todayUser)
+                .todayTps(todayTps)
+                .responseTime(responseTime)
+                .updatedTime(updatedTime)
+                .build();
+    }
 
     public static DashboardDto of(Dashboard dashboard) {
         return DashboardDto.builder()
