@@ -25,7 +25,8 @@ public class NoticeController {
     })
     @PostMapping("/admin/notices/notice")
     public ResponseEntity<NoticeResponseDto> createNotice(@RequestHeader("Authorization") String userToken, @RequestBody NoticeDto noticeDto) {
-        return new ResponseEntity<>(noticeService.createNotice(userToken, noticeDto).toResponse(), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(noticeService.createNotice(userToken, noticeDto).toResponse());
     }
 
     @ApiOperation(value = "공지 조회", notes = "공지사항 조회 API 입니다.")
@@ -34,7 +35,8 @@ public class NoticeController {
     })
     @GetMapping("/user/notices/notice")
     public ResponseEntity<NoticeResponseDto> readNotice(@RequestHeader("Authorization") String userToken, @RequestParam("noticeId") Long noticeId) {
-        return new ResponseEntity<>(noticeService.readNotice(userToken, noticeId).toResponse(), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(noticeService.readNotice(userToken, noticeId).toResponse());
     }
 
     @ApiOperation(value = "공지 수정", notes = "공지사항 수정 API 입니다.")
@@ -43,7 +45,8 @@ public class NoticeController {
     })
     @PutMapping("/admin/notices/notice")
     public ResponseEntity<NoticeResponseDto> updateNotice(@RequestHeader("Authorization") String userToken, @RequestBody NoticeDto noticeDto) {
-        return new ResponseEntity<>(noticeService.updateNotice(userToken, noticeDto).toResponse(), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(noticeService.updateNotice(userToken, noticeDto).toResponse());
     }
 
     @ApiOperation(value = "공지 삭제", notes = "공지사항 삭제 API 입니다.")
@@ -52,7 +55,8 @@ public class NoticeController {
     })
     @DeleteMapping("/admin/notices/notice")
     public ResponseEntity<NoticeResponseDto> deleteNotice(@RequestHeader("Authorization") String userToken, @RequestParam("noticeId") Long noticeId) {
-        return new ResponseEntity<>(noticeService.deleteNotice(userToken, noticeId, "API").toResponse(), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(noticeService.deleteNotice(userToken, noticeId, "API").toResponse());
     }
 
     @ApiOperation(value = "공지 페이지네이션", notes = "공지사항 페이지네이션 API 입니다.")
@@ -61,6 +65,7 @@ public class NoticeController {
     })
     @GetMapping("/user/notices/notice/page")
     public ResponseEntity<NoticeListResponseDto> readNoticeList(@RequestParam(value = "page") Long page) {
-        return new ResponseEntity<>(noticeService.readNoticeList(page).toResponse(), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(noticeService.readNoticeList(page).toResponse());
     }
 }

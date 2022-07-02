@@ -2,6 +2,7 @@ package toyspringboot.server.Domain.ResponseDto;
 
 import lombok.*;
 
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

@@ -22,7 +22,8 @@ public class UserController {
     })
     @PostMapping("/users/signup")
     public ResponseEntity<UserResponseDto> signUp(@RequestBody UserDto userDto) {
-        return new ResponseEntity<>(userService.signUp(userDto).toResponse(), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(userService.signUp(userDto).toResponse());
     }
 
     @ApiOperation(value = "로그인", notes = "기존 사용자 로그인 api 입니다.")
@@ -31,8 +32,7 @@ public class UserController {
     })
     @PostMapping("/users/signin")
     public ResponseEntity<TokenResponseDto> signIn(@RequestBody UserDto userDto) {
-        return ResponseEntity
-                .ok()
+        return ResponseEntity.ok()
                 .body(userService.signIn(userDto).toResponse());
     }
 
@@ -42,7 +42,8 @@ public class UserController {
     })
     @PutMapping("/users/user")
     public ResponseEntity<UserResponseDto> updateUser(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
-        return new ResponseEntity<>(userService.updateUser(userToken, userDto).toResponse(), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(userService.updateUser(userToken, userDto).toResponse());
     }
 
     @ApiOperation(value = "회원 삭제", notes = "기존 사용자를 삭제하는 api 입니다.")
@@ -51,6 +52,7 @@ public class UserController {
     })
     @DeleteMapping("/users/user")
     public ResponseEntity<UserResponseDto> deleteUser(@RequestHeader("Authorization") String userToken, @RequestBody UserDto userDto) {
-        return new ResponseEntity<>(userService.deleteUser(userToken, userDto).toResponse(), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(userService.deleteUser(userToken, userDto).toResponse());
     }
 }

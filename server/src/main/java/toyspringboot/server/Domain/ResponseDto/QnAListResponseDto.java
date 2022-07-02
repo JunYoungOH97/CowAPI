@@ -1,15 +1,14 @@
 package toyspringboot.server.Domain.ResponseDto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import toyspringboot.server.Domain.Dto.QnADto;
 
 import java.util.List;
 
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class QnAListResponseDto {
-    private List<QnADto> qnADtoList;
+    private List<QnAResponseDto> qnADtoList;
 }

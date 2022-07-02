@@ -1,8 +1,11 @@
 package toyspringboot.server.Domain.Dto;
 
 import lombok.*;
+import toyspringboot.server.Domain.ResponseDto.NoticeResponseDto;
 import toyspringboot.server.Domain.ResponseDto.QnAListResponseDto;
+import toyspringboot.server.Domain.ResponseDto.QnAResponseDto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -14,8 +17,12 @@ public class QnAListDto {
     private List<QnADto> qnADtoList;
 
     public QnAListResponseDto toResponse() {
+        List<QnAResponseDto> qnAResponseDtos = new ArrayList<>();
+        for(QnADto qnADto : qnADtoList) {
+            qnAResponseDtos.add(qnADto.toResponse());
+        }
         return QnAListResponseDto.builder()
-                .qnADtoList(qnADtoList)
+                .qnADtoList(qnAResponseDtos)
                 .build();
     }
 
