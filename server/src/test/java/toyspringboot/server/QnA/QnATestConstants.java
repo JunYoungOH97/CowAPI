@@ -1,8 +1,8 @@
 package toyspringboot.server.QnA;
 
-import toyspringboot.server.DefaultTestConstants;
+import toyspringboot.server.ServerApplicationTests;
 
-public class QnATestConstants extends DefaultTestConstants {
+public class QnATestConstants {
     // ---------- API ----------
     public static final String QnA_create_API = "/QnAs/QnA";
     public static final String QnA_read_API = "/QnAs/1";
