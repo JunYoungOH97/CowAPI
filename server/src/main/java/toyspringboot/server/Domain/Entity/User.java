@@ -56,11 +56,9 @@ public class User implements UserDetails {
     @Column
     private String updater;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<QnA> QnAs = new ArrayList<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Notice> Notices = new ArrayList<>();
 

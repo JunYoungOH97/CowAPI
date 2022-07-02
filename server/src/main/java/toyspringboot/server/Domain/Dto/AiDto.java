@@ -15,8 +15,8 @@ public class AiDto {
 
     public AiResponseDto toResponse() {
         return AiResponseDto.builder()
-                .category(this.category)
-                .score(this.score)
+                .category(category)
+                .score(score)
                 .build();
     }
 }

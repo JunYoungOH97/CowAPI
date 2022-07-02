@@ -26,7 +26,8 @@ public class OAuthUserController {
     })
     @GetMapping("/users/oauth")
     public ResponseEntity<RedirectURIResponseDto> OAuthLogin() {
-        return new ResponseEntity<>(oAuthUserService.getRedirectURI().toResponse(), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(oAuthUserService.getRedirectURI().toResponse());
     }
     
     // 4. Authorization Server 로 부터 Code 응답 받고 state 검증 후 Token 요청
@@ -36,6 +37,7 @@ public class OAuthUserController {
     })
     @GetMapping("/oauth/naver")
     public ResponseEntity<OAuthUserInfoResponseDto> OAuthCallback(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state) {
-        return new ResponseEntity<>(oAuthUserService.requestAccessToken(code, state).toResponse(), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(oAuthUserService.requestAccessToken(code, state).toResponse());
     }
 }

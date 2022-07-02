@@ -32,7 +32,6 @@ public class NoticeDto {
         return NoticeResponseDto.builder()
                 .title(title)
                 .content(content)
-                .createdDate(createdDate)
                 .updatedDate(updatedDate)
                 .userEmail(userDto.getEmail())
                 .build();

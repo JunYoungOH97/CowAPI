@@ -30,6 +30,7 @@ public class AiController {
     @PostMapping("/{userId}/ai/category")
     public ResponseEntity<AiResponseDto> aiResponse(@RequestParam("images") MultipartFile multipartFile) throws IOException {
         String s3Path = s3Uploader.uploadFiles(multipartFile, "Spring");
-        return new ResponseEntity<>(aiService.responseAiResult(s3Path).toResponse(), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(aiService.responseAiResult(s3Path).toResponse());
     }
 }

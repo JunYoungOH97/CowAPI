@@ -1,15 +1,14 @@
 package toyspringboot.server.Domain.ResponseDto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import toyspringboot.server.Domain.Dto.NoticeDto;
 
 import java.util.List;
 
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class NoticeListResponseDto {
-    private List<NoticeDto> noticeDtoList;
+    private List<NoticeResponseDto> noticeDtoList;
 }

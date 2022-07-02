@@ -31,7 +31,8 @@ public class QnAController {
     @PostMapping("/QnAs/QnA")
     public ResponseEntity<QnAResponseDto> createQnA(@RequestHeader("Authorization") String userToken, @RequestBody QnADto qnADto) {
         slackService.postSlackMessage("새로운 QnA가 생성되었습니다.");
-        return new ResponseEntity<>(qnAService.createQnA(userToken, qnADto).toResponse(), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(qnAService.createQnA(userToken, qnADto).toResponse());
     }
 
     @ApiOperation(value = "QnA 조회", notes = "QnA 게시글 조회 API 입니다.")
@@ -43,7 +44,8 @@ public class QnAController {
     @GetMapping("/QnAs/{QnAId}")
     public ResponseEntity<QnAResponseDto> readQnA(@RequestHeader("Authorization") String userToken,
                                          @PathVariable(value = "QnAId") Long qnAId) {
-        return new ResponseEntity<>(qnAService.readQnA(userToken, qnAId).toResponse(), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(qnAService.readQnA(userToken, qnAId).toResponse());
     }
 
     @ApiOperation(value = "QnA 수정", notes = "QnA 게시글 수정 API 입니다.")
@@ -55,7 +57,8 @@ public class QnAController {
     @PutMapping("/QnAs/QnA")
     public ResponseEntity<QnAResponseDto> updateQnA(@RequestHeader("Authorization") String userToken,
                           @RequestBody QnADto qnADto) {
-        return new ResponseEntity<>(qnAService.updateQnA(userToken, qnADto).toResponse(), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(qnAService.updateQnA(userToken, qnADto).toResponse());
     }
 
 
@@ -68,7 +71,8 @@ public class QnAController {
     @DeleteMapping("/QnAs/QnA")
     public ResponseEntity<QnAResponseDto> deleteQnA(@RequestHeader("Authorization") String userToken,
                           @RequestBody QnADto qnADto) {
-        return new ResponseEntity<>(qnAService.deleteQnA(userToken, qnADto).toResponse(), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(qnAService.deleteQnA(userToken, qnADto).toResponse());
     }
 
     @ApiOperation(value = "QnA 검색", notes = "QnA 게시글 (제목, 내용) 검색 API 입니다.")
@@ -76,8 +80,9 @@ public class QnAController {
             @ApiResponse(code = 200, message = "success")
     })
     @GetMapping("/QnAs/QnA/search")
-    public QnAListDto searchQnA(@RequestParam(value = "query") String query) {
-        return qnAService.searchQnA(query);
+    public ResponseEntity<QnAListResponseDto> searchQnA(@RequestParam(value = "query") String query) {
+        return ResponseEntity.ok()
+                .body(qnAService.searchQnA(query).toResponse());
     }
 
     @ApiOperation(value = "QnA 리스트 페이지", notes = "QnA 페이지별 리스트 API 입니다.")
@@ -86,6 +91,7 @@ public class QnAController {
     })
     @GetMapping("/QnAs/QnA/page")
     public ResponseEntity<QnAListResponseDto>  QnAPage(@RequestParam(value = "page") Long page) {
-        return new ResponseEntity<>(qnAService.pageQnA(page).toResponse(), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(qnAService.pageQnA(page).toResponse());
     }
 }

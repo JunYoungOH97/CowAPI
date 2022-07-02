@@ -33,7 +33,6 @@ public class QnADto {
         return QnAResponseDto.builder()
                 .title(title)
                 .content(content)
-                .createdDate(createdDate)
                 .updatedDate(updatedDate)
                 .email(userDto.getEmail())
                 .build();
