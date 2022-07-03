@@ -48,6 +48,9 @@ public class OAuthUserService {
     @Value(value = "${spring.security.oauth2.client.provider.naver.user-name-attribute}")
     String userName;
 
+    @Value(value = "${AWS.ip}")
+    String AWSip;
+
     public String generateState() {
         SecureRandom random = new SecureRandom();
         return new BigInteger(130, random).toString(32);
@@ -77,7 +80,7 @@ public class OAuthUserService {
 //        if(!redisService.getOAuthState(state)) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "상태 코드가 일치하지 않습니다.");
 
         // Authorization Server 로 요청할 WebClient
-        WebClient client = WebClient.create("http://localhost:8080");
+        WebClient client = WebClient.create("https://" + AWSip + ":8080");
 
         // 토큰 요청하고 응답 받기
         OAuthTokenDto accessToken = client.get()
