@@ -26,6 +26,7 @@ public class QnaDto {
 
     public QnaResponseDto toResponse() {
         return QnaResponseDto.builder()
+                .id(id)
                 .title(title)
                 .content(content)
                 .updatedAt(updatedAt)
