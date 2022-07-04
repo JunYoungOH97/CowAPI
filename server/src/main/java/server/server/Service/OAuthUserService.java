@@ -3,14 +3,11 @@ package server.server.Service;
 import lombok.RequiredArgsConstructor;
 import org.apache.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.server.ResponseStatusException;
-import server.server.Dto.Dto.OAuthTokenDto;
-import server.server.Dto.Dto.OAuthUserInfoDto;
-import server.server.Dto.Dto.RedirectURIDto;
-import server.server.Dto.ResposneDto.RedirectURIResponseDto;
+import server.server.Domain.Dto.*;
+import server.server.Domain.Repository.UsersRepository;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -18,6 +15,9 @@ import java.security.SecureRandom;
 @Service
 @RequiredArgsConstructor
 public class OAuthUserService {
+    private final UserService userService;
+    private final UsersRepository usersRepository;
+
     @Value(value = "${spring.security.oauth2.client.registration.naver.client-id}")
     String clientId;
 
@@ -74,13 +74,13 @@ public class OAuthUserService {
         return authorizationUri + "?client_id=" + clientId + "&response_type=code&redirect_uri=" + redirectUri + "&state=" + state;
     }
 
-    public OAuthUserInfoDto requestAccessToken(String code, String state) {
+    public TokenDto OauthUserSignIn(String code, String state) {
 
         // state 검증
 //        if(!redisService.getOAuthState(state)) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "상태 코드가 일치하지 않습니다.");
 
         // Authorization Server 로 요청할 WebClient
-        WebClient client = WebClient.create("http://" + AWSip + ":8080");
+        WebClient client = WebClient.create("http://localhost:8080");
 
         // 토큰 요청하고 응답 받기
         OAuthTokenDto accessToken = client.get()
@@ -101,21 +101,20 @@ public class OAuthUserService {
 
         assert userInfo != null;
 
+        System.out.println("email = " + userInfo.getResponse().getEmail() + ", id = " + userInfo.getResponse().getId());
+
 //        // state 삭제
 //        redisService.deleteOAuthState(state);
 //
-//        // 회원등록
-//        UserDto userDto = UserDto.builder()
-//                .email(userInfo.getResponse().getEmail())
-//                .password(userInfo.getResponse().getId())
-//                .build();
-//
-//        userService.OAuthUserSave(userDto);
+//        // 회원등록, 로그인
+        UsersDto usersDto = UsersDto.builder()
+                .email(userInfo.getResponse().getEmail())
+                .password(userInfo.getResponse().getId().substring(5))
+                .build();
 
-        // 로그인
-        // ...
+        UsersDto oauthUser = (!usersRepository.existsByEmail(usersDto.getEmail())) ? userService.signUp(usersDto) : userService.signIn(usersDto);
 
-        return userInfo;
+        return oauthUser.getUserToken();
     }
 
     public String generateTokenURI(String state, String code) {

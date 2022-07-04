@@ -1,4 +1,4 @@
-package server.server.Dto.ResposneDto;
+package server.server.Domain.ResposneDto;
 
 import lombok.*;
 
@@ -8,6 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class UserResponseDto {
-    String Authorization;
-    Boolean isAdmin;
+    private String authorization;
+    private Boolean isAdmin;
 }

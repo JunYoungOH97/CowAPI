@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
-import server.server.Dto.ResposneDto.DashboardResponseDto;
+import server.server.Domain.ResposneDto.DashboardResponseDto;
 import server.server.Service.DashboardService;
 
 

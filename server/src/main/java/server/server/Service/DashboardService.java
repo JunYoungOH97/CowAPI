@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
-import server.server.Dto.ResposneDto.AiListResponseDto;
-import server.server.Dto.ResposneDto.AiResponseDto;
-import server.server.Dto.ResposneDto.DashboardResponseDto;
+import server.server.Domain.ResposneDto.AiListResponseDto;
+import server.server.Domain.ResposneDto.AiResponseDto;
+import server.server.Domain.ResposneDto.DashboardResponseDto;
 
 import java.sql.Timestamp;
 import java.time.Duration;

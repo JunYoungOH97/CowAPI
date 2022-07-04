@@ -1,4 +1,4 @@
-package server.server.Dto.ResposneDto;
+package server.server.Domain.ResposneDto;
 
 import lombok.*;
 

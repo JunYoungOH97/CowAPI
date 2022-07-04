@@ -1,6 +1,7 @@
-package server.server.Dto.Dto;
+package server.server.Domain.Dto;
 
 import lombok.*;
+import server.server.Domain.ResposneDto.OAuthResponseDto;
 
 @Getter
 @Setter
