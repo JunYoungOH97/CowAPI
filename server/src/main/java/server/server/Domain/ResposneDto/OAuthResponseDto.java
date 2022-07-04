@@ -1,4 +1,4 @@
-package server.server.Dto.Dto;
+package server.server.Domain.ResposneDto;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OAuthUserInfoResponseDto {
+public class OAuthResponseDto {
     private String id;
     private String email;
 }
