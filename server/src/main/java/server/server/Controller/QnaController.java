@@ -49,7 +49,7 @@ public class QnaController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
-    @GetMapping("/qnaList/{page}")
+    @GetMapping("/qna/list/{page}")
     public ResponseEntity<QnaListResponseDto> QnaPage(@RequestHeader("Authorization") String userToken,
                                                       @PathVariable(value = "page") Long page) {
         return ResponseEntity.ok()
