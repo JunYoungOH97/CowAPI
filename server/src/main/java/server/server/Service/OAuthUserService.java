@@ -1,9 +1,8 @@
 package server.server.Service;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import server.server.Domain.Dto.*;
