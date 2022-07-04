@@ -6,8 +6,6 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -16,26 +14,23 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @DynamicUpdate
-public class Users {
+public class Notice {
     @Id
-    private String email;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
+    private String title;
+
+    @Column
+    private String content;
 
     @Column
     @NotNull
-    private String password;
-
-    @Column
-    @NotNull
-    private String secretKey;
-
-    @Column
-    @NotNull
-    private Boolean isAdmin;
-
-    @Column
     private Boolean isDeleted;
 
     @Column
+    @NotNull
     private String updater;
 
     @Column
@@ -48,9 +43,7 @@ public class Users {
     @Column
     private Timestamp deletedAt;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    List<Qna> qnas = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    List<Notice> notices = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "Users_email")
+    private Users user;
 }
