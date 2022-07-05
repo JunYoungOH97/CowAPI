@@ -46,7 +46,7 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/test/ai", "/dashboard","/signup","/signin", "/user/oauth/**", "/oauth/**").permitAll()
+                .antMatchers("/test/dashboard", "/test/ai", "/dashboard","/signup","/signin", "/user/oauth/**", "/oauth/**").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
