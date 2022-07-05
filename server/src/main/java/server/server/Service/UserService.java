@@ -37,6 +37,7 @@ public class UserService {
     public UsersDto signIn(UsersDto userDto) {
         Users foundUser = usersRepository.findByEmail(userDto.getEmail()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다."));
         if(!foundUser.getPassword().equals(userDto.getPassword())) throw new ResponseStatusException(BAD_REQUEST, "비밀번호가 틀렸습니다.");
+        if(foundUser.getIsDeleted()) throw new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.");
 
         // new user authentication
         Authentication authentication = new UsernamePasswordAuthenticationToken(userDto.getEmail(), "", null);
