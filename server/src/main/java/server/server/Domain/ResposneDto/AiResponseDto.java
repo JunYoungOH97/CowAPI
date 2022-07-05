@@ -12,15 +12,13 @@ import java.sql.Timestamp;
 @Builder
 public class AiResponseDto {
     String name;
+    String field;
     Double responseTime;
     Double accuracy;
+
     String requestURI ;
     String method;
-    Object req;
-    Object res;
-    String field;
-
-    Long totalUser;
-    Long todayUser;
+    String req;
+    String res;
     Timestamp updatedAt;
 }
