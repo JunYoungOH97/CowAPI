@@ -15,7 +15,7 @@ public class DashboardController {
     private final DashboardService dashboardService;
 
     @GetMapping("/dashboard")
-    public Flux<ServerSentEvent<DashboardResponseDto>> dashboard(@RequestHeader("Authorization") String userToken) {
+    public Flux<ServerSentEvent<DashboardResponseDto>> dashboard() {
         return dashboardService.publish();
     }
 }
