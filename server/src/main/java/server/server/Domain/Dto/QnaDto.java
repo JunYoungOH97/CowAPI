@@ -27,9 +27,11 @@ public class QnaDto {
     public QnaResponseDto toResponse() {
         return QnaResponseDto.builder()
                 .id(id)
+
                 .title(title)
                 .content(content)
                 .updatedAt(updatedAt)
+
                 .email(userDto.getEmail())
                 .build();
     }
@@ -37,13 +39,12 @@ public class QnaDto {
     public void setCreateQna(UsersDto userDto) {
         this.setIsDeleted(false);
         this.setUpdater("API");
-        this.setUserDto(userDto);
 
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
         this.setCreatedAt(timestamp);
-
         this.setUpdatedAt(timestamp);
-        this.setUpdater("API");
+
+        this.setUserDto(userDto);
     }
 
     public static QnaDto of(Qna qnA) {
@@ -65,12 +66,16 @@ public class QnaDto {
                 .id(qnADto.getId())
                 .title(qnADto.getTitle())
                 .content(qnADto.getContent())
+
                 .isDeleted(qnADto.getIsDeleted())
+                .updater(qnADto.getUpdater())
+
                 .createdAt(qnADto.getCreatedAt())
                 .updatedAt(qnADto.getUpdatedAt())
                 .deletedAt(qnADto.getDeletedAt())
-                .updater(qnADto.getUpdater())
+
                 .user(UsersDto.toEntity(qnADto.getUserDto()))
+
                 .build();
     }
 }

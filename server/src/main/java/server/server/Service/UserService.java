@@ -30,12 +30,15 @@ public class UserService {
 
     public UsersDto signUp(UsersDto userDto) {
         if(usersRepository.existsByEmail(userDto.getEmail())) throw new ResponseStatusException(CONFLICT, "이미 가입되어 있는 유저입니다");
+
+
         userDto.setCreatedUser();
         return signIn(UsersDto.of(usersRepository.save(UsersDto.toEntity(userDto))));
     }
 
     public UsersDto signIn(UsersDto userDto) {
         Users foundUser = usersRepository.findByEmail(userDto.getEmail()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다."));
+
         if(!foundUser.getPassword().equals(userDto.getPassword())) throw new ResponseStatusException(BAD_REQUEST, "비밀번호가 틀렸습니다.");
         if(foundUser.getIsDeleted()) throw new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.");
 
@@ -45,6 +48,7 @@ public class UserService {
 
         UsersDto usersDto = UsersDto.of(foundUser);
         usersDto.setUserToken(tokenDto);
+
         return usersDto;
     }
 
@@ -54,10 +58,13 @@ public class UserService {
     }
 
     public UsersDto reissuance(TokenDto userToken) {
-        String secretKey = new BigInteger(130, new SecureRandom()).toString(32);
         Users user  = tokenConverter.getUser(userToken);
+
+        String secretKey = new BigInteger(130, new SecureRandom()).toString(32);
         UsersDto usersDto = UsersDto.builder().secretKey(secretKey).build();
+
         usersRepository.updateUser(user, usersDto);
+
         return UsersDto.of(user);
     }
 

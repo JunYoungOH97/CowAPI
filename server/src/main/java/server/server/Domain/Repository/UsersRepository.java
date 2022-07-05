@@ -25,13 +25,12 @@ public interface UsersRepository extends JpaRepository<Users, String> {
 
         if(userDto.getIsAdmin() != null) user.setIsAdmin(userDto.getIsAdmin());
         if(userDto.getIsDeleted() != null) user.setIsDeleted(userDto.getIsDeleted());
-        if(userDto.getCreatedAt() != null) user.setCreatedAt(userDto.getCreatedAt());
+        if(userDto.getUpdater() != null) user.setUpdater("API");
 
         Timestamp now = Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        if(userDto.getCreatedAt() != null) user.setCreatedAt(userDto.getCreatedAt());
         if(userDto.getUpdatedAt() != null) user.setUpdatedAt(now);
-
         if(userDto.getDeletedAt() != null) user.setDeletedAt(userDto.getDeletedAt());
-        if(userDto.getUpdater() != null) user.setUpdater("API");
     }
 
     default void deleteUser(Users user) {
