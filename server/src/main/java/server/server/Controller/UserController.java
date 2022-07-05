@@ -61,7 +61,7 @@ public class UserController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
-    
+
     @GetMapping("/user/oauth/naver")
     public void OAuthLogin(HttpServletResponse response) throws IOException {
         response.sendRedirect(oAuthUserService.redirectURI().getRedirectURI());
