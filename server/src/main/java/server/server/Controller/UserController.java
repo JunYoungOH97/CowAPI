@@ -12,11 +12,6 @@ import server.server.Domain.ResposneDto.UserResponseDto;
 import server.server.Service.OAuthUserService;
 import server.server.Service.UserService;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-
 @RestController
 @RequiredArgsConstructor
 public class UserController {

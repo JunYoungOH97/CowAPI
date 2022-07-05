@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import server.server.Domain.Dto.*;
 import server.server.Domain.Entity.Notice;
-import server.server.Domain.Entity.Qna;
 import server.server.Domain.Repository.NoticeRepository;
 import server.server.Jwt.TokenConverter;
 
@@ -42,8 +41,7 @@ public class NoticeService {
         Notice notice = noticeRepository.findById(noticeDto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 공지 입니다."));
 
         if (notice.getIsDeleted().equals(true)) throw new ResponseStatusException(NOT_FOUND, "존재하지 않는 공지 입니다.");
-        if (!userDto.getEmail().equals(notice.getUser().getEmail()))
-            throw new ResponseStatusException(FORBIDDEN, "접근권한이 없습니다.");
+        if (!userDto.getEmail().equals(notice.getUser().getEmail())) throw new ResponseStatusException(FORBIDDEN, "접근권한이 없습니다.");
 
         noticeRepository.updateNotice(notice, noticeDto);
     }
@@ -51,8 +49,9 @@ public class NoticeService {
     public void deleteNotice(TokenDto userToken, Long noticeId) {
         UsersDto usersDto = UsersDto.of(tokenConverter.getUser(userToken));
 
-        Notice notice = noticeRepository.findById(noticeId).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 Qna 입니다."));
-        if(notice.getIsDeleted().equals(true)) throw new ResponseStatusException(NOT_FOUND, "존재하지 않는 Qna 입니다.");
+        Notice notice = noticeRepository.findById(noticeId).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 공지 입니다."));
+        
+        if(notice.getIsDeleted().equals(true)) throw new ResponseStatusException(NOT_FOUND, "존재하지 않는 공지 입니다.");
         if(!notice.getUser().getEmail().equals(usersDto.getEmail())) throw new ResponseStatusException(FORBIDDEN, "접근권한이 없습니다.");
 
         noticeRepository.deleteNotice(notice);
