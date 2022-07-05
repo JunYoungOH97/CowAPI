@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import server.server.Domain.Repository.DashboardRepository;
 import server.server.Domain.ResposneDto.AiListResponseDto;
 import server.server.Domain.ResposneDto.AiResponseDto;
 import server.server.Domain.ResposneDto.DashboardResponseDto;
@@ -19,9 +20,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DashboardService {
+    private static final Long refreshTime = 2L;
+    private final DashboardRepository dashboardRepository;
+
     public Flux<ServerSentEvent<DashboardResponseDto>> sentDashboard() {
         Timestamp now = Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        long refreshTime = 2L;
 
 
         AiResponseDto aiResponseDto = AiResponseDto.builder()
