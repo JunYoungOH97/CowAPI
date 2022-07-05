@@ -22,6 +22,12 @@ public interface QnaRepository extends JpaRepository<Qna, Long> {
             , nativeQuery = true)
     List<Qna> findByPage(@Param("pageId") Long pageId, @Param("pageCnt") Long pageCnt);
 
+    @Query(value =  "Select Count(*) " +
+            "From Qna q " +
+            "Where q.isDeleted != TRUE"
+            , nativeQuery = true)
+    Long countById();
+
     default void updateQna(Qna qna, QnaDto qnaDto) {
         if(qnaDto.getTitle() != null) qna.setTitle(qnaDto.getTitle());
         if(qnaDto.getContent() != null) qna.setContent(qnaDto.getContent());
