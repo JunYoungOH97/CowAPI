@@ -69,8 +69,10 @@ public class NoticeService {
             noticeDtoList.add(NoticeDto.of(iter.next()));
         }
 
+        Long lastPage = noticeRepository.countById();
+
         return NoticeListDto.builder()
-                .lastPage((long) noticeDtoList.size())
+                .lastPage(lastPage)
                 .noticeDtoList(noticeDtoList)
                 .build();
     }

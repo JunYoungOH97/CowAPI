@@ -69,8 +69,10 @@ public class QnaService {
             qnADtoList.add(QnaDto.of(iter.next()));
         }
 
+        Long lastPage = qnaRepository.countById();
+
         return QnaListDto.builder()
-                .lastPage((long) qnADtoList.size())
+                .lastPage(lastPage)
                 .qnADtoList(qnADtoList)
                 .build();
     }

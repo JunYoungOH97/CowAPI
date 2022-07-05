@@ -25,6 +25,13 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
             , nativeQuery = true)
     List<Notice> findByPage(@Param("pageId") Long pageId, @Param("pageCnt") Long pageCnt);
 
+
+    @Query(value =  "Select Count(*) " +
+                    "From Notice n " +
+                    "Where n.isDeleted != TRUE"
+            , nativeQuery = true)
+    Long countById();
+
     default void updateNotice(Notice notice, NoticeDto noticeDto) {
         if(noticeDto.getTitle() != null) notice.setTitle(noticeDto.getTitle());
         if(noticeDto.getContent() != null) notice.setContent(noticeDto.getContent());
@@ -39,4 +46,5 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
         notice.setUpdater("API");
         notice.setDeletedAt(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
     }
+
 }
