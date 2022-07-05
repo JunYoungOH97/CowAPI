@@ -21,7 +21,7 @@ public interface UsersRepository extends JpaRepository<Users, String> {
 
     default void updateUser(Users user, UsersDto userDto) {
         if(userDto.getPassword() != null) user.setPassword(userDto.getPassword());
-        if(userDto.getSecretKey() != null) user.setPassword(userDto.getSecretKey());
+        if(userDto.getSecretKey() != null) user.setSecretKey(userDto.getSecretKey());
 
         if(userDto.getIsAdmin() != null) user.setIsAdmin(userDto.getIsAdmin());
         if(userDto.getIsDeleted() != null) user.setIsDeleted(userDto.getIsDeleted());
@@ -32,8 +32,6 @@ public interface UsersRepository extends JpaRepository<Users, String> {
 
         if(userDto.getDeletedAt() != null) user.setDeletedAt(userDto.getDeletedAt());
         if(userDto.getUpdater() != null) user.setUpdater("API");
-
-        user.setIsAdmin(true);
     }
 
     default void deleteUser(Users user) {
