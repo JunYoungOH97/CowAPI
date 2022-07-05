@@ -1,7 +1,6 @@
 package server.server.Domain.Dto;
 
 import lombok.*;
-import server.server.Domain.Entity.Ai;
 import server.server.Domain.Entity.AiRedis;
 import server.server.Domain.ResposneDto.AiResponseDto;
 
@@ -27,26 +26,6 @@ public class AiDto {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private Timestamp deletedAt;
-
-
-    public static AiDto of(Ai ai) {
-        return AiDto.builder()
-                .name(ai.getName())
-                .field(ai.getField())
-                .responseTime(ai.getResponseTime())
-                .accuracy(ai.getAccuracy())
-
-                .requestURI(ai.getRequestURI())
-                .method(ai.getMethod())
-                .req(ai.getReq())
-                .res(ai.getRes())
-                .isDeleted(ai.getIsDeleted())
-                .updater(ai.getUpdater())
-                .createdAt(ai.getCreatedAt())
-                .updatedAt(ai.getUpdatedAt())
-                .deletedAt(ai.getDeletedAt())
-                .build();
-    }
 
     public static AiDto of(AiRedis ai) {
         return AiDto.builder()
