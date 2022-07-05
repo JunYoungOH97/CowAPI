@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
+import server.server.Domain.Dto.TokenDto;
 import server.server.Domain.ResposneDto.DashboardResponseDto;
 import server.server.Service.DashboardService;
 
@@ -16,9 +17,10 @@ public class DashboardController {
     private final DashboardService dashboardService;
 
     @GetMapping("/dashboard")
-    public ResponseEntity<Flux<ServerSentEvent<DashboardResponseDto>>> dashboard(@RequestHeader(value = "Authorization") String token) {
-        return ResponseEntity.ok()
-                .header(token)
-                .body(dashboardService.sentDashboard());
+    public Flux<ResponseEntity<ServerSentEvent<DashboardResponseDto>>> dashboard(@RequestHeader(value = "Authorization") String token) {
+        return dashboardService.sentDashboard()
+                .map(list -> ResponseEntity.ok()
+                        .header("Authorization", token)
+                        .body(list));
     }
 }
