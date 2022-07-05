@@ -16,7 +16,7 @@ import java.util.List;
 @Configuration
 public class WebfluxSecurityConfig {
     @Bean
-    public SecurityWebFilterChain springWebfluxSecurityFilterChain(ServerHttpSecurity serverHttpSecurity) throws Exception {
+    public SecurityWebFilterChain springWebfluxSecurityFilterChain(ServerHttpSecurity serverHttpSecurity) {
         serverHttpSecurity
                 .httpBasic().disable()
                 .csrf().disable()

@@ -7,14 +7,11 @@ import server.server.Domain.Dto.AiDto;
 import server.server.Domain.ResposneDto.AiListResponseDto;
 import server.server.Domain.ResposneDto.AiResponseDto;
 import server.server.Service.AiPageService;
-import server.server.Service.TestService;
 
 @RestController
 @RequiredArgsConstructor
 public class AiPageController {
     private final AiPageService aiPageService;
-
-    private final TestService testService;
 
     @GetMapping("/ai/{name}")
     public ResponseEntity<AiResponseDto> aiOnePage(@RequestHeader("Authorization") String userToken,
@@ -29,10 +26,5 @@ public class AiPageController {
                 .body(aiPageService.aiListPage().toResponse());
     }
 
-    @PostMapping("/test/ai")
-    public void aiTest() {
-        testService.saveVgg();
-        testService.saveLang();
-    }
 
 }

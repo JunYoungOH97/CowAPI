@@ -39,6 +39,7 @@ public class UserService {
         userDto.setCreatedUser();
         
         // 사용자 저장 후 로그인
+        System.out.println("userDto = " + userDto.getPassword());
         return signIn(UsersDto.of(usersRepository.save(UsersDto.toEntity(userDto))));
     }
 

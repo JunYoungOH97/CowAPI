@@ -3,10 +3,14 @@ package server.server.Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.server.ResponseStatusException;
 import server.server.Domain.Dto.*;
+import server.server.Domain.Entity.UserState;
 import server.server.Domain.Repository.UsersRepository;
+import server.server.Redis.StateRedisService;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -15,6 +19,7 @@ import java.security.SecureRandom;
 @RequiredArgsConstructor
 public class OAuthUserService {
     private final UserService userService;
+    private final StateRedisService stateRedisService;
     private final UsersRepository usersRepository;
 
     @Value(value = "${spring.security.oauth2.client.registration.naver.client-id}")
@@ -55,16 +60,19 @@ public class OAuthUserService {
         return new BigInteger(130, random).toString(32);
     }
 
-    public RedirectURIDto getRedirectURI() {
+    public RedirectURIDto redirectURI() {
         // state 생성
-        String state = generateState();
+        UserState state = UserState.builder()
+                .state(generateState())
+                .valid(true)
+                .build();
 
         // Redis 에 state 저장
-//        redisService.saveOAuthState(state);
+        stateRedisService.save(state);
 
         // redirect uri 반환
         return RedirectURIDto.builder()
-                .redirectURI(generateRedirectURI(state))
+                .redirectURI(generateRedirectURI(state.getState()))
                 .build();
     }
 
@@ -73,10 +81,13 @@ public class OAuthUserService {
         return authorizationUri + "?client_id=" + clientId + "&response_type=code&redirect_uri=" + redirectUri + "&state=" + state;
     }
 
-    public TokenDto OauthUserSignIn(String code, String state) {
+    public UsersDto OauthUserSignIn(String code, String state) {
+
+        UserState userState = UserState.builder().state(state).build();
 
         // state 검증
-//        if(!redisService.getOAuthState(state)) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "상태 코드가 일치하지 않습니다.");
+        if(stateRedisService.get(userState) == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "상태 코드가 일치하지 않습니다.");
+        if(!stateRedisService.get(userState).getValid()) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "상태 코드가 일치하지 않습니다.");
 
         // Authorization Server 로 요청할 WebClient
         WebClient client = WebClient.create("http://localhost:8080");
@@ -88,7 +99,10 @@ public class OAuthUserService {
                 .bodyToMono(OAuthTokenDto.class)
                 .block();
 
-        assert accessToken != null;
+        // state 삭제
+        stateRedisService.delete(userState);
+
+        if(accessToken == null) throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Authorization Server Error");
 
         // User Info 요청 하고 받기
         OAuthUserInfoDto userInfo = client.post()
@@ -98,22 +112,15 @@ public class OAuthUserService {
                 .bodyToMono(OAuthUserInfoDto.class)
                 .block();
 
-        assert userInfo != null;
+        if(userInfo == null) throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Resource Service Error!");
 
-        System.out.println("email = " + userInfo.getResponse().getEmail() + ", id = " + userInfo.getResponse().getId());
-
-//        // state 삭제
-//        redisService.deleteOAuthState(state);
-//
 //        // 회원등록, 로그인
         UsersDto usersDto = UsersDto.builder()
                 .email(userInfo.getResponse().getEmail())
-                .password(userInfo.getResponse().getId().substring(5))
+                .password(userInfo.getResponse().getEmail().substring(7))
                 .build();
 
-        UsersDto oauthUser = (!usersRepository.existsByEmail(usersDto.getEmail())) ? userService.signUp(usersDto) : userService.signIn(usersDto);
-
-        return oauthUser.getUserToken();
+        return (!usersRepository.existsByEmail(usersDto.getEmail())) ? userService.signUp(usersDto) : userService.signIn(usersDto);
     }
 
     public String generateTokenURI(String state, String code) {
