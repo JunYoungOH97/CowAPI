@@ -12,6 +12,9 @@ import server.server.Domain.ResposneDto.UserResponseDto;
 import server.server.Service.OAuthUserService;
 import server.server.Service.UserService;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -58,19 +61,14 @@ public class UserController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
-//    @GetMapping("/user/oauth/naver")
-//    public void OAuthLogin(HttpServletResponse response) throws IOException {
-//        response.sendRedirect(oAuthUserService.getRedirectURI().getRedirectURI());
-//    }
-//
-//    @GetMapping("/oauth/naver")
-//    public void OAuthCallback(HttpServletResponse response, @RequestParam(value = "code") String code, @RequestParam(value = "state") String state) throws IOException {
-//        String redirect_uri = "http://localhost:8080/";
-//        TokenDto tokenDto = oAuthUserService.OauthUserSignIn(code, state);
-//
-//        System.out.println("response = " + tokenDto.getAccessToken());
-//
-//        response.addHeader("Authorization", tokenDto.getAccessToken());
-//        response.sendRedirect(redirect_uri);
-//    }
+    @GetMapping("/user/oauth/naver")
+    public void OAuthLogin(HttpServletResponse response) throws IOException {
+        response.sendRedirect(oAuthUserService.redirectURI().getRedirectURI());
+    }
+
+    @GetMapping("/oauth/naver")
+    public ResponseEntity<UserLoginResponseDto> OAuthCallback(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state) {
+        return ResponseEntity.ok()
+                .body(oAuthUserService.OauthUserSignIn(code, state).toLoginResponse());
+    }
 }

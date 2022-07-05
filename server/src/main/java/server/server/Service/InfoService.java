@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class TestService {
+public class InfoService {
     private final AiRedisService aiRedisService;
     private final DashboardRedisService dashboardRedisService;
 
