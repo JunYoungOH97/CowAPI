@@ -1,42 +1,25 @@
 package server.server.Domain.Entity;
 
-import com.sun.istack.NotNull;
 import lombok.*;
-import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.redis.core.RedisHash;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
+@Builder
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@DynamicUpdate
-public class Dashboard {
+@RedisHash(value = "bashboard", timeToLive = 60L * 3)
+public class Dashboard implements Serializable {
     @Id
-    private String name;
+    private String id;
 
-    @Column
     private Long totalUser;
-
-    @Column
     private Long todayUser;
-
-    @Column
-    @NotNull
-    private String updater;
-
-    @Column
-    @NotNull
-    private Timestamp createdAt;
-
-    @Column
     private Timestamp updatedAt;
-
-    @Column
-    private Timestamp deletedAt;
 }

@@ -1,4 +1,4 @@
-package server.server.SecurityConfig;
+package server.server.Security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
