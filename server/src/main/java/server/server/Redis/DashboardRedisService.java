@@ -17,4 +17,14 @@ public class DashboardRedisService {
         ValueOperations<String, Dashboard> valueOperations = dashboardRedisRepository.opsForValue();
         valueOperations.set(dashboard.getId(), dashboard);
     }
+
+    public Dashboard getDashboard() {
+        ValueOperations<String, Dashboard> valueOperations = dashboardRedisRepository.opsForValue();
+        try {
+            return valueOperations.get("dashboard");
+
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
 }

@@ -17,16 +17,16 @@ public class DashboardController {
     private final DashboardService dashboardService;
     private final TestService testService;
 
-    @GetMapping("/dashboard")
-    public Flux<ResponseEntity<ServerSentEvent<DashboardResponseDto>>> dashboard(@RequestHeader(value = "Authorization") String token) {
-        return dashboardService.sentDashboard()
-                .map(list -> ResponseEntity.ok()
-                        .header("Authorization", token)
-                        .body(list));
-    }
+//    @GetMapping("/dashboard")
+//    public Flux<ResponseEntity<ServerSentEvent<DashboardResponseDto>>> dashboard(@RequestHeader(value = "Authorization") String token) {
+//        return dashboardService.sentDashboard()
+//                .map(list -> ResponseEntity.ok()
+//                        .header("Authorization", token)
+//                        .body(list));
+//    }
 
     @GetMapping("/test/dashboard")
-    public void test() {
-        testService.saveDashboard();
+    public Flux<ServerSentEvent<DashboardResponseDto>> dashboard() {
+        return dashboardService.test();
     }
 }
