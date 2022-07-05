@@ -29,7 +29,13 @@ public class TokenConverter {
     }
 
     public Users getUser(TokenDto userToken) {
-        return usersRepository.findByEmail(tokenProvider.getUserEmailFromToken(getToken(userToken))).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다."));
+        // 존재하지 않는 사용자
+        Users users = usersRepository.findByEmail(tokenProvider.getUserEmailFromToken(getToken(userToken))).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다."));
+        
+        // 탈퇴한 사용자
+        if(users.getIsDeleted()) throw new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다.");
+
+        return users;
     }
 
 

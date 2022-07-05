@@ -3,8 +3,6 @@ package server.server.Domain.Dto;
 import lombok.*;
 import server.server.Domain.ResposneDto.NoticeListResponseDto;
 import server.server.Domain.ResposneDto.NoticeResponseDto;
-import server.server.Domain.ResposneDto.QnaListResponseDto;
-import server.server.Domain.ResposneDto.QnaResponseDto;
 
 import java.util.ArrayList;
 import java.util.List;

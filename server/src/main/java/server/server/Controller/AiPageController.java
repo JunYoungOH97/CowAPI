@@ -1,18 +1,13 @@
 package server.server.Controller;
 
-import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.server.Domain.Dto.AiDto;
-import server.server.Domain.Entity.Ai;
 import server.server.Domain.ResposneDto.AiListResponseDto;
 import server.server.Domain.ResposneDto.AiResponseDto;
 import server.server.Service.AiPageService;
 import server.server.Service.TestService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

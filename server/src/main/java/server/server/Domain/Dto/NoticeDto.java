@@ -2,9 +2,7 @@ package server.server.Domain.Dto;
 
 import lombok.*;
 import server.server.Domain.Entity.Notice;
-import server.server.Domain.Entity.Qna;
 import server.server.Domain.ResposneDto.NoticeResponseDto;
-import server.server.Domain.ResposneDto.QnaResponseDto;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

@@ -1,10 +1,8 @@
 package server.server.Domain.Entity;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 import org.springframework.data.redis.core.RedisHash;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
