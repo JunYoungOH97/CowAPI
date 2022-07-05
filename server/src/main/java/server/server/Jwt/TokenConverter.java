@@ -21,7 +21,7 @@ public class TokenConverter {
 
     public static final String BEARER_PREFIX = "Bearer ";
 
-    public String getEmail(TokenDto userToken) {
+    public String getToken(TokenDto userToken) {
         if (userToken.getAccessToken() != null && userToken.getAccessToken().startsWith(BEARER_PREFIX)) {
             return userToken.getAccessToken().substring(7);
         }
@@ -29,7 +29,7 @@ public class TokenConverter {
     }
 
     public Users getUser(TokenDto userToken) {
-        return usersRepository.findByEmail(tokenProvider.getUserEmailFromToken(getEmail(userToken))).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다."));
+        return usersRepository.findByEmail(tokenProvider.getUserEmailFromToken(getToken(userToken))).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다."));
     }
 
 

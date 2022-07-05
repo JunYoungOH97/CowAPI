@@ -1,5 +1,6 @@
 package server.server.Service;
 
+import antlr.Token;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,9 @@ import server.server.Domain.Repository.UsersRepository;
 import server.server.Jwt.TokenConverter;
 import server.server.Jwt.TokenProvider;
 
+
+import java.math.BigInteger;
+import java.security.SecureRandom;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -43,17 +47,26 @@ public class UserService {
         return usersDto;
     }
 
-    public UsersDto updateUser(TokenDto userToken, UsersDto userDto) {
-        String email = tokenConverter.getEmail(userToken);
-        Users user = usersRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재 하지 않는 유저입니다."));
-        usersRepository.updateUser(user, userDto);
+    public UsersDto readMypage(TokenDto userToken) {
+        Users user  = tokenConverter.getUser(userToken);
         return UsersDto.of(user);
     }
 
-    public UsersDto deleteUser(String userToken, UsersDto userDto) {
-        Users user = usersRepository.findByEmail(userDto.getEmail()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재 하지 않는 유저입니다."));
-        usersRepository.deleteUser(user);
+    public UsersDto reissuance(TokenDto userToken) {
+        String secretKey = new BigInteger(130, new SecureRandom()).toString(32);
+        Users user  = tokenConverter.getUser(userToken);
+        UsersDto usersDto = UsersDto.builder().secretKey(secretKey).build();
+        usersRepository.updateUser(user, usersDto);
         return UsersDto.of(user);
     }
 
+    public void updateUser(TokenDto userToken, UsersDto usersDto) {
+        Users foundUser  = tokenConverter.getUser(userToken);
+        usersRepository.updateUser(foundUser, usersDto);
+    }
+
+    public void deleteUser(TokenDto userToken) {
+        Users foundUser  = tokenConverter.getUser(userToken);
+        usersRepository.deleteUser(foundUser);
+    }
 }
