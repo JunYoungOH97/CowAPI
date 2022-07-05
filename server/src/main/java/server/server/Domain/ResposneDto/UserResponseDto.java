@@ -2,12 +2,15 @@ package server.server.Domain.ResposneDto;
 
 import lombok.*;
 
+import java.sql.Timestamp;
+
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class UserResponseDto {
-    private String authorization;
-    private Boolean isAdmin;
+    String email;
+    Timestamp createdAt;
+    String secretKey;
 }

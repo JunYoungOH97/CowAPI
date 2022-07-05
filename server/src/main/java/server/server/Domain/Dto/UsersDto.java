@@ -2,7 +2,7 @@ package server.server.Domain.Dto;
 
 import lombok.*;
 import server.server.Domain.Entity.Users;
-import server.server.Domain.ResposneDto.UserResponseDto;
+import server.server.Domain.ResposneDto.UserLoginResponseDto;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -28,8 +28,8 @@ public class UsersDto {
     private Timestamp deletedAt;
     private TokenDto userToken;
 
-    public UserResponseDto toResponse() {
-        return UserResponseDto.builder()
+    public UserLoginResponseDto toResponse() {
+        return UserLoginResponseDto.builder()
                 .authorization(userToken.getAccessToken())
                 .isAdmin(isAdmin)
                 .build();

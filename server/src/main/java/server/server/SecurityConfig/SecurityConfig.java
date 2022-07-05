@@ -49,7 +49,7 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/signup","/signin", "/user/oauth/**", "/oauth/naver**").permitAll()
+                .antMatchers("/dashboard","/signup","/signin", "/user/oauth/**", "/oauth/naver**").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
@@ -61,9 +61,9 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns((List.of("*", "**"))); // 허용할 URL
-        configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "*")); // 허용할 Http Method
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", "*")); // 허용할 Header
+        configuration.setAllowedOriginPatterns((List.of("*"))); // 허용할 URL
+        configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE")); // 허용할 Http Method
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type")); // 허용할 Header
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

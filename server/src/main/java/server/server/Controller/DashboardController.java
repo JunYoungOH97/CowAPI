@@ -10,7 +10,6 @@ import reactor.core.publisher.Flux;
 import server.server.Domain.ResposneDto.DashboardResponseDto;
 import server.server.Service.DashboardService;
 
-
 @RestController
 @RequiredArgsConstructor
 public class DashboardController {
@@ -18,7 +17,6 @@ public class DashboardController {
 
     @GetMapping("/dashboard")
     public ResponseEntity<Flux<ServerSentEvent<DashboardResponseDto>>> dashboard(@RequestHeader(value = "Authorization") String token) {
-
         return ResponseEntity.ok()
                 .header(token)
                 .body(dashboardService.sentDashboard());
