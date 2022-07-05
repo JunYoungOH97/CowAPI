@@ -21,12 +21,15 @@ public class UsersDto {
     private String email;
     private String password;
     private String secretKey;
+
     private Boolean isAdmin;
     private Boolean isDeleted;
     private String updater;
+
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private Timestamp deletedAt;
+
     private TokenDto userToken;
 
     public UserLoginResponseDto toLoginResponse() {
@@ -46,14 +49,15 @@ public class UsersDto {
 
     public void setCreatedUser() {
         String secretKey = new BigInteger(130, new SecureRandom()).toString(32);
+        this.setSecretKey(secretKey);
+
         this.setIsAdmin(false);
         this.setIsDeleted(false);
         this.setUpdater("API");
 
         Timestamp now = Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        this.setUpdatedAt(now);
         this.setCreatedAt(now);
-        this.setSecretKey(secretKey);
+        this.setUpdatedAt(now);
     }
 
     public static UsersDto of(Users usersEntity) {
@@ -61,12 +65,15 @@ public class UsersDto {
                 .email(usersEntity.getEmail())
                 .password(usersEntity.getPassword())
                 .secretKey(usersEntity.getSecretKey())
+
                 .isAdmin(usersEntity.getIsAdmin())
                 .isDeleted(usersEntity.getIsDeleted())
+                .updater(usersEntity.getUpdater())
+
                 .createdAt(usersEntity.getCreatedAt())
                 .updatedAt(usersEntity.getUpdatedAt())
                 .deletedAt(usersEntity.getDeletedAt())
-                .updater(usersEntity.getUpdater())
+
                 .build();
 
     }
@@ -76,12 +83,15 @@ public class UsersDto {
                 .email(usersDto.getEmail())
                 .password(usersDto.getPassword())
                 .secretKey(usersDto.getSecretKey())
+
                 .isAdmin(usersDto.getIsAdmin())
                 .isDeleted(usersDto.getIsDeleted())
+                .updater(usersDto.getUpdater())
+
                 .createdAt(usersDto.getCreatedAt())
                 .updatedAt(usersDto.getUpdatedAt())
                 .deletedAt(usersDto.getDeletedAt())
-                .updater(usersDto.getUpdater())
+
                 .build();
     }
 }

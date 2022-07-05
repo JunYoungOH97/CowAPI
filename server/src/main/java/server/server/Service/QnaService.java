@@ -51,8 +51,8 @@ public class QnaService {
 
     public void deleteQna(TokenDto userToken, Long qnaId) {
         UsersDto usersDto = UsersDto.of(tokenConverter.getUser(userToken));
-
         Qna qna = qnaRepository.findById(qnaId).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 Qna 입니다."));
+
         if(qna.getIsDeleted().equals(true)) throw new ResponseStatusException(NOT_FOUND, "존재하지 않는 Qna 입니다.");
         if(!qna.getUser().getEmail().equals(usersDto.getEmail())) throw new ResponseStatusException(FORBIDDEN, "접근권한이 없습니다.");
 

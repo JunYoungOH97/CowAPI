@@ -31,12 +31,14 @@ public interface QnaRepository extends JpaRepository<Qna, Long> {
     default void updateQna(Qna qna, QnaDto qnaDto) {
         if(qnaDto.getTitle() != null) qna.setTitle(qnaDto.getTitle());
         if(qnaDto.getContent() != null) qna.setContent(qnaDto.getContent());
-        if(qnaDto.getCreatedAt() != null) qna.setCreatedAt(qnaDto.getCreatedAt());
-        if(qnaDto.getDeletedAt() != null) qna.setDeletedAt(qnaDto.getDeletedAt());
-        if(qnaDto.getUserDto() != null) qna.setUser(UsersDto.toEntity(qnaDto.getUserDto()));
-
-        qna.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        if(qnaDto.getIsDeleted() != null) qna.setIsDeleted(qnaDto.getIsDeleted());
         qna.setUpdater("API");
+
+        if(qnaDto.getCreatedAt() != null) qna.setCreatedAt(qnaDto.getCreatedAt());
+        qna.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        if(qnaDto.getDeletedAt() != null) qna.setDeletedAt(qnaDto.getDeletedAt());
+
+        if(qnaDto.getUserDto() != null) qna.setUser(UsersDto.toEntity(qnaDto.getUserDto()));
     }
 
     default void deleteQna(Qna qna) {
