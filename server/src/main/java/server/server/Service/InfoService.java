@@ -1,5 +1,6 @@
 package server.server.Service;
 
+import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,15 +24,37 @@ public class InfoService {
     public void saveVgg() {
         Timestamp now = Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
+        JsonObject res =new JsonObject();
+
+        JsonObject header =new JsonObject();
+        header.addProperty("content-type", "multipart/form-data");
+
+        JsonObject body =new JsonObject();
+        body.addProperty("images", "from-data");
+
+        res.add("header", header);
+        res.add("body", body);
+
+        JsonObject req = new JsonObject();
+
+        JsonObject header1 =new JsonObject();
+        JsonObject body2 =new JsonObject();
+        body2.addProperty("category", "String");
+        body2.addProperty("accuracy", "Double");
+
+        req.add("header", header1);
+        req.add("body", body2);
+
         AiRedis ai = AiRedis.builder()
                 .name("vgg")
                 .field("vision")
-                .responseTime(0.0)
-                .accuracy(0.0)
-                .requestURI("/test")
-                .method("method")
-                .req("req")
-                .res("res")
+                .useCnt(1L)
+                .responseTime(0.1)
+                .accuracy(1.0)
+                .requestURI("/ai/VGG19?email={email}&secretKey={secretKey}")
+                .method("POST")
+                .req(req.toString())
+                .res(res.toString())
                 .isDeleted(false)
                 .updater("Directly")
                 .updatedAt(now)
@@ -47,6 +70,7 @@ public class InfoService {
         AiRedis ai = AiRedis.builder()
                 .name("Lang")
                 .field("nlp")
+                .useCnt(1L)
                 .responseTime(0.0)
                 .accuracy(0.0)
                 .requestURI("/test")

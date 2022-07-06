@@ -1,6 +1,7 @@
 package server.server.Service;
 
 import lombok.RequiredArgsConstructor;
+import org.aspectj.lang.annotation.Aspect;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -38,5 +39,4 @@ public class AiPageService {
 
         return AiListDto.builder().aiDtoList(aiDtoList).build();
     }
-
 }

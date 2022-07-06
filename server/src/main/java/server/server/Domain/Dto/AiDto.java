@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 public class AiDto {
     private String name;
     private String field;
+    private Long useCnt;
     private Double responseTime;
     private Double accuracy;
 
@@ -31,6 +32,7 @@ public class AiDto {
         return AiDto.builder()
                 .name(ai.getName())
                 .field(ai.getField())
+                .useCnt(ai.getUseCnt())
                 .responseTime(ai.getResponseTime())
                 .accuracy(ai.getAccuracy())
 
@@ -42,7 +44,6 @@ public class AiDto {
                 .updater(ai.getUpdater())
                 .createdAt(ai.getCreatedAt())
                 .updatedAt(ai.getUpdatedAt())
-                .deletedAt(ai.getDeletedAt())
                 .build();
     }
 

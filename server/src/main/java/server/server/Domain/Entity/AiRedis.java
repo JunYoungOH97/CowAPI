@@ -14,12 +14,13 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@RedisHash(value = "vgg", timeToLive = 60L * 3)
+@RedisHash(value = "ai", timeToLive = -1L)
 public class AiRedis implements Serializable {
     @Id
     private String name;
 
     private String field;
+    private Long useCnt;
     private Double responseTime;
     private Double accuracy;
     private String requestURI;
@@ -30,5 +31,4 @@ public class AiRedis implements Serializable {
     private String updater;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private Timestamp deletedAt;
 }
