@@ -1,15 +1,17 @@
 package server.server.Controller;
 
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import reactor.core.publisher.Mono;
 import server.server.AwsS3.AwsS3Uploader;
 import server.server.Domain.Dto.UsersDto;
-import server.server.Domain.ResposneDto.VggResponseDto;
-import server.server.Service.AiApiService;
+import server.server.Service.AiApiFactory.AiFactory;
+import server.server.Service.AiApiFactory.AiModel;
+import server.server.Service.AiApiFactory.AiResponse;
 
 import java.io.IOException;
 
@@ -17,15 +19,17 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AiApiController {
     private final AwsS3Uploader awsS3Uploader;
-    private final AiApiService aiApiService;
+    private final AiFactory aiFactory;
 
-    @PostMapping("/ai/category")
-    public Mono<VggResponseDto> vggResponse(@RequestParam("email") String email,
-                                            @RequestParam("secretKey") String secretKey,
-                                            @RequestParam("images") MultipartFile multipartFile) throws IOException {
-//        secretKet(검증)
-        aiApiService.isValidUser(UsersDto.builder().email(email).secretKey(secretKey).build());
+    @PostMapping("/ai/{name}")
+    public AiResponse response(@RequestParam(value = "email") String email,
+                                  @RequestParam(value = "secretKey") String secretKey,
+                                  @PathVariable(value = "name") String name,
+                                  @RequestParam(value = "images") MultipartFile multipartFile) throws IOException {
 
-        return aiApiService.vggResponse(awsS3Uploader.uploadFiles(multipartFile, "cowApi"));
+        AiModel aiModel = aiFactory.getModel(name);
+
+        aiModel.isValidUser(UsersDto.builder().email(email).secretKey(secretKey).build());
+        return aiModel.response(awsS3Uploader.uploadFiles(multipartFile, "cowApi"));
     }
 }
