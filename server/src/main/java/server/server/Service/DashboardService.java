@@ -14,7 +14,7 @@ import java.time.Duration;
 @Service
 @RequiredArgsConstructor
 public class DashboardService {
-    private static final Long refreshTime = 10L;
+    private static final Long refreshTime = 60L * 5;
     private final DashboardRedisService dashboardRedisService;
     private final AiPageService aiPageService;
 
@@ -23,19 +23,13 @@ public class DashboardService {
 
         Dashboard dashboard = dashboardRedisService.getDashboard();
 
-        DashboardResponseDto dashboardResponseDto = DashboardResponseDto.builder()
-                .todayUser(dashboard.getTodayUser())
-                .totalUser(dashboard.getTotalUser())
-                .updatedAt(dashboard.getUpdatedAt())
-                .aiList(aiListResponseDto)
-                .build();
-
         return Flux.interval(Duration.ofSeconds(refreshTime))
-                .map(sequence -> ServerSentEvent.<DashboardResponseDto> builder()
-                        .id("/dashboard")
-                        .event("periodic-event")
-                        .data(dashboardResponseDto)
-                        .retry(Duration.ofSeconds(refreshTime))
-                        .build());
+                .map(sequence -> DashboardResponseDto.builder()
+                        .todayUser(dashboard.getTodayUser())
+                        .totalUser(dashboard.getTotalUser())
+                        .updatedAt(dashboard.getUpdatedAt())
+                        .aiList(aiListResponseDto)
+                        .build())
+                .map(event -> ServerSentEvent.builder(event).build());
     }
 }
