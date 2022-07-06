@@ -34,7 +34,6 @@ public class AiPageService {
         List<AiDto> aiDtoList = new ArrayList<>();
         for(AiInfo aiInfo : aiInfoList) {
             AiRedis aiRedis = aiRedisService.read(aiInfo.getName());
-            System.out.println("name : " + aiRedis.getName() + " accuracy : " + aiRedis.getAccuracy() + " rst : " + aiRedis.getResponseTime());
             aiDtoList.add(AiDto.of(aiRedis));
         }
 
