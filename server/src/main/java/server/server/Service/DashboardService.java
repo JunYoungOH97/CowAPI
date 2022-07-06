@@ -14,7 +14,7 @@ import java.time.Duration;
 @Service
 @RequiredArgsConstructor
 public class DashboardService {
-    private static final Long refreshTime = 60L;
+    private static final Long refreshTime = 10L;
     private final DashboardRedisService dashboardRedisService;
     private final AiPageService aiPageService;
 
