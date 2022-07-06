@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@RedisHash(value = "bashboard", timeToLive = 60L * 3)
+@RedisHash(value = "bashboard", timeToLive = -1L)
 public class Dashboard implements Serializable {
     @Id
     private String id;

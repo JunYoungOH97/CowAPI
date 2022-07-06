@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@RedisHash(value = "vgg", timeToLive = 60L * 3)
+@RedisHash(value = "vgg", timeToLive = -1L)
 public class AiRedis implements Serializable {
     @Id
     private String name;
