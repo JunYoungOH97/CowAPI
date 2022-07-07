@@ -9,17 +9,20 @@ import server.server.Domain.Dto.TokenDto;
 import server.server.Domain.ResposneDto.QnaListResponseDto;
 import server.server.Domain.ResposneDto.QnaResponseDto;
 import server.server.Service.QnaService;
+import server.server.Service.SlackService;
 
 @RestController
 @RequiredArgsConstructor
 public class QnaController {
+    private final SlackService slackService;
     private final QnaService qnaService;
 
     @PostMapping("/qna")
     public ResponseEntity createQna(@RequestHeader("Authorization") String userToken,
                                     @RequestBody QnaDto qnaDto) {
 
-//        slackService.postSlackMessage("새로운 Qna가 생성되었습니다.");
+        slackService.postSlackMessage("새로운 Qna가 생성되었습니다.");
+
         qnaService.createQna(TokenDto.builder().accessToken(userToken).build(), qnaDto);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
