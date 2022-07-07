@@ -5,8 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import server.server.Domain.Dto.OAuthUserToken;
 import server.server.Domain.Dto.TokenDto;
 import server.server.Domain.Dto.UsersDto;
+import server.server.Domain.ResposneDto.OAuthUserResponseDto;
 import server.server.Domain.ResposneDto.UserLoginResponseDto;
 import server.server.Domain.ResposneDto.UserResponseDto;
 import server.server.Service.OAuthUserService;
@@ -62,14 +64,8 @@ public class UserController {
     }
 
 
-    @GetMapping("/user/oauth/naver")
-    public void OAuthLogin(HttpServletResponse response) throws IOException {
-        response.sendRedirect(oAuthUserService.redirectURI().getRedirectURI());
-    }
-
-    @GetMapping("/oauth/naver")
-    public ResponseEntity<UserLoginResponseDto> OAuthCallback(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state) {
-        return ResponseEntity.ok()
-                .body(oAuthUserService.OauthUserSignIn(code, state).toLoginResponse());
+    @PostMapping("/login/oauth/naver")
+    public OAuthUserResponseDto OAuthLogin(@RequestHeader(value = "Authorization") String userToken) {
+        return userService.OAuthUser(OAuthUserToken.builder().userToken(userToken).build());
     }
 }

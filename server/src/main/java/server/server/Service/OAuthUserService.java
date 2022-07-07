@@ -107,7 +107,7 @@ public class OAuthUserService {
         // User Info 요청 하고 받기
         OAuthUserInfoDto userInfo = client.post()
                 .uri(userInfoUri)
-                .header(HttpHeaders.AUTHORIZATION, generateToken(accessToken.getToken_type(), accessToken.getAccess_token()))
+                .header(HttpHeaders.AUTHORIZATION, generateToken(accessToken.getTokenType(), accessToken.getAccessToken()))
                 .retrieve()
                 .bodyToMono(OAuthUserInfoDto.class)
                 .block();
