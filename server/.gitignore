@@ -52,6 +52,7 @@ application-swagger.properties
 application-testDB.properties
 application-webflux.properties
 
+resources/
 
 
 

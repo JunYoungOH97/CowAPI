@@ -3,6 +3,7 @@ package server.server.Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -16,6 +17,7 @@ import server.server.Jwt.TokenProvider;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.Collections;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -53,8 +55,11 @@ public class UserService {
         // 비밀번호가 틀렸습니다.
         if(!foundUser.getPassword().equals(userDto.getPassword())) throw new ResponseStatusException(BAD_REQUEST, "비밀번호가 틀렸습니다.");
 
+        // 역할 부여
+        SimpleGrantedAuthority role =  (foundUser.getIsAdmin()) ? new SimpleGrantedAuthority("ROLE_ADMIN") : new SimpleGrantedAuthority("ROLE_USER");
+
         // 토큰 발행 (로그인)
-        Authentication authentication = new UsernamePasswordAuthenticationToken(userDto.getEmail(), "", null);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDto.getEmail(), "", Collections.singleton(role));
         TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
 
         UsersDto usersDto = UsersDto.of(foundUser);

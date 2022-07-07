@@ -3,6 +3,7 @@ package server.server.Security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -48,6 +49,10 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/", "/h2-console/**", "/favicon.ico").permitAll()
                 .antMatchers("/dashboard","/signup","/signin", "/user/oauth/**", "/oauth/naver**").permitAll()
+                .antMatchers("/dashboard","/signup","/signin", "/user/oauth/**", "/oauth/naver**").permitAll()
+                .antMatchers(HttpMethod.POST, "/notice").hasRole("Admin")
+                .antMatchers(HttpMethod.PUT, "/notice/**").hasRole("Admin")
+                .antMatchers(HttpMethod.DELETE, "/notice/**").hasRole("Admin")
                 .anyRequest().authenticated()
 
                 .and()
