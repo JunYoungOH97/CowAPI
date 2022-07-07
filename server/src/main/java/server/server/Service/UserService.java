@@ -1,16 +1,20 @@
 package server.server.Service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
-import server.server.Domain.Dto.TokenDto;
-import server.server.Domain.Dto.UsersDto;
+import server.server.Domain.Dto.*;
 import server.server.Domain.Entity.Users;
 import server.server.Domain.Repository.UsersRepository;
+import server.server.Domain.ResposneDto.OAuthUserResponseDto;
 import server.server.Jwt.TokenConverter;
 import server.server.Jwt.TokenProvider;
 
@@ -29,6 +33,9 @@ public class UserService {
     private final TokenProvider tokenProvider;
     private final TokenConverter tokenConverter;
 
+    @Value(value = "${spring.security.oauth2.client.provider.naver.user-info-uri}")
+    String userInfoUri;
+
     public UsersDto signUp(UsersDto userDto) {
         // 회원가입 형식
         if(userDto.getEmail() == null) throw new ResponseStatusException(CONFLICT, "이메일을 입력해 주세요");
@@ -41,7 +48,6 @@ public class UserService {
         userDto.setCreatedUser();
         
         // 사용자 저장 후 로그인
-        System.out.println("userDto = " + userDto.getPassword());
         return signIn(UsersDto.of(usersRepository.save(UsersDto.toEntity(userDto))));
     }
 
@@ -96,5 +102,43 @@ public class UserService {
     public void deleteUser(TokenDto userToken) {
         Users foundUser  = tokenConverter.getUser(userToken);
         usersRepository.deleteUser(foundUser);
+    }
+
+
+
+    public OAuthUserResponseDto OAuthUser(OAuthUserToken oAuthUserToken) {
+        // Resource Server 로 요청할 WebClient
+        WebClient client = WebClient.create("http://localhost:8080");
+
+        // User Info 요청 하고 받기
+        OAuthUserInfoDto userInfo = client.post()
+                .uri(userInfoUri)
+                .header(HttpHeaders.AUTHORIZATION, oAuthUserToken.getUserToken())
+                .retrieve()
+                .bodyToMono(OAuthUserInfoDto.class)
+                .block();
+
+        if(userInfo == null) throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Resource Service Error!");
+
+        String email = userInfo.getResponse().getEmail();
+
+        UsersDto usersDto = UsersDto.builder().email(email).build();
+
+        // OAuth 최초 가입 사용자라면
+        if(!usersRepository.existsByEmail(email)) {
+            usersDto.setPassword(email.substring(10));
+            usersDto.setCreatedUser();
+            usersRepository.save(UsersDto.toEntity(usersDto));
+        }
+        
+        // 로그인
+        Users foundUser = usersRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다."));
+        UsersDto usersDto1 = signIn(UsersDto.of(foundUser));
+
+        return OAuthUserResponseDto.builder()
+                .authorization(usersDto1.getUserToken().getAccessToken())
+                .isAdmin(usersDto1.getIsAdmin())
+                .email(usersDto1.getEmail())
+                .build();
     }
 }
