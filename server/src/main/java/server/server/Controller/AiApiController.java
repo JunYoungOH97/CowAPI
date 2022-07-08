@@ -21,6 +21,8 @@ public class AiApiController {
     private final AwsS3Uploader awsS3Uploader;
     private final AiFactory aiFactory;
 
+
+
     @PostMapping("/ai/{name}")
     public AiResponse response(@RequestParam(value = "email") String email,
                                   @RequestParam(value = "secretKey") String secretKey,
@@ -30,6 +32,7 @@ public class AiApiController {
         AiModel aiModel = aiFactory.getModel(name);
 
         aiModel.isValidUser(UsersDto.builder().email(email).secretKey(secretKey).build());
+
         return aiModel.response(awsS3Uploader.uploadFiles(multipartFile, "cowApi"));
     }
 }
