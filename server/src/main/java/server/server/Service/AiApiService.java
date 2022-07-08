@@ -10,10 +10,18 @@ import server.server.Domain.Dto.AiDto;
 import server.server.Domain.Dto.AiRequestDto;
 import server.server.Domain.Dto.UsersDto;
 import server.server.Domain.Entity.AiRedis;
+import server.server.Domain.Entity.Dashboard;
 import server.server.Domain.Entity.Users;
 import server.server.Domain.Repository.UsersRepository;
+import server.server.Domain.ResposneDto.AiListResponseDto;
+import server.server.Domain.ResposneDto.DashboardResponseDto;
 import server.server.Service.AiApiFactory.VggResponseDto;
 import server.server.Redis.AiRedisService;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
