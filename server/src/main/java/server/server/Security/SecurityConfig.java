@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import server.server.Domain.Repository.UsersRepository;
 import server.server.Jwt.*;
 
 import java.util.Arrays;
@@ -25,6 +26,7 @@ public class SecurityConfig {
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final UsersRepository usersRepository;
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -49,13 +51,13 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/", "/h2-console/**", "/favicon.ico").permitAll()
                 .antMatchers("/dashboard","/signup","/signin", "/login/oauth/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/notice").hasRole("Admin")
-                .antMatchers(HttpMethod.PUT, "/notice/**").hasRole("Admin")
-                .antMatchers(HttpMethod.DELETE, "/notice/**").hasRole("Admin")
+                .antMatchers(HttpMethod.POST, "/notice").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/notice/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/notice/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
 
                 .and()
-                .apply(new JwtSecurityConfig(tokenProvider));
+                .apply(new JwtSecurityConfig(tokenProvider, usersRepository));
 
         return httpSecurity.build();
     }
