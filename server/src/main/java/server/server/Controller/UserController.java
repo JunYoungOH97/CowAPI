@@ -11,7 +11,7 @@ import server.server.Domain.Dto.UsersDto;
 import server.server.Domain.ResposneDto.OAuthUserResponseDto;
 import server.server.Domain.ResposneDto.UserLoginResponseDto;
 import server.server.Domain.ResposneDto.UserResponseDto;
-import server.server.Service.OAuthUserService;
+//import server.server.Service.OAuthUserService;
 import server.server.Service.UserService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +20,7 @@ import java.io.IOException;
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-    private final OAuthUserService oAuthUserService;
+//    private final OAuthUserService oAuthUserService;
     private final UserService userService;
 
     @PostMapping("/signup")
