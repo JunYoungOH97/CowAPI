@@ -7,6 +7,6 @@ node {
     }
 
     stage('pull') {
-        sh './GitPull.sh'
+        sh './server/Jenkins/GitPull.sh'
     }
 }
