@@ -1,8 +1,8 @@
 echo "---build start---"
 
-stage('Clone') {
-    steps {
-        echo 'Clone'
+node {
+    stage('Clone') {
+        echo '>>> Git repository Clone'
         git branch: 'dev', credentialsId: 'qawesdxc@naver.com' , url: 'https://github.com/Oh-JunYoung/CowAPI.git'
     }
 }
