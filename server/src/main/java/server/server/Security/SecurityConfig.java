@@ -54,6 +54,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/notice").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/notice/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/notice/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/dev/init/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
 
                 .and()
