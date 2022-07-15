@@ -41,8 +41,8 @@ public class UserService {
 
     public UsersDto signUp(UsersDto userDto) {
         // 회원가입 형식
-        if(userDto.getEmail() == null) throw new ResponseStatusException(CONFLICT, "이메일을 입력해 주세요");
-        if(userDto.getPassword() == null) throw new ResponseStatusException(CONFLICT, "비밀번호를 입력해 주세요");
+        if(userDto.getEmail().equals("")) throw new ResponseStatusException(CONFLICT, "이메일을 입력해 주세요");
+        if(userDto.getPassword().equals("")) throw new ResponseStatusException(CONFLICT, "비밀번호를 입력해 주세요");
 
         // 이미 가입되어 있는 사용자
         if(usersRepository.existsByEmail(userDto.getEmail())) throw new ResponseStatusException(CONFLICT, "이미 가입되어 있는 유저입니다");
@@ -56,8 +56,8 @@ public class UserService {
 
     public UsersDto signIn(UsersDto userDto) {
         // 회원가입 형식
-        if(userDto.getEmail() == null) throw new ResponseStatusException(CONFLICT, "이메일을 입력해 주세요");
-        if(userDto.getPassword() == null) throw new ResponseStatusException(CONFLICT, "비밀번호를 입력해 주세요");
+        if(userDto.getEmail().equals("")) throw new ResponseStatusException(CONFLICT, "이메일을 입력해 주세요");
+        if(userDto.getPassword().equals("")) throw new ResponseStatusException(CONFLICT, "비밀번호를 입력해 주세요");
 
         // 존재 하지 않는 사용자
         Users foundUser = usersRepository.findByEmail(userDto.getEmail()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다."));
