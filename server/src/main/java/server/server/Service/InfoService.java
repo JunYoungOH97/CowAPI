@@ -24,7 +24,7 @@ public class InfoService {
     public void saveVgg() {
         Timestamp now = Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
-        JsonObject res =new JsonObject();
+        JsonObject req =new JsonObject();
 
         JsonObject header =new JsonObject();
         header.addProperty("content-type", "multipart/form-data");
@@ -32,18 +32,18 @@ public class InfoService {
         JsonObject body =new JsonObject();
         body.addProperty("images", "from-data");
 
-        res.add("header", header);
-        res.add("body", body);
+        req.add("header", header);
+        req.add("body", body);
 
-        JsonObject req = new JsonObject();
+        JsonObject res = new JsonObject();
 
         JsonObject header1 =new JsonObject();
         JsonObject body2 =new JsonObject();
         body2.addProperty("category", "String");
         body2.addProperty("accuracy", "Double");
 
-        req.add("header", header1);
-        req.add("body", body2);
+        res.add("header", header1);
+        res.add("body", body2);
 
         AiRedis ai = AiRedis.builder()
                 .name("vgg")
