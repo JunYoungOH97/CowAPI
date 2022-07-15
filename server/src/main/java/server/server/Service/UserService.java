@@ -36,6 +36,9 @@ public class UserService {
     @Value(value = "${spring.security.oauth2.client.provider.naver.user-info-uri}")
     String userInfoUri;
 
+    @Value(value = "${AWS.ip}")
+    String requestIp;
+
     public UsersDto signUp(UsersDto userDto) {
         // 회원가입 형식
         if(userDto.getEmail() == null) throw new ResponseStatusException(CONFLICT, "이메일을 입력해 주세요");
@@ -52,6 +55,10 @@ public class UserService {
     }
 
     public UsersDto signIn(UsersDto userDto) {
+        // 회원가입 형식
+        if(userDto.getEmail() == null) throw new ResponseStatusException(CONFLICT, "이메일을 입력해 주세요");
+        if(userDto.getPassword() == null) throw new ResponseStatusException(CONFLICT, "비밀번호를 입력해 주세요");
+
         // 존재 하지 않는 사용자
         Users foundUser = usersRepository.findByEmail(userDto.getEmail()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "존재하지 않는 사용자 입니다."));
         
@@ -108,7 +115,7 @@ public class UserService {
 
     public OAuthUserResponseDto OAuthUser(OAuthUserToken oAuthUserToken) {
         // Resource Server 로 요청할 WebClient
-        WebClient client = WebClient.create("http://localhost:8080");
+        WebClient client = WebClient.create(requestIp);
 
         // User Info 요청 하고 받기
         OAuthUserInfoDto userInfo = client.post()
