@@ -1,0 +1,12 @@
+echo "---build start---"
+
+node {
+    stage('Clone') {
+        echo '>>> Git repository Clone'
+        git branch: 'dev', credentialsId: 'qawesdxc@naver.com' , url: 'https://github.com/Oh-JunYoung/CowAPI.git'
+    }
+
+    stage('pull') {
+        sh './server/Jenkins/GitPull.sh'
+    }
+}
