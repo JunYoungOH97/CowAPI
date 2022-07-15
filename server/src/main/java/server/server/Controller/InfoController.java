@@ -10,10 +10,18 @@ import server.server.Service.InfoService;
 public class InfoController {
     private final InfoService infoService;
 
-    @PostMapping("/dev/init/redis")
-    public void aiTest() {
+    @PostMapping("/dev/init/dashboard")
+    public void initD() {
         infoService.saveDashboard();
+    }
+
+    @PostMapping("/dev/init/vgg")
+    public void initV() {
         infoService.saveVgg();
+    }
+
+    @PostMapping("/dev/init/lang")
+    public void initL() {
         infoService.saveLang();
     }
 }
