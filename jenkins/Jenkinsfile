@@ -33,6 +33,6 @@ node {
 
     stage('Deploy') {
         echo '>>> Gradle project Deploy'
-        sh './jenkins/Deploy.sh'
+        sh('JENKINS_NODE_COOKIE=dontKillMe && nohup ./Deploy.sh &')
     }
 }
