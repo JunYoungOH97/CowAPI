@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="80c205e9-01f3-485a-a7a4-7cef5deeac69" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/server/src/test/java/server/server/ServerApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/server/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/AwsS3/AwsS3Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/AwsS3/AwsS3Uploader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/AwsS3/S3Config.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Controller/AiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Controller/DashboardController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Controller/NoticeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Controller/OAuthUserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Controller/QnAController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Dto/AiDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Dto/AiRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Dto/DashboardDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Dto/NoticeDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Dto/NoticeListDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Dto/OAuthResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Dto/OAuthTokenDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Dto/OAuthUserInfoDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Dto/QnADto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Dto/QnAListDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Dto/RedirectURIDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Dto/TokenDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Dto/UserDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Entity/Dashboard.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Entity/Notice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Entity/OAuthState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Entity/QnA.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Entity/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Repository/NoticeRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Repository/QnARepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Repository/RedisRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/Repository/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/ResponseDto/AiResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/ResponseDto/DashBoardResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/ResponseDto/NoticeListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/ResponseDto/NoticeResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/ResponseDto/OAuthUserInfoResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/ResponseDto/QnAListResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/ResponseDto/QnAResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/ResponseDto/RedirectURIResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/ResponseDto/TokenResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Domain/ResponseDto/UserResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Redis/RedisConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Security/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Security/WebfluxSecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/ServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/server/ServerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Service/AiService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Service/DashboardService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Service/NoticeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Service/OAuthUserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Service/QnAService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Service/RedisService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Slack/SlackService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/Swagger/SwaggerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/UserAuthentication/JwtAccessDeniedHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/UserAuthentication/JwtAuthenticationEntryPoint.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/UserAuthentication/UserAuthentication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/UserAuthentication/UserAuthenticationConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/UserAuthentication/UserAuthenticationConverter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/UserAuthentication/UserAuthenticationFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/UserAuthentication/UserAuthenticationManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/UserAuthentication/UserAuthenticationProvider.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/toyspringboot/server/UserAuthentication/UserAuthenticationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/java/toyspringboot/server/ServerApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="">
+          <activation />
+        </task>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="28vDwpd3OPfrFRdnLi20f5ZCdGu" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/server" />
+    <property name="settings.editor.selected.configurable" value="preferences.packagesearch.PackageSearchGeneralConfigurable" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="80c205e9-01f3-485a-a7a4-7cef5deeac69" name="Changes" comment="" />
+      <created>1652088409717</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1652088409717</updated>
+      <workItem from="1652088410334" duration="4000" />
+      <workItem from="1652088437375" duration="54000" />
+      <workItem from="1653275613606" duration="434000" />
+      <workItem from="1656839439570" duration="54000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
