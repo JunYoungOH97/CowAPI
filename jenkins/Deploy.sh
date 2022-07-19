@@ -6,4 +6,6 @@ echo ">>> Project deploy"
 cd $DEPLOY_PATH
 
 sudo chmod +x server-0.0.1-SNAPSHOT.jar
+
+BUILD_ID=dontKillMe
 nohup java -jar server-0.0.1-SNAPSHOT.jar &> /dev/null &
