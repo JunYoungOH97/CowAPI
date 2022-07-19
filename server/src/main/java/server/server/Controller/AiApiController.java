@@ -23,7 +23,7 @@ public class AiApiController {
 
 
 
-    @PostMapping("/ai/{name}")
+    @PostMapping("/ai/api/{name}")
     public AiResponse response(@RequestParam(value = "email") String email,
                                   @RequestParam(value = "secretKey") String secretKey,
                                   @PathVariable(value = "name") String name,

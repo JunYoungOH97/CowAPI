@@ -50,7 +50,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/", "/h2-console/**", "/favicon.ico").permitAll()
-                .antMatchers("/dashboard","/signup","/signin", "/login/oauth/**").permitAll()
+                .antMatchers("/dashboard","/signup","/signin", "/login/oauth/**", "/ai/api/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/notice").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/notice/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/notice/**").hasRole("ADMIN")
