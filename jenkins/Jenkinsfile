@@ -3,36 +3,36 @@ echo "---build start---"
 node {
     stage('Clone') {
         echo '>>> Git repository Clone'
-        git branch: 'main', credentialsId: '6b0913f3-9133-41d9-bbf1-1c0baaafb86b' , url: 'git@github.com:Oh-JunYoung/CowAPI.git'
+        git branch: 'feature/jenkins', credentialsId: '6b0913f3-9133-41d9-bbf1-1c0baaafb86b' , url: 'git@github.com:Oh-JunYoung/CowAPI.git'
     }
 
     stage('Move to Path') {
         echo '>>> Move to Deploy Path'
-        sh 'sudo ./jenkins/MovePath.sh'
+        sh './jenkins/MovePath.sh'
     }
 
     stage('Pull') {
         echo '>>> Git repository Clone'
-        sh 'sudo ./jenkins/GitPull.sh'
+        sh './jenkins/GitPull.sh'
     }
 
     stage('Build') {
         echo '>>> Gradle project Build'
-        sh 'sudo ./jenkins/Build.sh'
+        sh './jenkins/Build.sh'
     }
 
     stage('Test') {
         echo '>>> Gradle project Test'
-        sh 'sudo ./jenkins/Test.sh'
+        sh './jenkins/Test.sh'
     }
 
     stage('Kill') {
         echo '>>> Gradle project Deploy'
-        sh 'sudo ./jenkins/KillProcess.sh'
+        sh './jenkins/KillProcess.sh'
     }
 
     stage('Deploy') {
         echo '>>> Gradle project Deploy'
-        sh 'sudo ./jenkins/Deploy.sh'
+        sh './jenkins/Deploy.sh'
     }
 }
