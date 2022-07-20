@@ -15,7 +15,7 @@ public class DateConverterComponent {
         String s = str[1].substring(0, str[1].length() - 2);
 
         int hour = Integer.parseInt(s.substring(0, 2));
-        String prefix = (hour > 12) ? " AM " : " PM ";
+        String prefix = (hour < 12) ? " AM " : " PM ";
         hour = hour % 12;
 
         String h = (Integer.toString(hour).length() > 1) ? Integer.toString(hour) : "0" + Integer.toString(hour);
