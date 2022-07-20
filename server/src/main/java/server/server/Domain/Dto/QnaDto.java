@@ -3,6 +3,7 @@ package server.server.Domain.Dto;
 import lombok.*;
 import server.server.Domain.Entity.Qna;
 import server.server.Domain.ResposneDto.QnaResponseDto;
+import server.server.Service.DateConverterComponent;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -13,6 +14,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class QnaDto {
+    private final DateConverterComponent dateConverterComponent = new DateConverterComponent();
+
+
     private Long id;
     private String title;
     private String content;
@@ -30,7 +34,7 @@ public class QnaDto {
 
                 .title(title)
                 .content(content)
-                .updatedAt(updatedAt)
+                .updatedAt(dateConverterComponent.DateToResponse(updatedAt))
 
                 .email(userDto.getEmail())
                 .build();

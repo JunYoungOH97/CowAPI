@@ -4,6 +4,7 @@ import lombok.*;
 import server.server.Domain.Entity.Users;
 import server.server.Domain.ResposneDto.UserLoginResponseDto;
 import server.server.Domain.ResposneDto.UserResponseDto;
+import server.server.Service.DateConverterComponent;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -18,6 +19,8 @@ import java.time.format.DateTimeFormatter;
 @AllArgsConstructor
 @Builder
 public class UsersDto {
+    private final DateConverterComponent dateConverterComponent = new DateConverterComponent();
+
     private String email;
     private String password;
     private String secretKey;
@@ -42,7 +45,7 @@ public class UsersDto {
     public UserResponseDto toResponse() {
         return UserResponseDto.builder()
                 .email(email)
-                .createdAt(createdAt)
+                .createdAt(dateConverterComponent.DateToResponse(updatedAt))
                 .secretKey(secretKey)
                 .build();
     }

@@ -11,6 +11,6 @@ import java.sql.Timestamp;
 @Builder
 public class UserResponseDto {
     String email;
-    Timestamp createdAt;
+    String createdAt;
     String secretKey;
 }

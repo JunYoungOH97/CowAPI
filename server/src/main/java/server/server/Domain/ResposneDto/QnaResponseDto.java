@@ -13,6 +13,6 @@ public class QnaResponseDto {
     Long id;
     String title;
     String content;
-    Timestamp updatedAt;
+    String updatedAt;
     String email;
 }
