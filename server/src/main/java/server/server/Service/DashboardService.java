@@ -28,6 +28,9 @@ public class DashboardService {
     private final DashboardRedisService dashboardRedisService;
     private final AiPageService aiPageService;
 
+    private final DateConverterComponent dateConverterComponent = new DateConverterComponent();
+
+
     public Flux<ServerSentEvent<DashboardResponseDto>> publish(HttpServletRequest request) {
         visitUser();
         return Flux.interval(Duration.ofSeconds(refreshTime))
@@ -37,7 +40,7 @@ public class DashboardService {
                         .data(DashboardResponseDto.builder()
                                 .todayUser(dashboardRedisService.getDashboard().getTodayUser())
                                 .totalUser(dashboardRedisService.getDashboard().getTotalUser())
-                                .updatedAt(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))))
+                                .updatedAt(dateConverterComponent.DateToResponse(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))))
                                 .aiList(aiPageService.aiListPage().toResponse())
                                 .build())
                         .retry(Duration.ofSeconds(refreshTime))

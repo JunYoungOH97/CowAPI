@@ -3,6 +3,7 @@ package server.server.Domain.Dto;
 import lombok.*;
 import server.server.Domain.Entity.Notice;
 import server.server.Domain.ResposneDto.NoticeResponseDto;
+import server.server.Service.DateConverterComponent;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -13,6 +14,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class NoticeDto {
+    private final DateConverterComponent dateConverterComponent = new DateConverterComponent();
+
     private Long id;
     private String title;
     private String content;
@@ -69,7 +72,7 @@ public class NoticeDto {
                 .id(id)
                 .title(title)
                 .content(content)
-                .updatedAt(updatedAt)
+                .updatedAt(dateConverterComponent.DateToResponse(updatedAt))
                 .email(userDto.getEmail())
                 .build();
     }

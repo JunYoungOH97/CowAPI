@@ -20,5 +20,5 @@ public class AiResponseDto {
     String method;
     String req;
     String res;
-    Timestamp updatedAt;
+    String updatedAt;
 }
