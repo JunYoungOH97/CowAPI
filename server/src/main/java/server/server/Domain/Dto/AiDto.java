@@ -3,8 +3,11 @@ package server.server.Domain.Dto;
 import lombok.*;
 import server.server.Domain.Entity.AiRedis;
 import server.server.Domain.ResposneDto.AiResponseDto;
+import server.server.Service.DateConverterComponent;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
 @Getter
 @Setter
@@ -12,6 +15,8 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Builder
 public class AiDto {
+    private final DateConverterComponent dateConverterComponent = new DateConverterComponent();
+
     private String name;
     private String field;
     private Long useCnt;
@@ -58,7 +63,8 @@ public class AiDto {
                 .method(method)
                 .req(req)
                 .res(res)
-                .updatedAt(updatedAt)
+                .updatedAt(dateConverterComponent.DateToResponse(updatedAt))
                 .build();
+
     }
 }

@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 public class DashboardResponseDto {
     Long todayUser;
     Long totalUser;
-    Timestamp updatedAt;
+    String updatedAt;
 
     AiListResponseDto aiList;
 }
