@@ -16,7 +16,8 @@ public class SwaggerConfig {
     @Bean(name = "Swagger")
     public Docket restAPI() {
         return new Docket(DocumentationType.OAS_30)
-                .useDefaultResponseMessages(true)
+                .useDefaultResponseMessages(false)
+                .groupName("Version v1.0.0")
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
