@@ -51,6 +51,7 @@ application-slack.properties
 application-swagger.properties
 application-testDB.properties
 application-webflux.properties
+application-cors.properties
 
 resources/
 
