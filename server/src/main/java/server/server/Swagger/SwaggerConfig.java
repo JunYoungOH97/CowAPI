@@ -7,6 +7,7 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
@@ -26,8 +27,10 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("CowAPI made by JunYoung OH's")
+                .description("JunYoung 의 개인 프로젝트 CowAPI의 API 문서입니다.")
                 .version("1.0.0")
-                .description("JunYoung 의 개인 프로젝트 입니다.")
+                .termsOfServiceUrl("https://cowapi.com")
+                .contact(new Contact("Contact Me","https://cowapi.com", "qawesdzx@naver.com"))
                 .build();
     }
 }
