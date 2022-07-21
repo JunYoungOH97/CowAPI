@@ -61,7 +61,7 @@ public class SecurityConfig {
 
                         /* swagger v3 */
                         "/v3/api-docs/**",
-                        "/api/doc/**",
+                        "/doc/api/**",
                         "/swagger-ui/**").permitAll()
 
                 .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**").permitAll()
