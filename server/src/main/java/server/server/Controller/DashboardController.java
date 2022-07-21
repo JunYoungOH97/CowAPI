@@ -29,4 +29,13 @@ public class DashboardController {
     public Flux<ServerSentEvent<DashboardResponseDto>> dashboard(HttpServletRequest request) {
         return dashboardService.publish(request);
     }
+
+    @ApiOperation(value = "초기 대시보드", notes = "Server Sent Event 전 먼저 대시보드를 return 합니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "success"),
+    })
+    @GetMapping("/dashboard/first")
+    public DashboardResponseDto dashboard() {
+        return dashboardService.firstDashboard();
+    }
 }
