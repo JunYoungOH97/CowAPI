@@ -66,7 +66,7 @@ public class SecurityConfig {
                 .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**").permitAll()
 
                 .antMatchers("/", "/h2-console/**", "/favicon.ico").permitAll()
-                .antMatchers("/dashboard","/signup","/signin", "/login/oauth/**", "/ai/api/**").permitAll()
+                .antMatchers("/dashboard/first", "/dashboard","/signup","/signin", "/login/oauth/**", "/ai/api/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/notice").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/notice/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/notice/**").hasRole("ADMIN")
