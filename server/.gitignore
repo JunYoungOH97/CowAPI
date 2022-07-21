@@ -53,7 +53,7 @@ application-testDB.properties
 application-webflux.properties
 application-cors.properties
 
-resources/
+/src/main/resources/
 
 
 
